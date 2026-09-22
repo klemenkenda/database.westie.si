@@ -27,6 +27,8 @@ require __DIR__ . '/lib/Trust.php';
 require __DIR__ . '/lib/Store.php';
 require __DIR__ . '/lib/Query.php';
 require __DIR__ . '/lib/Graph.php';
+require __DIR__ . '/lib/Wsdc.php';
+require __DIR__ . '/lib/Rank.php';
 
 class ApiError extends Exception
 {
@@ -52,6 +54,35 @@ if ($method === 'OPTIONS') {
 
 $store = new Store($config['content_root'], (int) $config['cache_ttl']);
 $graph = new Graph($store);
+
+/** The ranking weights. A missing or unreadable file falls back to the library defaults. */
+function rankingConfig(array $config): array
+{
+    static $cached = null;
+    if ($cached !== null) {
+        return $cached;
+    }
+    $path = rtrim($config['content_root'], "/\\") . '/ranking.yml';
+    $cached = is_file($path) ? Yaml::parse((string) file_get_contents($path)) : [];
+    return $cached;
+}
+
+$ranking = rankingConfig($config);
+$wsdc = new Wsdc($ranking);
+$rank = new Rank($ranking, $wsdc);
+
+/**
+ * Attach the computed authority to a creator record.
+ *
+ * Computed on read rather than stored, for the same reason backlinks are: a stored score
+ * goes stale the moment the weights change or the registry moves, and a stale number that
+ * looks authoritative is worse than no number.
+ */
+function withAuthority(array $creator, Wsdc $wsdc): array
+{
+    $creator['_authority'] = $wsdc->score($creator);
+    return $creator;
+}
 
 /** Everything after /api/ as path segments. */
 function segments(): array
@@ -154,6 +185,36 @@ try {
         exit;
     }
 
+    // ------------------------------------------------------------------ ranking
+    //
+    // The ordering policy, readable over HTTP. A ranking people cannot inspect is one they
+    // have to take on faith, and the whole point of putting the weights in a YAML file is
+    // that the answer to "why is this above that" stays checkable.
+    if ($head === 'ranking') {
+        $sample = [];
+        foreach ([['CHA', 2000], ['CHA', 300], ['ALS', 800], ['ADV', 400], ['INT', 200], ['NOV', 60]] as $pair) {
+            list($division, $points) = $pair;
+            $sample[] = [
+                'division'  => $division,
+                'points'    => $points,
+                'authority' => $wsdc->score([
+                    'wsdc_status' => Wsdc::CONFIRMED,
+                    'wsdc' => ['leader' => [$division => $points]],
+                ])['score'],
+            ];
+        }
+        send([
+            'weights'   => $ranking['weights'] ?? [],
+            'authority' => $ranking['authority'] ?? [],
+            'tiers'     => $ranking['tiers'] ?? [],
+            'penalties' => $ranking['penalties'] ?? [],
+            'curve'     => $sample,
+            'note'      => 'Demotion is a sort tier, not a penalty: demoted material sorts '
+                         . 'after everything non-demoted whatever it scores.',
+        ]);
+        exit;
+    }
+
     // -------------------------------------------------------------------- audit
     if ($head === 'audit') {
         send($graph->audit());
@@ -245,6 +306,11 @@ try {
         } elseif ($offset > 0) {
             $records = array_slice($records, $offset);
         }
+        if ($collection === 'creators') {
+            foreach ($records as $i => $record) {
+                $records[$i] = withAuthority($record, $wsdc);
+            }
+        }
 
         send([
             'collection' => $collection,
@@ -283,6 +349,9 @@ try {
         if ($collection === 'concepts') {
             $record['requires'] = $graph->requires($key);
             $record['_unlocks'] = $graph->unlocks($key);
+        }
+        if ($collection === 'creators') {
+            $record = withAuthority($record, $wsdc);
         }
         send($record);
         $store->flush();

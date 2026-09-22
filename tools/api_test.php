@@ -25,6 +25,8 @@ class ApiError extends Exception
 require __DIR__ . '/../public/api/lib/Store.php';
 require __DIR__ . '/../public/api/lib/Query.php';
 require __DIR__ . '/../public/api/lib/Graph.php';
+require __DIR__ . '/../public/api/lib/Wsdc.php';
+require __DIR__ . '/../public/api/lib/Rank.php';
 
 $passed = 0;
 $failed = 0;
@@ -228,6 +230,99 @@ if (is_file($auditFile)) {
 } else {
     echo "  (skipped audit cross-check: run tools/graph_check.py first)\n";
 }
+
+// ---------------------------------------------------------------------- Wsdc
+
+$rankingPath = rtrim($contentRoot, "/\\") . '/ranking.yml';
+$rankingConfig = is_file($rankingPath) ? Yaml::parse((string) file_get_contents($rankingPath)) : [];
+ok('ranking.yml: parses to a nested config', is_array($rankingConfig['authority']['divisions']['CHA'] ?? null));
+check('ranking.yml: an inline comment is not part of the value', $rankingConfig['weights']['authority'], 0.8);
+check('ranking.yml: demotion is a tier', $rankingConfig['tiers']['demoted_always_last'], true);
+
+// A hash that is not a comment must survive, or every scraped workshop id breaks.
+check('yaml: a hash without leading space is a value', Yaml::parse('id: "2023-01-budafest#3"')['id'], '2023-01-budafest#3');
+check('yaml: an unquoted hash mid-token is a value', Yaml::parse('k: a#b')['k'], 'a#b');
+check('yaml: a hash inside quotes is not a comment', Yaml::parse('k: "has # inside"')['k'], 'has # inside');
+check('yaml: a trailing comment is stripped', Yaml::parse('k: 5 # gone')['k'], 5);
+
+$wsdc = new Wsdc($rankingConfig);
+
+$champion = ['wsdc_status' => 'confirmed', 'wsdc' => ['leader' => ['CHA' => 2000]]];
+$allstar  = ['wsdc_status' => 'confirmed', 'wsdc' => ['leader' => ['ALS' => 800]]];
+$novice   = ['wsdc_status' => 'confirmed', 'wsdc' => ['follower' => ['NOV' => 60]]];
+
+ok('wsdc: a champion outranks an all-star', $wsdc->score($champion)['score'] > $wsdc->score($allstar)['score']);
+ok('wsdc: an all-star outranks a novice', $wsdc->score($allstar)['score'] > $wsdc->score($novice)['score']);
+check('wsdc: the division is reported', $wsdc->score($champion)['division'], 'CHA');
+ok('wsdc: the basis is human-readable', strpos($wsdc->score($champion)['basis'], 'CHA division') === 0);
+
+// Division dominates points: more points in a lower division must not overtake.
+$manyPointsLowDivision = ['wsdc_status' => 'confirmed', 'wsdc' => ['leader' => ['INT' => 99999]]];
+ok('wsdc: division beats raw points', $wsdc->score($champion)['score'] > $wsdc->score($manyPointsLowDivision)['score']);
+ok('wsdc: the band is capped', $wsdc->score($manyPointsLowDivision)['score'] <= 54.0);
+
+// The better of the two roles, because leading and following are scored separately.
+$mixed = ['wsdc_status' => 'confirmed', 'wsdc' => ['leader' => ['NOV' => 10], 'follower' => ['CHA' => 500]]];
+check('wsdc: the stronger role counts', $wsdc->score($mixed)['division'], 'CHA');
+check('wsdc: points come from the stronger role', Wsdc::bestByDivision($mixed['wsdc'])['CHA'], 500);
+
+// The distinction this class exists for.
+$unconfirmed = ['wsdc_status' => 'unconfirmed'];
+$absent = ['wsdc_status' => 'none'];
+ok('wsdc: "not checked" outranks "checked and absent"',
+    $wsdc->score($unconfirmed)['score'] > $wsdc->score($absent)['score']);
+ok('wsdc: "not checked" is flagged provisional', $wsdc->score($unconfirmed)['provisional']);
+ok('wsdc: "checked and absent" is not provisional', !$wsdc->score($absent)['provisional']);
+check('wsdc: an id alone is not a confirmation', Wsdc::status(['wsdc_id' => 1234]), Wsdc::UNCONFIRMED);
+check('wsdc: an ambiguous identity is provisional', $wsdc->score(['wsdc_status' => 'ambiguous'])['provisional'], true);
+check('wsdc: a confirmed record with no points is not unregistered',
+    $wsdc->score(['wsdc_status' => 'confirmed', 'wsdc' => []])['score'], 12.0);
+check('wsdc: an override wins', $wsdc->score($absent + ['authority_override' => 77])['score'], 77.0);
+
+// A champion teaching with a less-titled partner is still a champion teaching.
+$pair = $wsdc->forVideo(['a' => $champion, 'b' => $novice]);
+check('wsdc: a video takes the strongest creator', $pair['score'], $wsdc->score($champion)['score']);
+ok('wsdc: the video says which creator carried it', $pair['from'] === 'a');
+ok('wsdc: a video with no creator is provisional', $wsdc->forVideo([])['provisional']);
+
+// ---------------------------------------------------------------------- Rank
+
+check('rank: no votes is zero, not a half', Rank::wilson(0, 0), 0.0);
+ok('rank: many upvotes beat a few', Rank::wilson(200, 10) > Rank::wilson(3, 0));
+ok('rank: a few upvotes are discounted, not trusted', Rank::wilson(3, 0) < 0.5);
+ok('rank: downvotes hurt', Rank::wilson(10, 10) < Rank::wilson(10, 0));
+ok('rank: freshness decays', Rank::freshness('2015-01-01') < Rank::freshness('2026-01-01'));
+ok('rank: an unknown date is neutral', Rank::freshness(null) === 0.5);
+
+$ranker = new Rank($rankingConfig, $wsdc);
+$video = ['id' => 'v1', 'published' => '2025-01-01', 'has_transcript' => true, 'level' => 2,
+          'concepts' => [['id' => 'basic-whip', 'weight' => 1.0, 'confidence' => 0.9]]];
+
+$byChampion = $ranker->score($video, ['a' => $champion]);
+$byNovice = $ranker->score($video, ['a' => $novice]);
+ok('rank: a champion outranks a novice teaching the same thing', $byChampion['score'] > $byNovice['score']);
+ok('rank: the score explains itself', count($byChampion['terms']) > 0);
+ok('rank: the explanation names the division', strpos(Rank::explain($byChampion), 'CHA division') !== false);
+
+// Demotion is a tier, and a tier cannot be out-argued by any amount of another signal.
+$demoted = ['wsdc_status' => 'confirmed', 'wsdc' => ['leader' => ['CHA' => 3000]], 'demote' => true];
+$demotedResult = $ranker->score($video, ['a' => $demoted], ['up' => 500, 'down' => 0], ['relevance' => 1.0]);
+$plainResult = $ranker->score($video, ['a' => $novice]);
+check('rank: a demoted creator is tier 1', $demotedResult['tier'], 1);
+check('rank: an ordinary creator is tier 0', $plainResult['tier'], 0);
+ok('rank: the demoted entry scores higher on points alone', $demotedResult['score'] > $plainResult['score']);
+
+$ordered = Rank::order(['demoted' => $demotedResult, 'plain' => $plainResult]);
+check('rank: yet it still sorts last', array_keys($ordered), ['plain', 'demoted']);
+ok('rank: the explanation says so', strpos(Rank::explain($demotedResult), 'demoted') === 0);
+
+// Trust reaches into the ordering: a guessed concept edge counts for less than a sure one.
+$sure = ['level' => 2, 'concepts' => [['id' => 'x', 'weight' => 1.0, 'confidence' => 1.0]]];
+$guess = ['level' => 2, 'concepts' => [['id' => 'x', 'weight' => 1.0, 'confidence' => 0.3]]];
+ok('rank: confidence discounts the concept match',
+    Rank::fit($sure, 'x', null) > Rank::fit($guess, 'x', null));
+ok('rank: an exact level beats a near one', Rank::fit(['level' => 2], null, 2) > Rank::fit(['level' => 3], null, 2));
+check('rank: an unrelated concept contributes nothing', Rank::fit($sure, 'other', null), 0.0);
 
 // ----------------------------------------------------------------------- live API
 

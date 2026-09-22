@@ -1,0 +1,43 @@
+# Creator seed list.  slug | name | aliases (; separated) | demote y/n | note
+#
+#   python tools/wsdc_sync.py seed        creates a record per row, never clobbering one
+#
+# No WSDC ids here on purpose. An id enters the database only through
+# `wsdc_sync.py confirm <slug> <id>`, which shows you the registry name and best
+# competition before binding it, and stores that evidence in the creator file. A wrong id
+# is invisible — nothing looks broken, and every video that creator appears in inherits
+# the wrong authority — so it is worth the hour of confirming sixty of them by hand.
+#
+# WSDC records are per dancer, not per partnership, so a couple is two rows.
+#
+# NAMES I AM NOT SURE OF are marked "CHECK" in the note column. I have deliberately not
+# guessed surnames: confirming an id against the wrong person is the exact failure this
+# whole design exists to prevent. Correct them here, or at confirm time when the registry
+# shows you the real name.
+
+ben-morris|Ben Morris|||
+jordan-frisbee|Jordan Frisbee|Jordan||
+tatiana-mollmann|Tatiana Mollmann|Tatiana||
+
+# "Nicole & Thibault" — appears as "Thibault & Nicole" in the workshop archive.
+thibault|Thibault|||CHECK surname
+nicole|Nicole|||CHECK surname
+
+# "Cl'Evi" — appears as "Clem & Evi" in the workshop archive.
+clem|Clem|Clement||CHECK surname, and whether Clem or Clement
+evi|Evi|||CHECK surname
+
+# "J'Em" — I do not know this one. The archive has a "Jakub & Emeline" teaching at
+# Budafest 2026, which would fit the contraction, but so would other pairings. Tell me
+# which and I will fix these two rows.
+jem-1|J'Em (first dancer)|||CHECK who this is
+jem-2|J'Em (second dancer)|||CHECK who this is
+
+# Others visible in the archive, worth records once they have material here.
+maxime|Maxime|||CHECK surname
+torri-smith|Torri Smith|Torri||
+
+# Not a dancer, so competition points cannot express it. Demotion is a sort tier: this
+# still appears in search and still surfaces when it is the only coverage of a concept,
+# but always after everything non-demoted.
+westcoastswingonline|West Coast Swing Online|WCSOnline; WCS Online|y|Production brand, not a competing dancer

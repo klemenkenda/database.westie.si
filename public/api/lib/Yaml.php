@@ -50,7 +50,11 @@ class Yaml
             }
             $expanded = str_replace("\t", '    ', $line);
             $indent = strlen($expanded) - strlen(ltrim($expanded, ' '));
-            $lines[] = ['indent' => $indent, 'text' => rtrim(ltrim($expanded, ' '))];
+            $text = self::stripComment(rtrim(ltrim($expanded, ' ')));
+            if ($text === '') {
+                continue;               // the line held nothing but a comment
+            }
+            $lines[] = ['indent' => $indent, 'text' => $text];
         }
         $i = 0;
         $result = self::parseBlock($lines, $i, 0);
@@ -129,6 +133,37 @@ class Yaml
             $i++;
         }
         return $seq;
+    }
+
+    /**
+     * Drop a trailing `# comment` from a line.
+     *
+     * Only a `#` that follows whitespace starts a comment, which is what YAML says and
+     * what keeps this safe for the ids already in the archive: `2023-01-budafest#3` has no
+     * space before the hash, so it stays a value. A `#` inside quotes is never a comment.
+     *
+     * Frontmatter rarely carries comments, so the parser managed without this for a long
+     * time. content/ranking.yml is hand-edited config where the comments are most of the
+     * value of the file, and without this `authority: 0.80  # the WSDC score` silently
+     * parses as the string "0.80  # the WSDC score".
+     */
+    public static function stripComment(string $text): string
+    {
+        $len = strlen($text);
+        $quote = '';
+        for ($p = 0; $p < $len; $p++) {
+            $ch = $text[$p];
+            if ($quote !== '') {
+                if ($ch === '\\') { $p++; continue; }
+                if ($ch === $quote) { $quote = ''; }
+                continue;
+            }
+            if ($ch === '"' || $ch === "'") { $quote = $ch; continue; }
+            if ($ch === '#' && ($p === 0 || $text[$p - 1] === ' ')) {
+                return rtrim(substr($text, 0, $p));
+            }
+        }
+        return $text;
     }
 
     /** Position of the ":" that separates a key from its value, ignoring quoted colons. */

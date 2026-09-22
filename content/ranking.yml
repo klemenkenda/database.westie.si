@@ -19,16 +19,42 @@ weights:
 # A teacher with no WSDC record scores `unregistered`. That is the whole mechanism for
 # "not on the event scene" — an absence of competitive standing, which is precisely what
 # it is, and it needs no blocklist to maintain.
+# Written in block form throughout: lib/Yaml.php supports no flow mappings, on purpose,
+# and one small parser both programs agree on beats two that nearly do.
 authority:
   divisions:
-    CHA: {base: 88, span: 12, per_point: 150}   # 88-100
-    ALS: {base: 70, span: 17, per_point: 120}   # 70-87
-    ADV: {base: 55, span: 14, per_point: 100}   # 55-69
-    INT: {base: 40, span: 14, per_point: 80}    # 40-54
-    NOV: {base: 25, span: 14, per_point: 60}    # 25-39
-    NEW: {base: 15, span: 8, per_point: 40}     # 15-23
-  registered_no_points: 12
-  unregistered: 8
+    CHA:                     # 88-100
+      base: 88
+      span: 12
+      per_point: 150
+    ALS:                     # 70-87
+      base: 70
+      span: 17
+      per_point: 120
+    ADV:                     # 55-69
+      base: 55
+      span: 14
+      per_point: 100
+    INT:                     # 40-54
+      base: 40
+      span: 14
+      per_point: 80
+    NOV:                     # 25-39
+      base: 25
+      span: 14
+      per_point: 60
+    NEW:                     # 15-23
+      base: 15
+      span: 8
+      per_point: 40
+  # "We looked and they have no points" and "we have not looked yet" are different
+  # claims, and collapsing them would quietly bury every creator nobody has processed
+  # at the bottom of the list alongside the content farms.
+  registered_no_points: 12   # confirmed WSDC record, zero points
+  unregistered: 8            # looked up by name and genuinely not in the registry
+  unconfirmed: 45            # nobody has confirmed an id yet — provisional, mid-scale
+                             # Ranked with an explicit "authority unknown" marker and
+                             # listed in the review queue until someone resolves it.
 
   # Competitive standing is a proxy for teaching quality, not the same thing. The vote
   # weight above is deliberately high enough to move a video several places against a
