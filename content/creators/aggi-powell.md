@@ -1,8 +1,8 @@
 ---
-id: "maxence-martin"
+id: "aggi-powell"
 type: "creator"
-name: "Maxence Martin"
-aliases: ["Maxence"]
+name: "Aggi Powell"
+aliases: ["Aggi"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Aymeline Felmy-Martin", "Virginie Grondin"]
+partners: ["Wayne"]
 ---
 
-# Maxence Martin
+# Aggi Powell
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

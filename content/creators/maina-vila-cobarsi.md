@@ -1,8 +1,8 @@
 ---
-id: "maxence-martin"
+id: "maina-vila-cobarsi"
 type: "creator"
-name: "Maxence Martin"
-aliases: ["Maxence"]
+name: "Maïna Vila Cobarsi"
+aliases: ["Maina"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Aymeline Felmy-Martin", "Virginie Grondin"]
+partners: ["Byron Brunerie"]
 ---
 
-# Maxence Martin
+# Maïna Vila Cobarsi
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

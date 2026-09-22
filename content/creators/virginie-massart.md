@@ -15,7 +15,7 @@ added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
 partners: ["Olivier Massart"]
-note: "Teaches with Olivier Massart. A second, different Virginie teaches with Maxence Martin."
+note: "Teaches with Olivier Massart. Not Virginie Grondin, who teaches with Maxence Martin."
 ---
 
 # Virginie Massart

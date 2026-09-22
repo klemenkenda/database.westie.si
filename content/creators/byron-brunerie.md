@@ -14,7 +14,7 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Maina", "Mélodie Paletta"]
+partners: ["Maïna Vila Cobarsi", "Mélodie Paletta"]
 ---
 
 # Byron Brunerie
