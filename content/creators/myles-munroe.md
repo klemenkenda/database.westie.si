@@ -1,33 +1,33 @@
 ---
-id: "stacy-kay"
+id: "myles-munroe"
 type: "creator"
-name: "Stacy Kay"
-aliases: ["Stacy"]
-wsdc_id: 8814
+name: "Myles Munroe"
+aliases: ["Myles"]
+wsdc_id: 1567
 wsdc_status: "confirmed"
 wsdc:
   leader:
+    CHA: 0
+    ALS: 84
+    ADV: 48
+    INT: 0
+    NOV: 0
+    NEW: 0
+  follower:
     CHA: 0
     ALS: 0
     ADV: 0
     INT: 0
     NOV: 0
     NEW: 0
-  follower:
-    CHA: 0
-    ALS: 46
-    ADV: 37
-    INT: 30
-    NOV: 20
-    NEW: 0
   fetched: "2026-09-22"
 wsdc_evidence:
-  registry_name: "Stacy Kay"
+  registry_name: "Myles Munroe"
   confirmed_at: "2026-09-22"
   top_division: "ALS"
-  top_points: 46
-  best_event: "Summer Hummer"
-  best_date: "August 2013"
+  top_points: 84
+  best_event: "Bridgetown Swing Boogie"
+  best_date: "September 2013"
 authority: null
 authority_override: null
 demote: false
@@ -36,9 +36,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Hugo Miguez"]
+partners: []
 ---
 
-# Stacy Kay
+# Myles Munroe
 
-WSDC id 8814 confirmed against the registry on 2026-09-22.
+WSDC id 1567 confirmed against the registry on 2026-09-22.

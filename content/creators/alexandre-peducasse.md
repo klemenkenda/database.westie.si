@@ -1,18 +1,18 @@
 ---
-id: "olivier-massart"
+id: "alexandre-peducasse"
 type: "creator"
-name: "Olivier Massart"
-aliases: ["Olivier"]
-wsdc_id: 4683
+name: "Alexandre Peducasse"
+aliases: ["Alexandre"]
+wsdc_id: 8847
 wsdc_status: "confirmed"
 wsdc:
   leader:
     CHA: 0
-    ALS: 15
-    ADV: 36
-    INT: 12
-    NOV: 13
-    NEW: 0
+    ALS: 168
+    ADV: 53
+    INT: 27
+    NOV: 19
+    NEW: 5
   follower:
     CHA: 0
     ALS: 0
@@ -22,12 +22,12 @@ wsdc:
     NEW: 0
   fetched: "2026-09-22"
 wsdc_evidence:
-  registry_name: "Olivier Massart"
+  registry_name: "Alexandre Peducasse"
   confirmed_at: "2026-09-22"
   top_division: "ALS"
-  top_points: 15
+  top_points: 168
   best_event: "BudaFest Open WCS Championships"
-  best_date: "January 2018"
+  best_date: "January 2020"
 authority: null
 authority_override: null
 demote: false
@@ -36,9 +36,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Virginie Massart"]
+partners: ["Christelle Antenucci"]
 ---
 
-# Olivier Massart
+# Alexandre Peducasse
 
-WSDC id 4683 confirmed against the registry on 2026-09-22.
+WSDC id 8847 confirmed against the registry on 2026-09-22.

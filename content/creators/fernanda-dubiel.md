@@ -1,9 +1,9 @@
 ---
-id: "stacy-kay"
+id: "fernanda-dubiel"
 type: "creator"
-name: "Stacy Kay"
-aliases: ["Stacy"]
-wsdc_id: 8814
+name: "Fernanda Dubiel"
+aliases: ["Fernanda"]
+wsdc_id: 12089
 wsdc_status: "confirmed"
 wsdc:
   leader:
@@ -15,19 +15,19 @@ wsdc:
     NEW: 0
   follower:
     CHA: 0
-    ALS: 46
-    ADV: 37
-    INT: 30
-    NOV: 20
+    ALS: 232
+    ADV: 47
+    INT: 8
+    NOV: 10
     NEW: 0
   fetched: "2026-09-22"
 wsdc_evidence:
-  registry_name: "Stacy Kay"
+  registry_name: "Fernanda Dubiel"
   confirmed_at: "2026-09-22"
   top_division: "ALS"
-  top_points: 46
-  best_event: "Summer Hummer"
-  best_date: "August 2013"
+  top_points: 232
+  best_event: "Capital Swing Dance Convention"
+  best_date: "February 2025"
 authority: null
 authority_override: null
 demote: false
@@ -36,9 +36,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Hugo Miguez"]
+partners: ["Leo Lorenzo"]
 ---
 
-# Stacy Kay
+# Fernanda Dubiel
 
-WSDC id 8814 confirmed against the registry on 2026-09-22.
+WSDC id 12089 confirmed against the registry on 2026-09-22.

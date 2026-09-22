@@ -1,9 +1,9 @@
 ---
-id: "nives-dordevic"
+id: "anna-stedile"
 type: "creator"
-name: "Nives Đorđević"
-aliases: ["Nives"]
-wsdc_id: 23123
+name: "Anna Stedile"
+aliases: ["Anna"]
+wsdc_id: 24256
 wsdc_status: "confirmed"
 wsdc:
   leader:
@@ -17,28 +17,29 @@ wsdc:
     CHA: 0
     ALS: 0
     ADV: 0
-    INT: 1
-    NOV: 17
-    NEW: 8
+    INT: 28
+    NOV: 34
+    NEW: 0
   fetched: "2026-09-22"
 wsdc_evidence:
-  registry_name: "Nives Đorđević"
+  registry_name: "Anna Stedile"
   confirmed_at: "2026-09-22"
   top_division: "INT"
-  top_points: 1
-  best_event: "Finnfest"
-  best_date: "September 2026"
+  top_points: 28
+  best_event: "Slovenian Open"
+  best_date: "April 2026"
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
+note: "Surname unknown. Teaches with: Alessandro."
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Klemen"]
+partners: ["Alessandro"]
 ---
 
-# Nives Đorđević
+# Anna Stedile
 
-WSDC id 23123 confirmed against the registry on 2026-09-22.
+WSDC id 24256 confirmed against the registry on 2026-09-22.

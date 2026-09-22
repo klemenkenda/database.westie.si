@@ -1,33 +1,33 @@
 ---
-id: "mejrem-halidovic"
+id: "adam-balasy"
 type: "creator"
-name: "Mejrem Halidovic"
-aliases: ["Mejrem"]
-wsdc_id: 12180
+name: "Adam Balasy"
+aliases: ["Adam"]
+wsdc_id: 7588
 wsdc_status: "confirmed"
 wsdc:
   leader:
+    CHA: 0
+    ALS: 0
+    ADV: 5
+    INT: 17
+    NOV: 7
+    NEW: 0
+  follower:
     CHA: 0
     ALS: 0
     ADV: 0
     INT: 0
     NOV: 0
     NEW: 0
-  follower:
-    CHA: 0
-    ALS: 0
-    ADV: 15
-    INT: 33
-    NOV: 28
-    NEW: 0
   fetched: "2026-09-22"
 wsdc_evidence:
-  registry_name: "Mejrem Halidovic"
+  registry_name: "Adam Balasy"
   confirmed_at: "2026-09-22"
   top_division: "ADV"
-  top_points: 15
-  best_event: "WCS Festival"
-  best_date: "October 2023"
+  top_points: 5
+  best_event: "Sunny Side Dance Camp"
+  best_date: "September 2013"
 authority: null
 authority_override: null
 demote: false
@@ -39,6 +39,6 @@ generated: false
 partners: []
 ---
 
-# Mejrem Halidovic
+# Adam Balasy
 
-WSDC id 12180 confirmed against the registry on 2026-09-22.
+WSDC id 7588 confirmed against the registry on 2026-09-22.
