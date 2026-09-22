@@ -14,7 +14,7 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Irina Puzanova", "Lauren Jones", "Lotte Meieir", "Marina Motronenko", "Maïna Vila Cobarsi"]
+partners: ["Irina Puzanova", "Lauren Jones", "Lotte Meier", "Marina Motronenko", "Maïna Vila Cobarsi"]
 ---
 
 # Daniel Pavlov

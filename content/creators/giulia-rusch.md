@@ -1,8 +1,8 @@
 ---
-id: "lotte-meieir"
+id: "giulia-rusch"
 type: "creator"
-name: "Lotte Meieir"
-aliases: ["Lotte"]
+name: "Giulia Rusch"
+aliases: ["Giulia"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Daniel Pavlov", "Flo"]
+partners: ["Austin Kois"]
 ---
 
-# Lotte Meieir
+# Giulia Rusch
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

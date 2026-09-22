@@ -2,7 +2,7 @@
 id: "florian-hamm"
 type: "creator"
 name: "Florian Hamm"
-aliases: ["Florian"]
+aliases: ["Flo", "Florian"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,7 +14,7 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Vanessa Bachmann"]
+partners: ["Lotte Meier", "Vanessa Bachmann"]
 ---
 
 # Florian Hamm

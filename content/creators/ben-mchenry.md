@@ -1,8 +1,8 @@
 ---
-id: "cameo-mchenry"
+id: "ben-mchenry"
 type: "creator"
-name: "Cameo McHenry"
-aliases: ["Cameo"]
+name: "Ben McHenry"
+aliases: ["Henry"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,10 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Ben McHenry"]
+partners: ["Cameo McHenry"]
+note: "Competes with Cameo McHenry as \"BAMEO\". A bare \"Ben\" in a title may be Ben Morris instead - both partner Cameo."
 ---
 
-# Cameo McHenry
+# Ben McHenry
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

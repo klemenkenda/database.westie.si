@@ -2,7 +2,7 @@
 id: "savana-barreau"
 type: "creator"
 name: "Savana Barreau"
-aliases: ["Savana", "Savanna"]
+aliases: ["Nana", "Savana", "Savanna"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
