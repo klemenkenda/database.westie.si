@@ -14,7 +14,7 @@ creator_confidence: 0.16
 channel: "passionforwcs"
 published: "2026-09-16"
 duration_s: 771
-view_count: 1791
+view_count: 1793
 language: "en"
 format: "competition"
 format_source: "title-match"
@@ -25,10 +25,14 @@ concepts: []
 demoted: false
 has_transcript: true
 transcript_words: 767
-status: "review"
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "competition"
+speech_wpm: 59.7
 ---
 
 # All Star JnJ Swingtime 2026
+
+Rejected: competition.

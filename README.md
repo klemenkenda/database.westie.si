@@ -25,7 +25,7 @@ python tools/graph_check.py       # audit the concept graph
 | M0 — skeleton, PHP API, Docker | done |
 | M1 — concepts imported and audited | imported; the review queue is open |
 | M2 — creators and WSDC ranking | code done; **12 creators need WSDC ids confirmed** |
-| M3 — YouTube ingestion | working; 12 videos from @PassionForWCS |
+| M3 — YouTube ingestion | working; 12 ingested, 6 kept as teaching material |
 | M4 — search | not started |
 | M5 — classification + review UI | not started |
 | M6 — voting | not started |
@@ -45,7 +45,7 @@ python tools/publish_site.py        # copy the export into public/, never touchi
 | Path | What it is |
 |---|---|
 | `content/concepts/` | 208 concepts — level, category, prerequisite edges with provenance |
-| `content/videos/` | 12 ingested from YouTube, untagged so far |
+| `content/videos/` | 12 ingested, 6 teaching and 6 rejected as dancing |
 | `content/channels/` | tracked ingestion sources |
 | `web/` | Next.js source; `output: "export"`, builds into `public/` |
 | `content/creators/` | 12 seeded — authority is computed from WSDC standing |
@@ -180,6 +180,35 @@ Three rules exist because the first ingest got them wrong:
 - **Competition footage needs strong evidence**, since its description is mostly names.
 
 On the first 12 videos: 1 correct attribution, 11 correctly unresolved, 0 false positives.
+
+## Dancing is not teaching
+
+```bash
+python tools/yt_sync.py prune --dry-run
+python tools/yt_sync.py prune
+```
+
+This is a learning aid, so a Jack & Jill does not belong in it. Three rules, weakest last:
+
+| rule | what it catches |
+|---|---|
+| `competition` | J&J, JnJ, Strictly, prelims, finals, invitational — **in the title** |
+| `no-transcript` | no captions at all; dance video, and nothing to classify from |
+| `low-speech` | under 85 words per minute: too sparse to be an explanation |
+
+Speech density turned out to separate the two cleanly. In the first ingest, teaching ran
+91–204 wpm and competitions 0–78 — and the talking in a competition is an MC, not
+instruction. "No transcript" alone would have caught only one of the six, because a
+competition with an announcer still produces captions.
+
+Competition is decided from the **title only**. Half of West Coast Swing's events are named
+"… Classic" or "… Open", and matching those in a description filed "Gary McIntyre & Susan
+Kirklin *taught this workshop* at Colorado Swing Classic" as competition footage. An event
+name is not a format.
+
+Rejected videos keep their record and their reason rather than being deleted — deleting
+would only mean the next sync ingested them again, and the reason is how you audit a filter
+that throws things away. `prune --recheck` can un-reject.
 
 Transcripts come from automatic captions, with timestamps, so a hit can link to the second
 where a concept is taught. Expect them to be thin — dance video is mostly music and

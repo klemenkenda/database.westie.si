@@ -50,17 +50,24 @@ CHANNEL_KEYS = [
     "last_sync", "known_videos", "added", "updated", "generated",
 ]
 
-# Title patterns. Weak evidence on their own, so each writes its confidence and the video
-# stays reviewable; they exist to sort an ingest into rough piles, not to be believed.
+# A danced competition, not teaching. Matched against the **title only**, because a
+# description mentions the event constantly and half of West Coast Swing's events are
+# named "... Classic" or "... Open". Those two words used to be in this pattern, and they
+# filed "Gary McIntyre & Susan Kirklin taught this workshop at Colorado Swing Classic" as
+# competition footage. An event name is not a format.
+COMPETITION = re.compile(
+    r"\b(j\s*&\s*j|jnj|jack\s*(&|and)\s*jill|strictly|prelims?|semi[- ]?finals?|finals?|"
+    r"invitational|routine division)\b", re.I)
+
+# Teaching cues. Checked in the description too, since that is where "taught this
+# workshop" usually lives.
 FORMAT_PATTERNS = [
-    ("competition", r"\b(j&j|jnj|jack\s*(&|and)\s*jill|strictly|finals?|prelims?|semi[- ]?finals?|"
-                    r"classic|open|championship|routine division|showcase)\b"),
     # Plurals matter: \bdrill\b does not match "Drills", and "WCS Partner Drills" is
     # exactly the kind of title this is here to catch.
-    ("routine",     r"\b(routines?|choreo(graphy)?|performances?|show ?case)\b"),
     ("drill",       r"\b(drills?|exercises?|practice)\b"),
     ("tutorial",    r"\b(tutorials?|lessons?|how to|techniques?|tips?|basics?|workshops?|"
-                    r"class(es)?|breakdowns?|explained)\b"),
+                    r"class(es)?|breakdowns?|explained|taught)\b"),
+    ("routine",     r"\b(routines?|choreo(graphy)?|performances?|show ?case)\b"),
     ("demo",        r"\b(demos?|demonstrations?|social dancing|social dance)\b"),
 ]
 
@@ -217,11 +224,32 @@ def adjacent_names(text: str, found: dict[str, float], index) -> bool:
 
 
 def guess_format(title: str, description: str = "") -> tuple[str, float]:
+    """The kind of video this is.
+
+    Competition is decided from the title alone and wins outright: a Jack & Jill is people
+    dancing, whatever else the description says about the event it happened at. Everything
+    else may draw on the description, which is where "taught this workshop" tends to live.
+    """
+    if COMPETITION.search(title):
+        return "competition", 0.85
     text = "%s %s" % (title, description[:400])
     for name, pattern in FORMAT_PATTERNS:
         if re.search(pattern, text, re.I):
             return name, 0.6
     return "unknown", 0.0
+
+
+#: Words per minute below which a video is people dancing rather than somebody teaching.
+#: In the first ingest, tutorials ran 91-204 wpm and competitions 0-78; the talking in a
+#: competition is an MC, not instruction. Set deliberately low: this discards things, so
+#: it should only fire where the evidence is not close.
+TEACHING_WPM = 85
+
+
+def speech_rate(words: int, duration_s: int) -> float:
+    if not duration_s:
+        return 0.0
+    return round(words / (duration_s / 60.0), 1)
 
 
 # ------------------------------------------------------------------------- commands
@@ -299,8 +327,9 @@ def cmd_sync(args) -> int:
         for row in rows:
             total_seen += 1
             key = "yt-" + row["id"]
-            if key in existing and not args.refresh:
-                continue
+            if key in existing and (existing[key].get("status") == "rejected"
+                                    or not args.refresh):
+                continue    # never resurrect something pruned
             try:
                 info_v = youtube.detail(row["id"])
             except youtube.YoutubeError as exc:
@@ -417,6 +446,72 @@ def cmd_transcripts(args) -> int:
     return 0
 
 
+def cmd_prune(args) -> int:
+    """Reject the videos that are people dancing rather than somebody teaching.
+
+    Rejected records are **kept on disk** with a reason. Deleting them would only mean the
+    next sync ingested them again, and the reason is worth keeping anyway: it is how you
+    audit a filter that throws things away.
+
+    Three rules, weakest last:
+
+      competition   a Jack & Jill, Strictly or final in the title. Decisive.
+      no-transcript no captions at all. Dance video, and nothing to classify from either.
+      low-speech    captions so sparse the video cannot be an explanation.
+    """
+    videos = read_all(VIDEOS)
+    rejected: dict[str, list] = {"competition": [], "no-transcript": [], "low-speech": []}
+    kept = []
+
+    for key, video in sorted(videos.items()):
+        if video.get("status") == "rejected" and not args.recheck:
+            continue
+        words = int(video.get("transcript_words") or 0)
+        duration = int(video.get("duration_s") or 0)
+        wpm = speech_rate(words, duration)
+        reason = None
+        if COMPETITION.search(video.get("title") or ""):
+            reason = "competition"
+        elif words == 0:
+            reason = "no-transcript"
+        elif wpm < args.min_wpm:
+            reason = "low-speech"
+
+        if reason:
+            rejected[reason].append((key, video.get("title", "")[:52], wpm))
+            if not args.dry_run:
+                video["status"] = "rejected"
+                video["rejected_reason"] = reason
+                video["speech_wpm"] = wpm
+                write(VIDEOS, key, video, "# %s\n\nRejected: %s.\n" % (video.get("title"), reason),
+                      VIDEO_KEYS)
+        else:
+            kept.append((key, video.get("title", "")[:52], wpm, video.get("format")))
+            if not args.dry_run and video.get("status") == "rejected":
+                video["status"] = "review"          # a recheck can un-reject
+                video.pop("rejected_reason", None)
+                video["speech_wpm"] = wpm
+                write(VIDEOS, key, video, "# %s\n" % video.get("title"), VIDEO_KEYS)
+            elif not args.dry_run:
+                video["speech_wpm"] = wpm
+                write(VIDEOS, key, video, "# %s\n" % video.get("title"), VIDEO_KEYS)
+
+    total = sum(len(v) for v in rejected.values())
+    verb = "would reject" if args.dry_run else "rejected"
+    print("%s %d of %d video(s)\n" % (verb, total, len(videos)))
+    for reason, rows in rejected.items():
+        if not rows:
+            continue
+        print("%s (%d):" % (reason, len(rows)))
+        for key, title, wpm in rows:
+            print("    %-16s %-52s %5.0f wpm" % (key, title, wpm))
+        print()
+    print("kept (%d):" % len(kept))
+    for key, title, wpm, fmt in sorted(kept, key=lambda r: -r[2]):
+        print("    %-16s %-52s %5.0f wpm  %s" % (key, title, wpm, fmt))
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="command", required=True)
@@ -431,6 +526,12 @@ def main() -> int:
     p.add_argument("--limit", type=int, default=0, help="only the newest N per channel")
     p.add_argument("--refresh", action="store_true", help="re-fetch videos already stored")
     p.set_defaults(func=cmd_sync)
+
+    p = sub.add_parser("prune")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--recheck", action="store_true", help="re-evaluate already-rejected records")
+    p.add_argument("--min-wpm", type=float, default=TEACHING_WPM)
+    p.set_defaults(func=cmd_prune)
 
     p = sub.add_parser("transcripts")
     p.add_argument("--limit", type=int, default=0)

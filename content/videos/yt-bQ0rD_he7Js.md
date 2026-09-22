@@ -25,10 +25,14 @@ concepts: []
 demoted: false
 has_transcript: false
 transcript_words: 0
-status: "review"
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "competition"
+speech_wpm: 0.0
 ---
 
 # WCS Advanced JnJ   Swingtime 2026
+
+Rejected: competition.

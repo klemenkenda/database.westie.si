@@ -43,6 +43,8 @@ export type Video = {
   demoted?: boolean;
   has_transcript?: boolean;
   transcript_words?: number;
+  speech_wpm?: number;
+  rejected_reason?: string;
   concepts: Edge[];
 };
 
@@ -220,6 +222,8 @@ export function getVideos(): Video[] {
     demoted: Boolean(front.demoted),
     has_transcript: Boolean(front.has_transcript),
     transcript_words: front.transcript_words ?? 0,
+    speech_wpm: front.speech_wpm ?? 0,
+    rejected_reason: front.rejected_reason,
     concepts: asArray(front.concepts).filter((c) => c && typeof c === "object"),
   }));
 }

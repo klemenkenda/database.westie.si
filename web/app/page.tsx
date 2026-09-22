@@ -17,7 +17,13 @@ function views(count?: number): string {
 export default function Home() {
   const ranking = getRanking();
   const creators = getCreators();
-  const videos = getVideos();
+  const all = getVideos();
+
+  // Jack & Jills, Strictlies and finals are people dancing, not somebody teaching. They
+  // stay on disk with their reason so the filter can be audited, but this is a learning
+  // aid and they are not part of it.
+  const videos = all.filter((v) => v.status !== "rejected");
+  const rejected = all.length - videos.length;
 
   const scored = videos.map((video) => {
     const people = video.creators
@@ -43,14 +49,16 @@ export default function Home() {
     <>
       <h1>Videos</h1>
       <p className="lede">
-        Ordered by the WSDC standing of whoever teaches them. Nothing is tagged yet — the
-        concept graph comes next, and until then every video is unclassified.
+        Teaching material only, ordered by the WSDC standing of whoever teaches it.
+        Competition footage is filtered out. Nothing is tagged yet — the concept graph
+        comes next, and until then every video is unclassified.
       </p>
 
       <div className="stats">
         <div className="stat"><b>{videos.length}</b><span>videos</span></div>
         <div className="stat"><b>{attributed}</b><span>attributed to a creator</span></div>
         <div className="stat"><b>{withTranscript}</b><span>with a transcript</span></div>
+        <div className="stat"><b>{rejected}</b><span>filtered out as dancing</span></div>
         <div className="stat"><b>{creators.size}</b><span>creators known</span></div>
       </div>
 
@@ -88,6 +96,9 @@ export default function Home() {
                 {video.status === "review" && <span className="chip warn">in review</span>}
                 {demoted && <span className="chip warn">demoted — sorts last</span>}
                 {video.concepts.length === 0 && <span className="chip">untagged</span>}
+                {typeof video.speech_wpm === "number" && video.speech_wpm > 0 && (
+                  <span className="chip">{Math.round(video.speech_wpm)} words/min</span>
+                )}
               </div>
               <p className="why">
                 {authority.basis}

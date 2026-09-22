@@ -14,7 +14,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yt_sync import creator_index, match_creators, guess_format, credit_windows  # noqa: E402
+from yt_sync import (creator_index, match_creators, guess_format, credit_windows,  # noqa: E402
+                     speech_rate, COMPETITION)
 
 PASSED = 0
 FAILED: list[str] = []
@@ -113,6 +114,30 @@ check("drills are drills", guess_format("WCS Partner Drills-Aris DeMarco")[0], "
 check("technique is a tutorial", guess_format("WCS Gary McIntyre - Blues technique")[0], "tutorial")
 check("an unrecognised title stays unknown", guess_format("WCS Apache Jazzbox")[0], "unknown")
 ok("an unknown format carries no confidence", guess_format("WCS Apache Jazzbox")[1] == 0.0)
+
+# The regression that made this rule title-only. Half of West Coast Swing's events are
+# named "... Classic" or "... Open", so an event name in a description is not a format.
+workshop = ("West Coast Swing Champions Gary McIntyre & Susan Kirklin taught this amazing "
+            "workshop at Colorado Country/Swing Classic, Denver Colorado, 2026.")
+check("an event named Classic is not a competition",
+      guess_format("WCS Fun Footwork Challenge - Gary & Susan", workshop)[0], "tutorial")
+check("nor is an event named Open",
+      guess_format("WCS Sugar Push basics", "Filmed at the Hungarian Open 2026.")[0], "tutorial")
+ok("a J&J in the title still wins outright",
+   guess_format("All Star J&J - Colorado Classic", workshop)[0] == "competition")
+
+# ------------------------------------------------------------------ pruning
+
+ok("a Jack & Jill title is competition", bool(COMPETITION.search("Swingtime INT Jack & Jill")))
+ok("JnJ is competition", bool(COMPETITION.search("WCS Advanced JnJ Swingtime 2026")))
+ok("J & J spaced out is competition", bool(COMPETITION.search("All Star J & J Finals")))
+ok("an invitational is competition", bool(COMPETITION.search("Champ/All Star Invitational JNJ")))
+ok("a tutorial title is not", not COMPETITION.search("WCS Constant Connection"))
+ok("nor is a drill title", not COMPETITION.search("WCS Partner Drills-Aris DeMarco"))
+
+check("speech rate is words per minute", speech_rate(200, 120), 100.0)
+check("no duration means no rate", speech_rate(200, 0), 0.0)
+ok("a tutorial out-talks a competition", speech_rate(1240, 365) > speech_rate(767, 771))
 
 # ------------------------------------------------------------------------ done
 

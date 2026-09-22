@@ -14,9 +14,9 @@ creator_confidence: 0.0
 channel: "passionforwcs"
 published: "2026-08-10"
 duration_s: 208
-view_count: 1040
+view_count: 1039
 language: "en-US"
-format: "competition"
+format: "tutorial"
 format_source: "title-match"
 role: "both"
 categories: []
@@ -29,6 +29,7 @@ status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 145.7
 ---
 
 # WCS Fun Footwork Challenge - Gary & Susan

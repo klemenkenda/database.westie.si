@@ -25,10 +25,14 @@ concepts: []
 demoted: false
 has_transcript: true
 transcript_words: 343
-status: "review"
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "competition"
+speech_wpm: 22.9
 ---
 
 # WCS High-Low JnJ Prelim
+
+Rejected: competition.

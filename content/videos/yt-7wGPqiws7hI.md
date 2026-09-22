@@ -29,6 +29,7 @@ status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 90.6
 ---
 
 # WCS Constant Connection

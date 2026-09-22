@@ -25,10 +25,14 @@ concepts: []
 demoted: false
 has_transcript: true
 transcript_words: 780
-status: "review"
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "competition"
+speech_wpm: 51.6
 ---
 
 # All  Star J&J - Colorado Classic
+
+Rejected: competition.
