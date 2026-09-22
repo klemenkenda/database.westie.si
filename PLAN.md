@@ -204,7 +204,7 @@ Seed list to start from:
 
 - **`@PassionForWCS`** — event workshop and demo footage of touring pros. High value:
   the teachers in it resolve to real WSDC records, so the ranking does the work.
-- Ben Morris, Jordan & Tatiana, Nicole & Thibault, Jérémy & Emeline, Clément & Evi and
+- Ben Morris, Jordan & Tatiana, Thibault & Nicole, Jakub & Emeline, Clem & Evi and
   other champion-division names with their own channels.
 - Event channels (Budafest, Hungarian Open, Swingvester, Westie Spring Thing).
 - WestCoastSwingOnline — ingested, but `demote: true` at the channel level (§6).
@@ -392,7 +392,7 @@ teaching with a less-titled partner still ranks as a champion.
 
 Three consequences, all of them the ones you want:
 
-- Ben Morris, Nicole & Thibault, Jérémy & Emeline, Clément & Evi land at 88–100 without
+- Ben Morris, Thibault & Nicole, Jakub & Emeline, Clem & Evi land at 88–100 without
   anybody typing their names into a config file.
 - A teacher who is not on the event scene has **no WSDC record**, so they score 8
   automatically. The thing you dislike is expressed as an absence of competitive standing,

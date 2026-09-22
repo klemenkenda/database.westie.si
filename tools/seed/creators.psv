@@ -19,23 +19,24 @@ ben-morris|Ben Morris|||
 jordan-frisbee|Jordan Frisbee|Jordan||
 tatiana-mollmann|Tatiana Mollmann|Tatiana||
 
-# "Nicole & Thibault" — appears as "Thibault & Nicole" in the workshop archive.
+# The three partnerships you named, resolved against the workshop archive by
+# tools/import_creators.py. The archive pairs them consistently, which is the evidence:
+#
+#   "Nicole & Thibault"  -> Thibault & Nicole      12 workshops
+#   "Cl'Evi"             -> Clem & Evi              5 workshops
+#   "J'Em"               -> Jakub & Emeline        15 workshops
+#
+# J'Em was a guess of mine before this; the archive settled it. Surnames are still open,
+# and the confirm step will show you the registry name for each.
 thibault|Thibault|||CHECK surname
 nicole|Nicole|||CHECK surname
-
-# "Cl'Evi" — appears as "Clem & Evi" in the workshop archive.
 clem|Clem|Clement||CHECK surname, and whether Clem or Clement
 evi|Evi|||CHECK surname
-
-# "J'Em" — I do not know this one. The archive has a "Jakub & Emeline" teaching at
-# Budafest 2026, which would fit the contraction, but so would other pairings. Tell me
-# which and I will fix these two rows.
-jem-1|J'Em (first dancer)|||CHECK who this is
-jem-2|J'Em (second dancer)|||CHECK who this is
-
-# Others visible in the archive, worth records once they have material here.
 maxime|Maxime|||CHECK surname
 torri-smith|Torri Smith|Torri||
+
+# 129 more creator records now come from the archive via tools/import_creators.py.
+# This file is only for people that tool cannot infer, and for the demotion below.
 
 # Not a dancer, so competition points cannot express it. Demotion is a sort tier: this
 # still appears in search and still surfaces when it is the only coverage of a concept,
