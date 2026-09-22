@@ -35,6 +35,9 @@ services:
     volumes:
       - ./web:/app
       - ./public:/public
+      # Same reason as the build service: content/ must be reachable at /content or every
+      # page renders with an empty database.
+      - ./content:/content:ro
     environment:
       NEXT_PUBLIC_API_BASE: http://localhost:8081/api
     command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0"
@@ -67,7 +70,11 @@ services:
     volumes:
       - ./web:/app
       - ./public:/public
-      - ./tools:/tools
+      # web/lib/content.ts reads `process.cwd()/../content` at build time. With working_dir
+      # /app that is /content, and without this mount the build silently succeeded while
+      # producing a site with zero concepts in it — every page rendered, every count read
+      # 0. Read-only because a build has no business writing to the database.
+      - ./content:/content:ro
     # The delete step names what it *keeps* rather than what it removes. Listing the
     # export's own directories to delete means every new route added later silently stops
     # being cleaned, and a renamed page lingers at its old URL — the exact bug

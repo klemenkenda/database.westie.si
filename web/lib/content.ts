@@ -227,8 +227,32 @@ export function parseFrontmatter(raw: string): { front: Record<string, any>; bod
 
 // --------------------------------------------------------------------- loading
 
+/**
+ * A missing content/ is a broken build, not an empty database.
+ *
+ * This used to `return []` for a missing directory, and the consequence showed up the
+ * first time the site was built inside Docker: the compose service did not mount
+ * `content/`, every collection read as empty, the build reported success, and the
+ * published site rendered every page with a count of zero. Nothing anywhere said why.
+ *
+ * An absent collection directory is indistinguishable from a database with no records in
+ * it, so the only safe reading is that the *root* must exist — if it does not, the build is
+ * misconfigured and should stop. An empty collection inside a real content root is still
+ * fine: that is a project that has not ingested videos yet.
+ */
+function contentRoot(): string {
+  if (!fs.existsSync(CONTENT)) {
+    throw new Error(
+      `content/ not found at ${CONTENT} (cwd ${process.cwd()}). The build reads the ` +
+        `database off disk, so this would otherwise produce a site with zero records in ` +
+        `it and still report success. In Docker, mount it: \`- ./content:/content:ro\`.`,
+    );
+  }
+  return CONTENT;
+}
+
 function readCollection(name: string): Array<{ key: string; front: Record<string, any>; body: string }> {
-  const dir = path.join(CONTENT, name);
+  const dir = path.join(contentRoot(), name);
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
@@ -345,8 +369,8 @@ export function getConcepts(): Concept[] {
  * intent. The audit JSON is read as-is; nothing is recomputed here.
  */
 export function getFoundation(): Foundation {
-  const specPath = path.join(CONTENT, "foundation.yml");
-  const auditPath = path.join(CONTENT, ".audit", "foundation.json");
+  const specPath = path.join(contentRoot(), "foundation.yml");
+  const auditPath = path.join(contentRoot(), ".audit", "foundation.json");
 
   let audit: FoundationAudit | null = null;
   if (fs.existsSync(auditPath)) {

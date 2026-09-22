@@ -13,16 +13,16 @@ tools/token*.json
 .env
 .env.local
 
-# The built SPA. `npm run build` regenerates it into public/.
-public/_next/
-public/404.html
-public/index.html
-public/index.txt
-public/videos/
-public/concepts/
-public/creators/
-public/paths/
-public/search/
+# The built SPA. `npm run build` regenerates it into public/, so none of it is source.
+#
+# Expressed as "ignore everything except api/" rather than as a list of routes. The list
+# form had already drifted: `next.config.mjs` sets `trailingSlash: true`, so every route
+# exports as `<route>/index.html`, and rules naming `public/404.html` never matched the
+# `public/404/` directory sitting beside it. Two pages' worth of build output was tracked
+# and showing up as a diff on every publish. A new route would have silently joined them.
+public/*
+!public/api/
+!public/api/**
 
 # Node / Python
 node_modules/
