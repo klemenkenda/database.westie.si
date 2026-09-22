@@ -34,3 +34,8 @@ __pycache__/
 .DS_Store
 Thumbs.db
 *.swp
+
+# Next.js build output
+web/.next/
+web/out/
+web/next-env.d.ts

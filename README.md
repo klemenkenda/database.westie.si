@@ -14,6 +14,7 @@ diffed and committed like source code.
 ```bash
 docker compose up -d api          # API on http://localhost:8081
 docker compose run --rm test      # 134-check suite: libs, trust, ranking, live HTTP
+python tools/match_test.py        # 23 checks on creator attribution and format detection
 python tools/graph_check.py       # audit the concept graph
 ```
 
@@ -24,21 +25,29 @@ python tools/graph_check.py       # audit the concept graph
 | M0 — skeleton, PHP API, Docker | done |
 | M1 — concepts imported and audited | imported; the review queue is open |
 | M2 — creators and WSDC ranking | code done; **12 creators need WSDC ids confirmed** |
-| M3 — YouTube ingestion | not started |
+| M3 — YouTube ingestion | working; 12 videos from @PassionForWCS |
 | M4 — search | not started |
 | M5 — classification + review UI | not started |
 | M6 — voting | not started |
 | M7 — learning paths | not started |
 | M8 — deploy | not started |
 
-The Next.js frontend is not scaffolded yet. `public/` currently holds only the API.
+The web front end is a single page: the video list, ordered by authority. Built statically
+from `content/` — the HTML ships with the data in it and makes no API call to render.
+
+```bash
+cd web && npm install && npx next build
+python tools/publish_site.py        # copy the export into public/, never touching public/api/
+```
 
 ## Layout
 
 | Path | What it is |
 |---|---|
 | `content/concepts/` | 208 concepts — level, category, prerequisite edges with provenance |
-| `content/videos/` | empty until M3 |
+| `content/videos/` | 12 ingested from YouTube, untagged so far |
+| `content/channels/` | tracked ingestion sources |
+| `web/` | Next.js source; `output: "export"`, builds into `public/` |
 | `content/creators/` | 12 seeded — authority is computed from WSDC standing |
 | `content/taxonomy.md` | the facet vocabulary |
 | `content/ranking.yml` | the tunable weights — ranking is config, not code |
@@ -144,6 +153,38 @@ python tools/wsdc_sync.py lookup 10277       # inspect a registry record
 python tools/wsdc_sync.py confirm ben-morris 1234
 python tools/wsdc_sync.py refresh            # re-fetch points for confirmed creators
 ```
+
+## Ingestion
+
+```bash
+python tools/yt_sync.py add https://www.youtube.com/@PassionForWCS
+python tools/yt_sync.py sync passionforwcs --limit 50
+python tools/yt_sync.py transcripts          # timestamped captions, cached on disk
+```
+
+Metadata via yt-dlp, not the Data API: the API needs a key and resolving a channel by hand
+hits Google's EU consent wall. Nothing is downloaded — this is an index that points at
+other people's videos and embeds them where they were published.
+
+**Attribution proposes, it does not commit.** A full name in a title scores 0.9; a name
+after an authorship cue ("lesson by …") scores the same; a bare first name buried in a
+description scores 0.16, because the creator list is full of bare first names and "Gary"
+matches any of them. Below 0.5 the video keeps `creators: []`, which the ranking treats as
+*provisional authority* rather than a low score, and it lands in review.
+
+Three rules exist because the first ingest got them wrong:
+
+- **Gratitude is not authorship.** "thanks to Kyle Redd, Sarah Vann Drake" credited a
+  competition video to the people the uploader was thanking.
+- **More than two names is a roster**, not a credit — a running order or a judging panel.
+- **Competition footage needs strong evidence**, since its description is mostly names.
+
+On the first 12 videos: 1 correct attribution, 11 correctly unresolved, 0 false positives.
+
+Transcripts come from automatic captions, with timestamps, so a hit can link to the second
+where a concept is taught. Expect them to be thin — dance video is mostly music and
+demonstration, a four-minute clip can carry 400 words, and competition footage often has
+none. Nothing downstream may assume a transcript exists.
 
 ## The privacy line
 
