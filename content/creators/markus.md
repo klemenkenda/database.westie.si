@@ -2,11 +2,10 @@
 id: "markus"
 type: "creator"
 name: "Markus"
-aliases: []
-partners: ["Clara", "Tren"]
+aliases: ["Marcus"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
@@ -14,9 +13,11 @@ channels: []
 links: []
 note: "Surname unknown. Teaches with: Clara, Tren."
 added: "2026-09-22"
-generated: true
+updated: "2026-09-22"
+generated: false
+partners: ["Clara", "Tren"]
 ---
 
 # Markus
 
-Surname unknown. Teaches with: Clara, Tren.
+No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

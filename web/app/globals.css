@@ -80,3 +80,32 @@ h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.02em; }
   .thumb { width: 100%; }
   .score { text-align: left; }
 }
+
+/* Controls */
+.controls {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  margin: 0 0 14px; justify-content: space-between;
+}
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: var(--card); color: var(--muted);
+  border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px;
+}
+.tab:hover { color: var(--ink); }
+.tab.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.search {
+  font: inherit; font-size: 14px; flex: 1 1 220px; max-width: 320px;
+  background: var(--card); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px; padding: 7px 11px;
+}
+.search::placeholder { color: var(--muted); }
+.count { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+
+/* A filtered-out row stays readable but clearly set aside. */
+.row.rejected { opacity: 0.5; }
+.row.rejected .thumb { filter: grayscale(1); }
+.chip.bad {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+}

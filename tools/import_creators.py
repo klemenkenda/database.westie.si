@@ -29,6 +29,15 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# YouTube titles carry emoji, and Windows consoles default to cp1252, where printing one
+# raises UnicodeEncodeError mid-run. Replace rather than crash: a mangled character in a
+# progress line is not worth losing an ingest over.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError):
+    pass
+
 import wcsyaml  # noqa: E402
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

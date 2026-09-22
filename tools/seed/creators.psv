@@ -42,3 +42,9 @@ torri-smith|Torri Smith|Torri||
 # still appears in search and still surfaces when it is the only coverage of a concept,
 # but always after everything non-demoted.
 westcoastswingonline|West Coast Swing Online|WCSOnline; WCS Online|y|Production brand, not a competing dancer
+
+# Teachers appearing in material added after the first ingest. Surnames from the channel
+# names and video titles that introduced them, which is evidence, not inference.
+marina-motronenko|Marina Motronenko|Marina||
+myles|Myles|||CHECK surname - teaches with Tessa
+tessa|Tessa|||CHECK surname - teaches with Myles

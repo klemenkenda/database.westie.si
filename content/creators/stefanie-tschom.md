@@ -2,20 +2,21 @@
 id: "stefanie-tschom"
 type: "creator"
 name: "Stefanie Tschom"
-aliases: []
-partners: []
+aliases: ["Stefanie", "Steffi"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
 added: "2026-09-22"
-generated: true
+updated: "2026-09-22"
+generated: false
+partners: ["Attila Partos"]
 ---
 
 # Stefanie Tschom
 
-No WSDC id confirmed yet.
+No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

@@ -19,6 +19,15 @@ import os
 import shutil
 import sys
 
+# YouTube titles carry emoji, and Windows consoles default to cp1252, where printing one
+# raises UnicodeEncodeError mid-run. Replace rather than crash: a mangled character in a
+# progress line is not worth losing an ingest over.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError):
+    pass
+
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(HERE, "web", "out")
 PUBLIC = os.path.join(HERE, "public")

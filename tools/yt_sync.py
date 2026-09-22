@@ -25,6 +25,15 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# YouTube titles carry emoji, and Windows consoles default to cp1252, where printing one
+# raises UnicodeEncodeError mid-run. Replace rather than crash: a mangled character in a
+# progress line is not worth losing an ingest over.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except (AttributeError, ValueError):
+    pass
+
 import wcsyaml  # noqa: E402
 import youtube  # noqa: E402
 
@@ -317,6 +326,99 @@ def cmd_add(args) -> int:
     return 0
 
 
+def ingest_one(video_id: str, source_slug: str, channel: dict, index, today: str,
+               default_creators: list) -> tuple[dict, bool]:
+    """Build one video record. Returns (front, unresolved).
+
+    Shared by `sync` and `video`, so a hand-added URL goes through exactly the same
+    attribution, format detection and review rules as a channel sweep. Two paths that
+    disagree about what a record looks like is how a database stops being one.
+    """
+    info = youtube.detail(video_id)
+    title = info["title"]
+    fmt, fmt_conf = guess_format(title, info["description"])
+    matched, confidence, how = match_creators(title, info["description"], index, fmt)
+
+    if not matched and default_creators:
+        matched, how, confidence = list(default_creators), "channel-default", 0.8
+    unresolved = not matched
+
+    front = {
+        "id": "yt-" + video_id,
+        "type": "video",
+        "platform": "youtube",
+        "youtube_id": video_id,
+        "url": "https://youtu.be/" + video_id,
+        "embed_url": "https://www.youtube.com/embed/" + video_id,
+        "thumbnail_url": "https://img.youtube.com/vi/%s/hqdefault.jpg" % video_id,
+        "title": title,
+        "description": info["description"][:1200],
+        "creators": matched,
+        "creator_source": how,
+        "creator_confidence": confidence,
+        "channel": source_slug,
+        "published": info["published"],
+        "duration_s": info["duration_s"],
+        "view_count": info["view_count"],
+        "language": info["language"],
+        "format": fmt,
+        "format_source": "title-match" if fmt_conf else "unknown",
+        "role": "both",
+        "categories": [],
+        "level": None,
+        "concepts": [],
+        "demoted": bool(channel.get("demote")),
+        "has_transcript": False,
+        "status": "published" if (channel.get("auto_publish") and not unresolved) else "review",
+        "added": today,
+        "generated": True,
+    }
+    return front, unresolved
+
+
+def cmd_video(args) -> int:
+    """Ingest one video by URL, outside any tracked channel.
+
+    For the good things that are not on a channel worth following wholesale — a workshop
+    clip somebody linked, a one-off lesson. `--creators` attributes it by hand, which is
+    always better evidence than the title matcher.
+    """
+    creators = read_all(CREATORS)
+    index = creator_index(creators)
+    named = [c.strip() for c in (args.creators or "").split(",") if c.strip()]
+    unknown = [c for c in named if c not in creators]
+    if unknown:
+        raise SystemExit("no creator record for %s - add them first" % ", ".join(unknown))
+
+    existing = read_all(VIDEOS)
+    today = _dt.date.today().isoformat()
+    channel = {"auto_publish": bool(named), "demote": False}
+    added, skipped = 0, 0
+
+    for url in args.urls:
+        match = re.search(r"(?:v=|youtu\.be/|/embed/)([A-Za-z0-9_-]{11})", url)
+        video_id = match.group(1) if match else url.strip()
+        key = "yt-" + video_id
+        if key in existing and not args.refresh:
+            print("  %-16s already present" % key)
+            skipped += 1
+            continue
+        try:
+            front, unresolved = ingest_one(video_id, args.source, channel, index, today, named)
+        except youtube.YoutubeError as exc:
+            print("  %-16s FAILED %s" % (video_id, exc))
+            continue
+        note = ("Creator not resolved from the title. Authority is provisional."
+                if unresolved else "Added by hand.")
+        write(VIDEOS, key, front, "# %s\n\n%s\n" % (front["title"], note), VIDEO_KEYS)
+        print("  %-16s %-46s %s" % (key, front["title"][:46],
+                                    ", ".join(front["creators"]) or "UNATTRIBUTED"))
+        added += 1
+
+    print("\n%d added, %d skipped" % (added, skipped))
+    return 0
+
+
 def cmd_channels(args) -> int:
     channels = read_all(CHANNELS)
     if not channels:
@@ -340,6 +442,7 @@ def cmd_sync(args) -> int:
         raise SystemExit("no channels tracked - `yt_sync.py add <url>`")
 
     existing = read_all(VIDEOS)
+    ledger = read_ledger()
     creators = read_all(CREATORS)
     index = creator_index(creators)
     today = _dt.date.today().isoformat()
@@ -356,6 +459,8 @@ def cmd_sync(args) -> int:
         for row in rows:
             total_seen += 1
             key = "yt-" + row["id"]
+            if row["id"] in ledger:
+                continue    # removed on purpose; the ledger is what makes that stick
             if key in existing and (existing[key].get("status") == "rejected"
                                     or not args.refresh):
                 continue    # never resurrect something pruned
@@ -475,6 +580,47 @@ def cmd_transcripts(args) -> int:
     return 0
 
 
+LEDGER = os.path.join(CONTENT, "rejected.md")
+
+
+def read_ledger() -> dict[str, dict]:
+    """Ids we have already thrown out, keyed by video id."""
+    if not os.path.isfile(LEDGER):
+        return {}
+    front, _ = wcsyaml.read(LEDGER)
+    out = {}
+    for row in front.get("rejected") or []:
+        if isinstance(row, dict) and row.get("id"):
+            out[row["id"]] = row
+    return out
+
+
+def write_ledger(entries: dict[str, dict]) -> None:
+    """The tombstone list.
+
+    Deleting a record is not enough on its own: the next sync would find the video on the
+    channel, see nothing on disk, and ingest it again. The ledger is what makes a removal
+    stick, and it keeps the reason so the decision can be reviewed later without the record
+    it was made about.
+    """
+    rows = sorted(entries.values(), key=lambda r: r.get("id", ""))
+    front = {
+        "id": "rejected",
+        "type": "ledger",
+        "title": "Removed videos",
+        "count": len(rows),
+        "updated": _dt.date.today().isoformat(),
+        "rejected": rows,
+    }
+    body = (
+        "# Removed videos\n\n"
+        "Videos ingested and then thrown out, with the rule that caught each one.\n\n"
+        "`yt_sync.py sync` consults this list and will not ingest these ids again. Delete a\n"
+        "line to let one back in.\n"
+    )
+    wcsyaml.write(LEDGER, front, body)
+
+
 def cmd_prune(args) -> int:
     """Reject the videos that are people dancing rather than somebody teaching.
 
@@ -489,8 +635,9 @@ def cmd_prune(args) -> int:
       low-speech    captions so sparse the video cannot be an explanation.
     """
     videos = read_all(VIDEOS)
+    ledger = read_ledger()
     rejected: dict[str, list] = {"competition": [], "no-transcript": [], "low-speech": []}
-    kept = []
+    kept, deleted = [], []
 
     for key, video in sorted(videos.items()):
         if video.get("status") == "rejected" and not args.recheck:
@@ -525,8 +672,11 @@ def cmd_prune(args) -> int:
                 video["speech_wpm"] = wpm
                 write(VIDEOS, key, video, "# %s\n" % video.get("title"), VIDEO_KEYS)
 
+    if deleted:
+        write_ledger(ledger)
+
     total = sum(len(v) for v in rejected.values())
-    verb = "would reject" if args.dry_run else "rejected"
+    verb = ("would " + ("delete" if args.delete else "reject")) if args.dry_run         else ("deleted" if args.delete else "rejected")
     print("%s %d of %d video(s)\n" % (verb, total, len(videos)))
     for reason, rows in rejected.items():
         if not rows:
@@ -534,6 +684,10 @@ def cmd_prune(args) -> int:
         print("%s (%d):" % (reason, len(rows)))
         for key, title, wpm in rows:
             print("    %-16s %-52s %5.0f wpm" % (key, title, wpm))
+        print()
+    if deleted:
+        print("%d record(s) deleted; their ids are tombstoned in content/rejected.md so a" % len(deleted))
+        print("later sync will not ingest them again.")
         print()
     print("kept (%d):" % len(kept))
     for key, title, wpm, fmt in sorted(kept, key=lambda r: -r[2]):
@@ -560,10 +714,19 @@ def main() -> int:
     p.add_argument("--refresh", action="store_true", help="re-fetch videos already stored")
     p.set_defaults(func=cmd_sync)
 
+    p = sub.add_parser("video")
+    p.add_argument("urls", nargs="+")
+    p.add_argument("--creators", help="comma-separated creator slugs")
+    p.add_argument("--source", default="hand-added", help="source slug recorded on the video")
+    p.add_argument("--refresh", action="store_true")
+    p.set_defaults(func=cmd_video)
+
     p = sub.add_parser("prune")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--recheck", action="store_true", help="re-evaluate already-rejected records")
     p.add_argument("--min-wpm", type=float, default=TEACHING_WPM)
+    p.add_argument("--delete", action="store_true",
+                   help="delete the records instead of marking them, and tombstone the ids")
     p.set_defaults(func=cmd_prune)
 
     p = sub.add_parser("transcripts")

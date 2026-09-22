@@ -3,17 +3,17 @@ id: "attila-partos"
 type: "creator"
 name: "Attila Partos"
 aliases: []
-partners: []
+partners: ["Andrea Partos", "Lauren", "Stefanie Tschom"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
 added: "2026-09-22"
-generated: true
+generated: false
 ---
 
 # Attila Partos

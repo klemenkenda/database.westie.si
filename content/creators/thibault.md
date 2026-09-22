@@ -1,22 +1,22 @@
 ---
 id: "thibault"
 type: "creator"
-name: "Thibault"
-aliases: []
+name: "Thibault Ramirez"
+aliases: ["Thibault"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
-note: "CHECK surname"
+note: "Surname from their YouTube channel, 'Thibault and Nicole Ramirez'."
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
 ---
 
-# Thibault
+# Thibault Ramirez
 
-No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.
+Surname from their YouTube channel, 'Thibault and Nicole Ramirez'.

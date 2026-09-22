@@ -2,20 +2,21 @@
 id: "florian-hamm"
 type: "creator"
 name: "Florian Hamm"
-aliases: []
-partners: []
+aliases: ["Florian"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
 added: "2026-09-22"
-generated: true
+updated: "2026-09-22"
+generated: false
+partners: ["Vanessa"]
 ---
 
 # Florian Hamm
 
-No WSDC id confirmed yet.
+No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

@@ -5,7 +5,7 @@ name: "Tatiana Mollmann"
 aliases: ["Tatiana"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
@@ -13,7 +13,8 @@ channels: []
 links: []
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+partners: ["Christopher", "Jordan"]
 ---
 
 # Tatiana Mollmann
