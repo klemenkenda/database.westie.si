@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 426
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 139.7
 ---
 
 # WCS Intermediate   Rainbows to Crossbows  Tasha Hoffner
-
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.

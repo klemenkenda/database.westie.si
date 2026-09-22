@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 352
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 128.0
 ---
 
 # WCS Workshop Drapes and Pivot Whip Aris DeMarco Denver Westies
-
-Creator not resolved from the title (best 0.35, weak-credited). Authority is provisional until someone attributes it.

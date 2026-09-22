@@ -23,15 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: false
-status: "review"
+transcript_words: 0
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
+rejected_reason: "no-transcript"
 ---
 
 # 2017 Colorado Springs Intl Flashmob West Coast Swing
 
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.
-
-Format not recognised from the title.
+Rejected: no-transcript.

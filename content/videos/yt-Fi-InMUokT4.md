@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: false
-status: "review"
+transcript_words: 0
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
+rejected_reason: "no-transcript"
 ---
 
 # WCS Champ SS Ben McH Victoria Henk 2ND Place
 
-Format not recognised from the title.
+Rejected: no-transcript.

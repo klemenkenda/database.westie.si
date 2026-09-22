@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/5nS4tXgZ6MU"
 thumbnail_url: "https://img.youtube.com/vi/5nS4tXgZ6MU/hqdefault.jpg"
 title: "WCS Myles and Tessa Kissing Connections"
 description: "West Coast Swing Champions Myles Munroe and Tessa Cunningham Munroe taught \"kissing connection\" class at 2018 SwingTime event, Denver-Aurora.  They demonstrated supreme dedication to teaching and the art and science of West Coast Swing."
-creators: ["myles", "tessa"]
+creators: ["myles-munroe", "tessa-cunningham"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 724
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 163.9
 ---
 
 # WCS Myles and Tessa Kissing Connections
-
-Ingested from YouTube.

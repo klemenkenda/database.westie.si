@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-transcript_words: 0
+transcript_checked: true
+has_transcript: true
+transcript_words: 263
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
-speech_wpm: 0.0
+speech_wpm: 110.3
 ---
 
 # WCS FUNDEMENTALS - Kyle & Sarah

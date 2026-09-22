@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 613
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 70.3
+rejected_reason: "low-speech"
 ---
 
 # WCS Ben Morris Musicality  WCS MasterClass
 
-Ingested from YouTube.
+Rejected: low-speech.

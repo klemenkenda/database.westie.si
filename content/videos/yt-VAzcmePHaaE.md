@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 148
 status: "published"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 150.5
 ---
 
 # The art of judging | ELEVATE Training Summit
-
-Ingested from YouTube.

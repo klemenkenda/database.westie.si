@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 181
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "low-speech"
+speech_wpm: 56.9
 ---
 
 # WCS Ben Morris Workshop
 
-Ingested from YouTube.
+Rejected: low-speech.

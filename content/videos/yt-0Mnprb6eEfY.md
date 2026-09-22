@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 382
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 151.8
 ---
 
 # WCS Workshop Ben Morris Victoria Henk
-
-Creator not resolved from the title (best 0.90, roster). Authority is provisional until someone attributes it.

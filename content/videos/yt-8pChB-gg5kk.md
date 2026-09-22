@@ -31,6 +31,7 @@ updated: "2026-09-22"
 generated: true
 rejected_reason: "competition"
 speech_wpm: 77.8
+transcript_checked: true
 ---
 
 # WCS Champ/All Star Invitational JNJ Colorado Classic

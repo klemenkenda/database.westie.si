@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 764
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 180.5
 ---
 
 # How to Improve Your West Coast Swing - Champ. Robert Cordoba
-
-Creator not resolved from the title (best 0.35, weak-first-name). Authority is provisional until someone attributes it.

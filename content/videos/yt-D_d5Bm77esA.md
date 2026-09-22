@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/D_d5Bm77esA"
 thumbnail_url: "https://img.youtube.com/vi/D_d5Bm77esA/hqdefault.jpg"
 title: "WCS Myles & Tessa SLINKY SLOW"
 description: "This is world champion Myles and Tessa teaching West Coast Swing from 2018 - I was glad to be there in person."
-creators: ["myles", "tessa"]
+creators: ["myles-munroe", "tessa-cunningham"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 383
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 133.6
 ---
 
 # WCS Myles & Tessa SLINKY SLOW
-
-Format not recognised from the title.

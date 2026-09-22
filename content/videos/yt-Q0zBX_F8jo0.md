@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 344
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 121.4
 ---
 
 # WCS Musicality Hitting the Breaks   Monty & Kristin Ham
-
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.

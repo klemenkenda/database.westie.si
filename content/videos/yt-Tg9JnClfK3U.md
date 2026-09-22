@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 46
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 24.4
+rejected_reason: "low-speech"
 ---
 
 # WCS MAXENCE MARTIN - Whip Endings DCS 2024
 
-Creator not resolved from the title (best 0.35, weak-pair). Authority is provisional until someone attributes it.
+Rejected: low-speech.

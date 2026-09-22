@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 247
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "low-speech"
+speech_wpm: 51.1
 ---
 
 # WCS ROBERT CORDOBA WARMUP DRILLS
 
-Creator not resolved from the title (best 0.35, weak-first-name). Authority is provisional until someone attributes it.
+Rejected: low-speech.

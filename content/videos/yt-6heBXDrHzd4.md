@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 183
 status: "published"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 146.4
 ---
 
 # A Champion title does NOT automatically make someone a great judge. 👀
-
-Ingested from YouTube.

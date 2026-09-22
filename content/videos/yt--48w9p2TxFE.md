@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: false
-status: "review"
+transcript_words: 0
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
+rejected_reason: "no-transcript"
 ---
 
 # WCS BLOODY MARY MANITOU SPRINGS
 
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.
+Rejected: no-transcript.

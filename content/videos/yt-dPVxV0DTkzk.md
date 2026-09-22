@@ -23,6 +23,7 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: true
 transcript_words: 676
 status: "published"

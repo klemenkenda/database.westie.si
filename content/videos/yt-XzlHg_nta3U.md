@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 305
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 110.9
 ---
 
 # WCS LATERAL MOVEMENT - Terra Summers Denver Westies
-
-Creator not resolved from the title (best 0.16, weak-first-name). Authority is provisional until someone attributes it.

@@ -23,15 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 74
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 24.7
+rejected_reason: "low-speech"
 ---
 
 # WCS Swing in Springs Welcome Back 2021
 
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.
-
-Format not recognised from the title.
+Rejected: low-speech.

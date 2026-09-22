@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 117
 status: "published"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 137.6
 ---
 
 # What are your priorities for each division? 🏆
-
-Format not recognised from the title.

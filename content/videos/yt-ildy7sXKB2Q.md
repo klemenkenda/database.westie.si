@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: false
 transcript_words: 0
-status: "review"
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
 speech_wpm: 0.0
+rejected_reason: "no-transcript"
 ---
 
 # Kyle Sarah WCS Master Class 1 of 4
+
+Rejected: no-transcript.

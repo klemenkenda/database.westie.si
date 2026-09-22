@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 900
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 166.2
 ---
 
 # WCS Delayed Rhythm- Aris DeMarco Denver Wesries
-
-Creator not resolved from the title (best 0.16, weak-first-name). Authority is provisional until someone attributes it.

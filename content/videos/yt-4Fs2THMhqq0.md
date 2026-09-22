@@ -31,6 +31,7 @@ updated: "2026-09-22"
 generated: true
 rejected_reason: "competition"
 speech_wpm: 59.7
+transcript_checked: true
 ---
 
 # All Star JnJ Swingtime 2026

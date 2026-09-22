@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 17
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+rejected_reason: "low-speech"
+speech_wpm: 7.2
 ---
 
 # WCS Workshop Trevor Chelsea Open Whip to Leaders Basket
 
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.
+Rejected: low-speech.

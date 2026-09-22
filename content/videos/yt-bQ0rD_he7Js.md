@@ -23,6 +23,7 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: false
 transcript_words: 0
 status: "rejected"

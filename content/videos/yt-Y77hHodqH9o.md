@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: false
-status: "published"
+transcript_words: 0
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
+rejected_reason: "no-transcript"
 ---
 
 # Elevate - The Premier WCS Professional Summit - by Thibault & Nicole Ramirez
 
-Format not recognised from the title.
+Rejected: no-transcript.

@@ -23,13 +23,17 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
-status: "review"
+transcript_checked: true
+has_transcript: true
+transcript_words: 34
+status: "rejected"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 11.2
+rejected_reason: "low-speech"
 ---
 
 # WCS  Denver Westies Performance 5280
 
-Creator not resolved from the title (best 0.16, weak-pair). Authority is provisional until someone attributes it.
+Rejected: low-speech.

@@ -23,12 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
+transcript_checked: true
 has_transcript: true
 transcript_words: 1279
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 147.6
 ---
 
 # WCS BEN MORRIS   BLUES WCS MasterClass

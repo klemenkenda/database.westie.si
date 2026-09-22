@@ -11,8 +11,8 @@ url: "https://www.youtube.com/playlist?list=PLLnmuEfjwiSEMYEKU-u-unFaJkynIPY8P"
 default_creators: ["thibault", "nicole"]
 auto_publish: true
 demote: false
-last_sync: null
-known_videos: 0
+last_sync: "2026-09-22"
+known_videos: 8
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
@@ -20,6 +20,4 @@ generated: true
 
 # Learn West Coast Swing : The Complete Beginner Series
 
-Tracked YouTube playlist.
-
-Every video is attributed to thibault, nicole, set by hand.
+Tracked YouTube channel.

@@ -31,6 +31,7 @@ updated: "2026-09-22"
 generated: true
 rejected_reason: "competition"
 speech_wpm: 20.9
+transcript_checked: true
 ---
 
 # Swingtime INT Jack & Jill - Denver

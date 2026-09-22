@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 930
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 180.0
 ---
 
 # WCS Leaders Workshop ERIC & OSCAR SMS 2024
-
-Creator not resolved from the title (best 0.00, none). Authority is provisional until someone attributes it.
