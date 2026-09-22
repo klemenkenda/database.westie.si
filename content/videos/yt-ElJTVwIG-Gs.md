@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/ElJTVwIG-Gs"
 thumbnail_url: "https://img.youtube.com/vi/ElJTVwIG-Gs/hqdefault.jpg"
 title: "WCS Kyle Sarah - Lead Projection, Westie Whirlwind"
 description: "West Coast Swing champions Kyle Redd and Sarah Vann Drake taught this \"lead projection\" workshop for Westie Whirlwind Weekend event in Denver/Littleton.  They are simply awesome teachers! www.KyleSarah.com"
-creators: ["kyle", "sarah"]
+creators: ["kyle-redd", "sarah-vann-drake"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 689
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 164.7
 ---
 
 # WCS Kyle Sarah - Lead Projection, Westie Whirlwind
-
-Ingested from YouTube.

@@ -1,8 +1,8 @@
 ---
-id: "virginie-massart"
+id: "sarah-vann-drake"
 type: "creator"
-name: "Virginie Massart"
-aliases: ["Virginie"]
+name: "Sarah Vann Drake"
+aliases: ["Sarah"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,10 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Olivier Massart"]
-note: "Teaches with Olivier Massart. A second, different Virginie teaches with Maxence Martin."
+partners: ["Kyle Redd"]
 ---
 
-# Virginie Massart
+# Sarah Vann Drake
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/gogyZjhPMqQ"
 thumbnail_url: "https://img.youtube.com/vi/gogyZjhPMqQ/hqdefault.jpg"
 title: "WCS Workshop - Maxence Martin Desert City Swing 2023"
 description: "My first workshop with the inspirational Maxence Martin, did not disappoint with a classic Maxence type amazing move which was a hybrid of a sugar roll and reverse hip catch - plus some excellent drill moves to practice! So good! Assisted by Aymeline Felmy his lovely wife and WSDC All Star! Thank you Maxence - loved it!"
-creators: ["aymeline", "maxence"]
+creators: ["aymeline-felmy-martin", "maxence-martin"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -24,12 +24,12 @@ level: null
 concepts: []
 demoted: false
 has_transcript: false
+transcript_words: 0
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
 ---
 
 # WCS Workshop - Maxence Martin Desert City Swing 2023
-
-Ingested from YouTube.

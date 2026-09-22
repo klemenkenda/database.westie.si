@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/umPfjHlZOjI"
 thumbnail_url: "https://img.youtube.com/vi/umPfjHlZOjI/hqdefault.jpg"
 title: "WCS Workshop Joel & Chantelle TAP 2022"
 description: "Champion dancers Chantelle Pianetta and Joel Torgeson gave this awesome  West Coast Swing lesson focused on foot articulation, and quality of weight transfers.  Thank you to them and to TAPWCS 2022!"
-creators: ["chantelle", "joel"]
+creators: ["chantelle-pianetta", "joel-torgeson"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -24,12 +24,12 @@ level: null
 concepts: []
 demoted: false
 has_transcript: false
+transcript_words: 0
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
 ---
 
 # WCS Workshop Joel & Chantelle TAP 2022
-
-Ingested from YouTube.

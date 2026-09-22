@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/AyqR1_eWTGY"
 thumbnail_url: "https://img.youtube.com/vi/AyqR1_eWTGY/hqdefault.jpg"
 title: "WCS Workshop Hugo Miguez Stacy Kay"
 description: "WCS champions Hugo and Stacy ( www.HugoAndStacy.dance )taught this level-2 west coast swing lesson focusing on momentum variations and technique. at SwingTime 2018, Denver-Aurora.  I didn't get to attend this one, but arrived just in time to do video :-) !"
-creators: ["hugo", "stacy"]
+creators: ["hugo-miguez", "stacy-kay"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -23,13 +23,14 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+transcript_checked: true
+has_transcript: true
+transcript_words: 585
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 190.8
 ---
 
 # WCS Workshop Hugo Miguez Stacy Kay
-
-Ingested from YouTube.

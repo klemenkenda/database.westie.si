@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/sxn9YUb47SU"
 thumbnail_url: "https://img.youtube.com/vi/sxn9YUb47SU/hqdefault.jpg"
 title: "WCS Hugo Stacy - Footwork Theory"
 description: "Champion West Coast Swing dancers Hugo Miguez and Stacy Kay taught this workshop lesson in Colorado Springs hosted by Kayla Sloan KindredDanceAndEvents.com.  We were so lucky to have  Hugo & Stacy (and their cute doggy) in Colo Springs!  They have online tutorials at this link! https://districtdanceacademy.com/online-tutorials"
-creators: ["hugo", "stacy"]
+creators: ["hugo-miguez", "stacy-kay"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"
@@ -24,12 +24,12 @@ level: null
 concepts: []
 demoted: false
 has_transcript: false
+transcript_words: 0
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+speech_wpm: 0.0
 ---
 
 # WCS Hugo Stacy - Footwork Theory
-
-Ingested from YouTube.

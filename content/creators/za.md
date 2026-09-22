@@ -3,20 +3,20 @@ id: "za"
 type: "creator"
 name: "Za"
 aliases: []
-partners: ["Larissa"]
+partners: ["Larissa Tingle"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
-note: "Surname unknown. Teaches with: Larissa."
+note: "Surname unknown. Teaches with: Larissa Tingle."
 added: "2026-09-22"
 generated: true
 ---
 
 # Za
 
-Surname unknown. Teaches with: Larissa.
+Surname unknown. Teaches with: Larissa Tingle.

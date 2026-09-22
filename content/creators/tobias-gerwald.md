@@ -14,7 +14,7 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Christina", "Jasmin"]
+partners: ["Christina", "Jasmin Klee"]
 ---
 
 # Tobias Gerwald
