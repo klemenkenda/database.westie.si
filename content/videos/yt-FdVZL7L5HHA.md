@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/FdVZL7L5HHA"
 thumbnail_url: "https://img.youtube.com/vi/FdVZL7L5HHA/hqdefault.jpg"
 title: "WCS Ben Morris Workshop"
 description: "We were fortunate to have another WCS Master Class workshop weekend with Ben Morris, Champion West Coast Swing dancer in Denver, before Thanksgiving. This event included five workshops over two days. Thanks to Jonathan Prichard for organizing this event."
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

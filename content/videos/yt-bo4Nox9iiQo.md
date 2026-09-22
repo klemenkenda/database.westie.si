@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/bo4Nox9iiQo"
 thumbnail_url: "https://img.youtube.com/vi/bo4Nox9iiQo/hqdefault.jpg"
 title: "Overstreet   Ben Morris Musicality"
 description: "West Coast swing lesson from legendary WCS Champion Ben Morris on musicality - at Overstreet dance in Denver/Littleton - what a pleasure and privilege it was to be there! Thanks to Jonathan Prichard for organizing this event! Ben is such a great teacher! Wishing Happy birthday to his mom."
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

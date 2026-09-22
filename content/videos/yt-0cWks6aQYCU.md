@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/0cWks6aQYCU"
 thumbnail_url: "https://img.youtube.com/vi/0cWks6aQYCU/hqdefault.jpg"
 title: "WCS Workshop Ben Morris Creating Conversation"
 description: "This lesson was part of WCS MasterClass weekend with Ben Morris, Champion West Coast Swing dancer at Denver Turnverein. Thanks to Jonathan Prichard, SwingTime event Organizer. As always Ben Morris was masterful in managing a large class of multilevel students.   Thanks to Elizabeth Lizzy Spann for assisting!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"
@@ -23,7 +23,8 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+has_transcript: true
+transcript_words: 821
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
@@ -31,5 +32,3 @@ generated: true
 ---
 
 # WCS Workshop Ben Morris Creating Conversation
-
-Ingested from YouTube.

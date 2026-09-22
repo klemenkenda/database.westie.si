@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/xN5uc94WKDg"
 thumbnail_url: "https://img.youtube.com/vi/xN5uc94WKDg/hqdefault.jpg"
 title: "WCS Ben Morris  RIDES  WCS MasterClass"
 description: "Ben taught this West Coast Swing rides class at Colorado DanceSport for the BenMor workshop weekend hosted by Jonathan Prichard and his WCS MasterClass event in Littleton/Denver CO.  Always great bang for the buck and well worth it!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

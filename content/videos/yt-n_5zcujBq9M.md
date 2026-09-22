@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/n_5zcujBq9M"
 thumbnail_url: "https://img.youtube.com/vi/n_5zcujBq9M/hqdefault.jpg"
 title: "WCS Ben Morris Musicality  WCS MasterClass"
 description: "West Coast Swing champion Ben Morris taught this amazing musicality workshop intensive at Colorado DanceSport in Littleton CO. Ben again demonstrated his amazing ability to effectively communicate champion level knowledge and skill in a masterful way to one hundred students.  Thank you to Jonathan Priichard who made this BenMo workshop weekend event possible.  We are super lucky that Jonathan is both a Westie All Star, and an amazing event planner/director."
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

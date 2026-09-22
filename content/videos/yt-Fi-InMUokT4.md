@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/Fi-InMUokT4"
 thumbnail_url: "https://img.youtube.com/vi/Fi-InMUokT4/hqdefault.jpg"
 title: "WCS Champ SS Ben McH Victoria Henk 2ND Place"
 description: "West Coast Swing, Champions division, Strictly Swing contest at Swingtime 2022, Aurora/Denver  - Second Place: Ben McHenry with Victoria Henk"
-creators: ["ben", "victoria"]
+creators: ["ben-morris", "victoria-henk"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"

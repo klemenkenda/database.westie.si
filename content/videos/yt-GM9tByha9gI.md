@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/GM9tByha9gI"
 thumbnail_url: "https://img.youtube.com/vi/GM9tByha9gI/hqdefault.jpg"
 title: "WCS Ben Morris Workshop - Body Isolations"
 description: "This was 2nd hour in a 3-hour west coast swing lesson series at Overstreet Dance in Denver-Littleton CO, with Ben Morris!  Focus on body isolation movements. I loved these workshops!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

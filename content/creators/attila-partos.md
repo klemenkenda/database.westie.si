@@ -3,7 +3,7 @@ id: "attila-partos"
 type: "creator"
 name: "Attila Partos"
 aliases: []
-partners: ["Andrea Partos", "Lauren", "Stefanie Tschom"]
+partners: ["Andrea Partos", "Lauren Jones", "Stefanie Tschom"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null

@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/a6tIJ5wWp2k"
 thumbnail_url: "https://img.youtube.com/vi/a6tIJ5wWp2k/hqdefault.jpg"
 title: "WCS Workshop Ben Victoria 5280 Westival"
 description: "Good to see Ben and Victoria again! Level one West Coast Swing lesson with over a hundred dancers.  As always, masterful instruction, interesting and light hearted.  Consumate professionals all the way!  Thank you www.BenMorrisDance.com www.JackAndJillOrama.com."
-creators: ["ben", "victoria"]
+creators: ["ben-morris", "victoria-henk"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"

@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/W3p_C1RKrRk"
 thumbnail_url: "https://img.youtube.com/vi/W3p_C1RKrRk/hqdefault.jpg"
 title: "WCS Master Class Ben Morris - Starter Step"
 description: "Champion west coast swing dancer Ben Morris gave this workshop on starter steps for WCS Master Class hosted by Jonathan Prichard at Colorado DanceSport, Littleton/Denver CO.  A well taught class to a hundred dancers with super effectiveness.  Thanks to all who made it happen!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

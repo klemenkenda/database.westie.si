@@ -14,7 +14,7 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Ludovic", "Nana", "Savanna"]
+partners: ["Ludovic Pelegrin", "Nana", "Savana Barreau"]
 ---
 
 # Joao Parada

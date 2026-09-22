@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/W-ys0L05TCM"
 thumbnail_url: "https://img.youtube.com/vi/W-ys0L05TCM/hqdefault.jpg"
 title: "WCS BEN MORRIS   Mixing it up"
 description: "West Coast Swing Champ Ben Morris taught this workshop as part of a special WCS MasterClass weekend hosted by Jonathan Prichard, at Colorado DanceSport in Littleton/Denver.  It was great to be there in person! The class centered on best/creative ways leaders can respond to varying anchor positions of the follower."
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

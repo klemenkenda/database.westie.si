@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/WALD--5jJ1w"
 thumbnail_url: "https://img.youtube.com/vi/WALD--5jJ1w/hqdefault.jpg"
 title: "WCS Workshop - Ben Morris Communicating"
 description: "West Coast Swing Lesson by living legend WCS Champion Ben Morris at Overstreet Dance, Denver-Littleton CO.  What a good teacher and dancer he is - was awesome to be there!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

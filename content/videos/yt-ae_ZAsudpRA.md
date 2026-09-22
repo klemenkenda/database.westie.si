@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/ae_ZAsudpRA"
 thumbnail_url: "https://img.youtube.com/vi/ae_ZAsudpRA/hqdefault.jpg"
 title: "WCS Champions workshop Semion & Maria"
 description: "Semion Ovsiannikov & and Maria Elizarova taught a west coast swing workshop lesson in Denver/Golden, for Westie Fix, sponsored by 5280 Westival Haider Kahn and Aly Yorek. It was an excellent learning weekend with some top Denver area dancers! Check-out this interview with these two amazing WCS dancers:  https://www.youtube.com/watch?v=kyIEBZeJu6M&list=PLjNm-oJvsVqssKu1ydTVJlueflv88MCoH&index=3&t=212s"
-creators: ["maria", "semion"]
+creators: ["maria-elizarova", "semion-ovseniakov"]
 creator_source: "pair"
 creator_confidence: 0.6
 channel: "passionforwcs"

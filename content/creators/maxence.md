@@ -6,7 +6,7 @@ aliases: []
 partners: ["Aymeline", "Vigrinie"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false

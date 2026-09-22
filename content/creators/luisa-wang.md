@@ -1,8 +1,8 @@
 ---
-id: "florian-hamm"
+id: "luisa-wang"
 type: "creator"
-name: "Florian Hamm"
-aliases: ["Florian"]
+name: "Luisa Wang"
+aliases: ["Louisa"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Vanessa Bachmann"]
+partners: ["Tschen Fung Wang"]
 ---
 
-# Florian Hamm
+# Luisa Wang
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

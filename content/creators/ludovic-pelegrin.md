@@ -2,7 +2,7 @@
 id: "ludovic-pelegrin"
 type: "creator"
 name: "Ludovic Pelegrin"
-aliases: ["Ludo"]
+aliases: ["Ludo", "Ludovic"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,7 +14,7 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Irina Puzanova", "Karin Kakun"]
+partners: ["Irina Puzanova", "Joao Parada", "Karin Kakun"]
 ---
 
 # Ludovic Pelegrin

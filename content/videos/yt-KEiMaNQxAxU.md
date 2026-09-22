@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/KEiMaNQxAxU"
 thumbnail_url: "https://img.youtube.com/vi/KEiMaNQxAxU/hqdefault.jpg"
 title: "WCS BEN MORRIS   Colorado Dancesport"
 description: "West Coast Swing dance Champion Ben gave a intermediate/adv lesson at Colorado Dancesport Littleton-Denver - this was culmination of an awesome day of workshops with Ben which started at Overstreet. Thanks to Jonathan Prichard for ogranizing this event!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

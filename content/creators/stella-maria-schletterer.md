@@ -1,8 +1,8 @@
 ---
-id: "florian-hamm"
+id: "stella-maria-schletterer"
 type: "creator"
-name: "Florian Hamm"
-aliases: ["Florian"]
+name: "Stella Maria Schletterer"
+aliases: ["Stella"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Vanessa Bachmann"]
+partners: ["Attila Kobori"]
 ---
 
-# Florian Hamm
+# Stella Maria Schletterer
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

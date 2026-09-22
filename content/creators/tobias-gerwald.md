@@ -1,8 +1,8 @@
 ---
-id: "florian-hamm"
+id: "tobias-gerwald"
 type: "creator"
-name: "Florian Hamm"
-aliases: ["Florian"]
+name: "Tobias Gerwald"
+aliases: ["Tobi"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Vanessa Bachmann"]
+partners: ["Christina", "Jasmin"]
 ---
 
-# Florian Hamm
+# Tobias Gerwald
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

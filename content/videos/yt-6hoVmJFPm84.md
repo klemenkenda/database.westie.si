@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/6hoVmJFPm84"
 thumbnail_url: "https://img.youtube.com/vi/6hoVmJFPm84/hqdefault.jpg"
 title: "WCS BEN MORRIS   BLUES WCS MasterClass"
 description: "West Coast Swing Champion, taught this dancing to Blues music class at Colorado DanceSport for Jonathan Prichard's WCS MasterClass BenMo Workshop weekend. This lesson focused on swung rhythm, blues music, blues footwork and learning techniques. So worth it!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"
@@ -23,7 +23,8 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+has_transcript: true
+transcript_words: 1279
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
@@ -31,5 +32,3 @@ generated: true
 ---
 
 # WCS BEN MORRIS   BLUES WCS MasterClass
-
-Ingested from YouTube.

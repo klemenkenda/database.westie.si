@@ -3,7 +3,7 @@ id: "attila-kobori"
 type: "creator"
 name: "Attila Kobori"
 aliases: []
-partners: ["Stella"]
+partners: ["Stella Maria Schletterer"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null

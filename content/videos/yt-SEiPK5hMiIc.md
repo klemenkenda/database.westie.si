@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/SEiPK5hMiIc"
 thumbnail_url: "https://img.youtube.com/vi/SEiPK5hMiIc/hqdefault.jpg"
 title: "WCS Ben Morris & Lizzy Spann Improv dance"
 description: "Ben and Lizzy did an Improve demo performance at the Ben Morris Workshop weekend, Colorado DanceSport, hosted by the amazing Jonathan Prichard.  This was one of two dances Ben & Lizzy did for us that weekend.  What a great time, awesome event, as always so well organized by JP."
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

@@ -1,8 +1,8 @@
 ---
-id: "florian-hamm"
+id: "katarina-mursec"
 type: "creator"
-name: "Florian Hamm"
-aliases: ["Florian"]
+name: "Katarina Muršec"
+aliases: ["Katarina"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Vanessa Bachmann"]
+partners: ["Adrien Guesnel"]
 ---
 
-# Florian Hamm
+# Katarina Muršec
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

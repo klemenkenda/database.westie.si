@@ -3,20 +3,20 @@ id: "clara"
 type: "creator"
 name: "Clara"
 aliases: []
-partners: ["Markus"]
+partners: ["Markus Smith"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
-note: "Surname unknown. Teaches with: Markus."
+note: "Surname unknown. Teaches with: Markus Smith."
 added: "2026-09-22"
 generated: true
 ---
 
 # Clara
 
-Surname unknown. Teaches with: Markus.
+Surname unknown. Teaches with: Markus Smith.

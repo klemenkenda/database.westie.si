@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/_vJSwQ5QkdA"
 thumbnail_url: "https://img.youtube.com/vi/_vJSwQ5QkdA/hqdefault.jpg"
 title: "WCS Workshop Ben Morris Musicality Phrase Changes"
 description: "This lesson was part of WCS MasterClass weekend with Ben Morris, Champion West Coast Swing dancer at Denver Turnverein. Thanks to Jonathan Prichard, SwingTime event Organizer. As always Ben Morris was masterful in managing a large class of multilevel students.   Thanks to Elizabeth Lizzy Spann for assisting!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

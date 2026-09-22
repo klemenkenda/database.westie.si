@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/CZgU1iub1-4"
 thumbnail_url: "https://img.youtube.com/vi/CZgU1iub1-4/hqdefault.jpg"
 title: "WCS WORKSHOP Over-Rotation Ben Morris"
 description: "Champion Ben Morris taught this excellent West Coast Swing workshop at City of Angels 2024 in Los Angeles.  As always a masterful instructor with useful lessons."
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"
@@ -23,7 +23,8 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+has_transcript: true
+transcript_words: 492
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
@@ -31,5 +32,3 @@ generated: true
 ---
 
 # WCS WORKSHOP Over-Rotation Ben Morris
-
-Ingested from YouTube.

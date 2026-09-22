@@ -1,8 +1,8 @@
 ---
-id: "florian-hamm"
+id: "savana-barreau"
 type: "creator"
-name: "Florian Hamm"
-aliases: ["Florian"]
+name: "Savana Barreau"
+aliases: ["Savana", "Savanna"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
 wsdc: null
@@ -14,9 +14,9 @@ links: []
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: false
-partners: ["Vanessa Bachmann"]
+partners: ["Joao Parada"]
 ---
 
-# Florian Hamm
+# Savana Barreau
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.

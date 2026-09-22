@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/VC8MNGgPDpE"
 thumbnail_url: "https://img.youtube.com/vi/VC8MNGgPDpE/hqdefault.jpg"
 title: "WCS Ben Morris Lizzy Span Improv 2"
 description: "Sweet improv performance by Ben and Lizzy, at the Colorado DanceSport in Littleton/Denver, for the BenMo Workshop weekend hosted by the one and only Jonathan Prichard - kingpin of Colorado West Coast swing happeings!  Thanks Jonathan, Ben, and LIzzy you were awesome! :-)"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"

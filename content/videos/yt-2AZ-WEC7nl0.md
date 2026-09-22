@@ -8,7 +8,7 @@ embed_url: "https://www.youtube.com/embed/2AZ-WEC7nl0"
 thumbnail_url: "https://img.youtube.com/vi/2AZ-WEC7nl0/hqdefault.jpg"
 title: "WCS Ben Morris - Musicality"
 description: "Another amazingly-well instructed workshop by West Coast Swing champion Ben Morris, at the Colorado DanceSport event hosted by the amazing Jonathan Prichard, founder of WCSMasterClass.com. So lucky to be there in person!"
-creators: ["ben", "ben-morris"]
+creators: ["ben-morris"]
 creator_source: "full-name"
 creator_confidence: 0.9
 channel: "passionforwcs"
@@ -23,7 +23,8 @@ categories: []
 level: null
 concepts: []
 demoted: false
-has_transcript: false
+has_transcript: true
+transcript_words: 769
 status: "review"
 added: "2026-09-22"
 updated: "2026-09-22"
@@ -31,5 +32,3 @@ generated: true
 ---
 
 # WCS Ben Morris - Musicality
-
-Ingested from YouTube.

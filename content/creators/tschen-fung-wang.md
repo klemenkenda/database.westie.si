@@ -1,22 +1,22 @@
 ---
-id: "clem"
+id: "tschen-fung-wang"
 type: "creator"
-name: "Clem"
-aliases: ["Clement"]
+name: "Tschen Fung Wang"
+aliases: ["Tschen"]
 wsdc_id: null
 wsdc_status: "unconfirmed"
-wsdc:
+wsdc: null
 authority: null
 authority_override: null
 demote: false
 channels: []
 links: []
-note: "CHECK surname, and whether Clem or Clement"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+partners: ["Luisa Wang"]
 ---
 
-# Clem
+# Tschen Fung Wang
 
 No WSDC id confirmed yet. Authority is provisional until someone binds an id with `wsdc_sync.py confirm`.
