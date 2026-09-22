@@ -1,0 +1,64 @@
+# How results are ordered. Config, not code — tuning this should never need a deploy.
+#
+# The constants below are a first pass, written before there was a corpus to sort. They
+# are meant to be argued with once M3 has real videos in it.
+
+weights:
+  relevance: 1.00      # BM25 from the search index; 0 when browsing rather than searching
+  authority: 0.80      # the WSDC score below
+  votes: 0.50          # Wilson lower bound of up/(up+down), never the raw count
+  fit: 0.40            # level match + concept-edge weight x confidence
+  freshness: 0.10      # mild decay, ~5-year half-life
+
+# Authority from WSDC standing.
+#
+# Points are per division, taken as the max across the leader and follower record, and for
+# a couple as the max across the creators. A champion teaching with a less-titled partner
+# still ranks as a champion.
+#
+# A teacher with no WSDC record scores `unregistered`. That is the whole mechanism for
+# "not on the event scene" — an absence of competitive standing, which is precisely what
+# it is, and it needs no blocklist to maintain.
+authority:
+  divisions:
+    CHA: {base: 88, span: 12, per_point: 150}   # 88-100
+    ALS: {base: 70, span: 17, per_point: 120}   # 70-87
+    ADV: {base: 55, span: 14, per_point: 100}   # 55-69
+    INT: {base: 40, span: 14, per_point: 80}    # 40-54
+    NOV: {base: 25, span: 14, per_point: 60}    # 25-39
+    NEW: {base: 15, span: 8, per_point: 40}     # 15-23
+  registered_no_points: 12
+  unregistered: 8
+
+  # Competitive standing is a proxy for teaching quality, not the same thing. The vote
+  # weight above is deliberately high enough to move a video several places against a
+  # champion's authority, and `authority_override` on a creator record is the visible
+  # escape hatch for the rest.
+
+tiers:
+  # A hard sort tier, not a point penalty. Demoted material sorts after everything
+  # non-demoted regardless of score — still searchable, still surfaced when it is the only
+  # coverage of a concept, but always at the back.
+  demoted_always_last: true
+  hide_below_authority: 0      # 0 = never hide, only sort down
+
+penalties:
+  no_transcript: -0.05
+  unreviewed_classification: -0.10
+
+# How much a video may say about a concept it was only guessed to teach.
+classification:
+  publish_above: 0.75          # auto-publish an LLM edge above this confidence
+  review_below: 0.75           # anything lower goes to the review queue
+  reject_below: 0.30           # below this it is not worth a human's attention
+
+# What the corpus is allowed to conclude about the concept graph.
+#
+# Corroboration is weighted by authority for the same reason ranking is: a
+# Champions-division teacher sequencing Y before X is evidence, a content farm doing the
+# same is close to noise.
+corroboration:
+  min_videos: 5                # independent videos before an edge may be corroborated
+  min_authority: 55            # only ADV and up count as evidence
+  promote_above: 0.70          # co-occurrence rate that promotes imported -> corroborated
+  dispute_below: 0.10          # rate that marks an imported edge disputed instead

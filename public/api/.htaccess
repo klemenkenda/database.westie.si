@@ -1,0 +1,19 @@
+# Route every /api/... request to the front controller.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /api/
+
+  # Real files (config.php is deliberately excluded below) are served as-is.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^selftest\.php$ - [L]
+
+  RewriteRule ^(.*)$ index.php?_route=$1 [QSA,L]
+</IfModule>
+
+# Never serve the PHP sources or a local config as text if rewriting is off.
+<FilesMatch "^(config|config\.local)\.php$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+</IfModule>

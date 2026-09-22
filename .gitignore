@@ -1,0 +1,36 @@
+# Derived from content/ — rebuildable, never authoritative.
+content/.cache/
+content/.index/
+content/.transcripts/
+
+# Vote event log. Runtime state, not content.
+data/
+
+# Secrets. Never commit.
+public/api/config.local.php
+tools/client_secret*.json
+tools/token*.json
+.env
+.env.local
+
+# The built SPA. `npm run build` regenerates it into public/.
+public/_next/
+public/404.html
+public/index.html
+public/index.txt
+public/videos/
+public/concepts/
+public/creators/
+public/paths/
+public/search/
+
+# Node / Python
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+*.swp

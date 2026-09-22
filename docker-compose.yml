@@ -1,0 +1,65 @@
+# Local stack, shaped like the target host: Apache serves public/, and content/ sits
+# above the document root where HTTP cannot reach it.
+#
+#   docker compose up -d api          → API + exported site on http://localhost:8081
+#   docker compose run --rm test      → the API test suite against a live container
+#   docker compose up web             → Next.js dev server on http://localhost:3001
+#
+# The project is bind-mounted, so edits on the host are live and writes made through the
+# API land in the working tree — which is the point: content/ is the database.
+
+services:
+  api:
+    build: ./docker
+    container_name: westie-db-api
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      WESTIE_CONTENT_ROOT: /var/www/html/content
+      WESTIE_CORS_ORIGIN: "*"
+      # WESTIE_WRITE_TOKEN: set this to require a token for writes
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://localhost/api/health') ? 0 : 1);"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    image: node:22-alpine
+    container_name: westie-db-web
+    working_dir: /app
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./web:/app
+      - ./public:/public
+    environment:
+      NEXT_PUBLIC_API_BASE: http://localhost:8081/api
+    command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0"
+    depends_on:
+      - api
+
+  # One-shot helpers. `docker compose run --rm <name>`; not started by `up`.
+  test:
+    build: ./docker
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    environment:
+      WESTIE_API: http://api/api
+      WESTIE_CONTENT_ROOT: /var/www/html/content
+    command: php tools/api_test.php
+    depends_on:
+      - api
+    profiles: ["tools"]
+
+  build:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - ./web:/app
+      - ./public:/public
+    command: sh -c "npm install && npm run build"
+    profiles: ["tools"]
