@@ -3,8 +3,8 @@ id: "distance-management"
 type: "concept"
 title: "Distance management"
 category: "technique"
-level: 3
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["connection", "distance", "technique"]
 aliases: []
 related: []
@@ -23,6 +23,7 @@ verified_at: null
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Distance management

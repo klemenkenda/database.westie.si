@@ -5,24 +5,40 @@ title: "Sugar push"
 category: "pattern"
 level: 1
 level_trust: "imported"
-tags: ["compression", "fundamentals", "pattern"]
-aliases: []
+tags: ["compression", "foundation", "fundamentals", "pattern"]
+aliases: ["basic push", "push break"]
 related: []
 requires:
+  - id: "anchor-step"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "open-position"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "six-count-patterns"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
   - id: "stretch-and-compression"
-    origin: "import:teaching@2026-09-22"
-    trust: "imported"
-    confidence: 0.5
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
     strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "patterns"
 ---
 
 # Sugar push

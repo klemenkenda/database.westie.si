@@ -1,0 +1,597 @@
+# The West Coast Swing foundation — the hand-authored root of the knowledge graph.
+#
+# Everything else in content/concepts/ arrived by import and carries trust: imported,
+# which PLAN.md §5 is explicit about: unreviewed, shown as "suggested", never rendered
+# with the weight of a fact. This file is the opposite of that. It is short, it is written
+# by hand, and every edge in it is a claim someone is prepared to defend.
+#
+# Why a separate file rather than 30 more concept files: the graph needs an axis. The
+# import gave us 208 concepts averaging 1.2 prerequisites each, with 6 orphans and a
+# level-1 tier that is the thinnest of the four — a vocabulary of *moves* with no
+# vocabulary of *primitives* underneath it. `basic-whip` says it requires `anchor-step`;
+# nothing says the anchor requires being able to triple-step on your own centre. So the
+# ladder has no bottom rung, and a learning path generated from it starts halfway up.
+#
+# The foundation is that bottom rung. ~30 nodes, four tiers, each tier resting only on the
+# one below. tools/foundation.py applies it to content/concepts/ as a reviewable diff and
+# validates the result; the web studio at /graph renders coverage against it.
+#
+# The rule that makes this safe to re-run: this file only ever writes trust "verified"
+# edges, and it never deletes an edge it did not put there. An imported edge that happens
+# to disagree is kept and flagged as a conflict, because PLAN.md's import-is-a-diff
+# discipline applies to our own authoring too.
+
+id: "foundation"
+version: 2
+authored: "2026-09-22"
+author: "klemen"
+origin: "foundation@2026-09-22"
+trust: "verified"
+
+# The tiers form a DAG, not a ladder.
+#
+# The first attempt at this listed them in a line — self, music, partner, space, patterns —
+# and the validator immediately found two "violations" that were not violations: `pulse`
+# (self) needs `downbeat-and-upbeat` (music), and `open-position` (partner) needs
+# `the-slot` (space). Both edges are correct; the linear order was wrong. Self and music
+# are genuinely siblings, and the slot is a property of the floor that the partner
+# positions are defined against.
+#
+# So each tier declares which tiers it may draw on, and `depends: []` marks a base tier.
+# An edge is a violation only when it crosses into a tier the source tier does not declare.
+tiers:
+  - id: "self"
+    title: "Your own body"
+    depends: ["music"]
+    note: >
+      Solo competence. None of it involves a partner, and all of it is a prerequisite for
+      everything that does. This tier is entirely absent from the import, which is the
+      single biggest hole in the graph. It reaches into music for one edge only — the
+      pulse needs a beat to settle into.
+  - id: "music"
+    title: "The music"
+    depends: ["self"]
+    note: >
+      Hearing the beat and the phrase. Mutually entangled with the self tier rather than
+      above or below it: you can clap a phrase without standing up, but you cannot triple
+      step without a beat. The two tiers may draw on each other; the concept-level DAG is
+      what actually prevents a circle, and it is checked separately.
+  - id: "partner"
+    title: "The partnership"
+    depends: ["self", "music", "space"]
+    note: >
+      Where two bodies become a system: roles, handholds, frame, the two positions, and
+      the elastic connection that carries information between them.
+  - id: "space"
+    title: "The slot and the floor"
+    depends: ["self", "music", "partner"]
+    note: >
+      Where the dance happens, and the etiquette of sharing it. Draws on the partner tier
+      only for the fact that there are two of you in it, and on music for `direction-on-1`,
+      which is a claim about a specific beat.
+  - id: "patterns"
+    title: "The basic patterns"
+    depends: ["self", "music", "partner", "space"]
+    note: >
+      The six figures every WCS syllabus opens with. They are the *output* of the four
+      tiers above, which is exactly why filing them as level 1 with one prerequisite each
+      understates what they rest on.
+
+# ---------------------------------------------------------------------------- concepts
+#
+# `new: true` means this file is responsible for creating it. Anything without that flag
+# already exists in content/concepts/ and we only adjust its edges, level and aliases —
+# never its body text, which may have been written by hand.
+#
+# `level: 0` is deliberate and new. The imported scale starts at 1 = beginner, but the
+# self and music tiers are not beginner *material*, they are what a beginner is standing
+# on before the first pattern. Collapsing them into level 1 would put "have a pulse" and
+# "dance a whip" on the same rung, which is the levelling error the audit already finds
+# four instances of. taxonomy.md gets 0 added to `levels`.
+
+concepts:
+  # ------------------------------------------------------------------- tier: self
+  - id: "posture-and-alignment"
+    title: "Posture and alignment"
+    tier: "self"
+    level: 0
+    category: "technique"
+    new: true
+    aliases: ["posture", "alignment", "stacked posture"]
+    requires: []
+    summary: >
+      Ribs over hips over feet, shoulders down and back, head over the spine. Everything
+      downstream is a claim about where your weight is, and none of those claims mean
+      anything if the skeleton carrying the weight is collapsed or braced.
+
+  - id: "balance-and-center"
+    title: "Balance and centre"
+    tier: "self"
+    level: 0
+    category: "technique"
+    new: true
+    aliases: ["centre", "center", "balance", "own axis", "centre of mass"]
+    requires: ["posture-and-alignment"]
+    summary: >
+      Being able to stand, move and stop on your own axis without using your partner for
+      support. The whole of the connection tier assumes both dancers are self-supporting;
+      a dancer who is not turns every stretch into a tug of war.
+
+  - id: "weight-transfer"
+    tier: "self"
+    level: 0
+    category: "technique"
+    requires: ["balance-and-center"]
+    summary: >
+      Committing fully from one foot to the other. Imported at level 2 requiring
+      `body-lead-and-frame`, which is backwards: you learn to change weight before you
+      learn to lead with the change. This file re-parents it onto the self tier.
+    replaces_requires: ["body-lead-and-frame"]
+
+  - id: "walking-steps"
+    title: "Walking steps"
+    tier: "self"
+    level: 0
+    category: "footwork"
+    new: true
+    aliases: ["walks", "walking", "single steps"]
+    requires: ["weight-transfer"]
+    summary: >
+      Travelling on single weight changes, heel-to-toe, with the body arriving with the
+      foot rather than after it. Counts 1 and 2 of every six-count pattern are walks, and
+      most "my anchor feels rushed" problems are walking problems two beats earlier.
+
+  - id: "pulse"
+    title: "Pulse"
+    tier: "self"
+    level: 0
+    category: "technique"
+    new: true
+    aliases: ["bounce", "down beat pulse", "body pulse", "groove"]
+    requires: ["balance-and-center", "downbeat-and-upbeat"]
+    summary: >
+      A continuous vertical settling into each beat, driven from the standing leg rather
+      than bobbing from the shoulders. It is what makes WCS read as a swing dance instead
+      of a walked pattern, and it is the carrier signal that syncopations and delays are
+      played against.
+
+  - id: "triple-step"
+    title: "Triple step"
+    tier: "self"
+    level: 0
+    category: "footwork"
+    new: true
+    aliases: ["triple", "triple-steps", "&a3", "3&4"]
+    requires: ["walking-steps", "pulse"]
+    summary: >
+      Three weight changes in two beats, counted "3 & 4". The unit that every WCS pattern
+      is assembled from — six-count is walk-walk-triple-triple, eight-count adds a third
+      triple. Taught as footwork, but it is really a timing skill.
+
+  - id: "turnout"
+    tier: "self"
+    level: 0
+    category: "footwork"
+    requires: ["posture-and-alignment", "balance-and-center"]
+    summary: >
+      Rotation from the hip rather than the knee or the ankle. One of the six orphans in
+      the audit — no edge in either direction — which is what happens to a genuine
+      primitive when the graph has no primitive tier to attach it to.
+
+  - id: "relaxed-arms-and-shoulders"
+    tier: "self"
+    level: 0
+    category: "technique"
+    requires: ["posture-and-alignment"]
+    summary: >
+      Arms heavy and shoulders down, so the arm transmits the body's movement instead of
+      generating movement of its own. Also an orphan in the import, for the same reason.
+
+  # ------------------------------------------------------------------ tier: music
+  - id: "downbeat-and-upbeat"
+    tier: "music"
+    level: 0
+    category: "musicality"
+    requires: []
+    summary: >
+      Finding beat 1 and hearing the difference between the strong and weak beat. An
+      orphan in the import despite being the thing every other musicality concept needs
+      first.
+
+  - id: "rolling-count"
+    title: "Rolling count"
+    tier: "music"
+    level: 0
+    category: "musicality"
+    new: true
+    aliases: ["swung eighths", "rolling triple", "&a count", "1 & a 2"]
+    requires: ["downbeat-and-upbeat", "pulse"]
+    summary: >
+      The uneven "1 & a 2" subdivision that swing music is actually played in, as opposed
+      to the even count a beginner class teaches. Existing `swung-rhythm` covers the
+      musical side; this is the counting vocabulary that makes triples land in the pocket.
+
+  - id: "wcs-basic-rhythm"
+    tier: "music"
+    level: 1
+    category: "technique"
+    requires: ["triple-step", "downbeat-and-upbeat"]
+    summary: >
+      The six-count rhythm unit — 1, 2, 3&4, 5&6. Imported with no prerequisites at all,
+      which made it the de facto root of the whole graph: 30-odd concepts hang off it and
+      it hangs off nothing. Now it rests on the two things it is made of.
+
+  - id: "eight-count-rhythm"
+    tier: "music"
+    level: 1
+    category: "technique"
+    requires: ["wcs-basic-rhythm"]
+    summary: >
+      1, 2, 3&4, 5, 6, 7&8. Correctly filed in the import; listed here so the tier is
+      complete rather than because it needs fixing.
+
+  - id: "basic-music-structure"
+    tier: "music"
+    level: 1
+    category: "musicality"
+    requires: ["downbeat-and-upbeat"]
+    summary: >
+      Bars, eights, and the 32-bar phrase. Imported requiring `wcs-basic-rhythm`, which
+      is a category error — hearing a phrase is not downstream of a footwork rhythm. This
+      file re-parents it onto the beat instead.
+    replaces_requires: ["wcs-basic-rhythm"]
+
+  # ---------------------------------------------------------------- tier: partner
+  - id: "roles-lead-follow"
+    title: "Leader and follower roles"
+    tier: "partner"
+    level: 0
+    category: "partnerwork"
+    new: true
+    aliases: ["roles", "lead and follow", "leader and follower", "lead-follow"]
+    requires: ["balance-and-center"]
+    summary: >
+      What each role is responsible for: the leader proposes and clears space, the
+      follower completes the pattern and owns their own balance while doing it. Stated
+      once, at the bottom, so that "the leader does X" further up has something to refer
+      to. Absent from the import entirely.
+
+  - id: "basic-handholds"
+    tier: "partner"
+    level: 0
+    category: "technique"
+    requires: ["relaxed-arms-and-shoulders", "roles-lead-follow"]
+    summary: >
+      Left-to-right hand hold, two-hand hold, and the hook grip — what the fingers do and
+      what they must not do. The third orphan in the audit.
+
+  - id: "frame"
+    title: "Frame"
+    tier: "partner"
+    level: 0
+    category: "connection"
+    new: true
+    aliases: ["arm frame", "connection frame", "tone"]
+    requires: ["basic-handholds", "posture-and-alignment"]
+    summary: >
+      A constant arm tone that neither collapses nor pushes, so the distance between the
+      hands changes only when a body moves. The precondition for connection meaning
+      anything: existing `body-lead-and-frame` is the *skill of leading through* a frame,
+      and it needs the frame itself to exist first.
+
+  - id: "open-position"
+    title: "Open position"
+    tier: "partner"
+    level: 0
+    category: "connection"
+    new: true
+    aliases: ["one hand open", "open"]
+    requires: ["frame", "the-slot"]
+    summary: >
+      Facing your partner down the slot in a one-handed hold at arm's length. Four of the
+      six basics start and end here, and the import never names it — `closed-position`
+      exists with nothing on the other side of the pair.
+
+  - id: "stretch-and-compression"
+    tier: "partner"
+    level: 1
+    category: "connection"
+    requires: ["frame", "balance-and-center"]
+    summary: >
+      The elastic connection: stretch as the bodies move apart, compression as they move
+      together, and the information both carry. Imported with no prerequisites, which
+      makes it a second false root — 8 concepts depend on it and it depended on nothing.
+
+  - id: "closed-position"
+    tier: "partner"
+    level: 1
+    category: "connection"
+    requires: ["frame", "open-position"]
+    summary: >
+      Both hands, bodies offset, the leader's right hand on the follower's back. Imported
+      requiring only `stretch-and-compression`; the missing edge is to `open-position`,
+      which you pass through to get here.
+    adds_requires: true
+
+  - id: "body-lead-and-frame"
+    tier: "partner"
+    level: 2
+    category: "technique"
+    requires: ["frame", "weight-transfer", "projection"]
+    summary: >
+      Moving your partner by moving your centre, with the frame merely transmitting it.
+      Imported requiring `projection` alone. Keeps its level 2 — unlike the rest of this
+      tier it genuinely is a skill rather than a primitive.
+    adds_requires: true
+
+  - id: "adapting-to-partners"
+    tier: "partner"
+    level: 1
+    category: "partnerwork"
+    requires: ["roles-lead-follow", "stretch-and-compression"]
+    summary: >
+      Reading how much stretch, tone and range the person in front of you actually wants.
+      The fourth orphan, and the one most obviously downstream of the role definition.
+
+  # ------------------------------------------------------------------ tier: space
+  - id: "the-slot"
+    tier: "space"
+    level: 0
+    category: "technique"
+    requires: ["walking-steps"]
+    summary: >
+      The narrow rectangle the follower travels along and the leader steps out of.
+      Imported as a root; it is really the first thing you do with walks once there are
+      two of you.
+
+  - id: "direction-on-1"
+    tier: "space"
+    level: 1
+    category: "technique"
+    requires: ["the-slot", "wcs-basic-rhythm", "roles-lead-follow"]
+    summary: >
+      Setting the direction of the pattern on the first beat, before any rotation. Kept as
+      imported, with the role edge added.
+    adds_requires: true
+
+  - id: "floorcraft"
+    tier: "space"
+    level: 1
+    category: "partnerwork"
+    requires: ["the-slot", "social-dance-etiquette"]
+    summary: >
+      Not colliding: seeing the floor, shortening a pattern, and yielding the slot.
+    adds_requires: true
+
+  - id: "social-dance-etiquette"
+    tier: "space"
+    level: 0
+    category: "partnerwork"
+    requires: ["roles-lead-follow"]
+    summary: >
+      Asking, accepting, declining, hygiene, and ending a dance. An orphan in the import
+      alongside `asking-and-declining-dances`, which is a near-duplicate of it — flagged
+      for a merge decision rather than merged here, because merging is destructive.
+
+  - id: "asking-and-declining-dances"
+    tier: "space"
+    level: 0
+    category: "partnerwork"
+    requires: ["social-dance-etiquette"]
+    summary: >
+      Kept as its own node but placed under etiquette. A candidate merge, not a merge.
+
+  # --------------------------------------------------------------- tier: patterns
+  - id: "starter-step"
+    tier: "patterns"
+    level: 1
+    category: "technique"
+    requires: ["wcs-basic-rhythm", "open-position", "pulse"]
+    summary: >
+      Getting into the dance on the beat, from a standing start. Imported requiring the
+      rhythm only.
+    adds_requires: true
+
+  - id: "anchor-step"
+    tier: "patterns"
+    level: 1
+    category: "technique"
+    requires: ["triple-step", "wcs-basic-rhythm", "stretch-and-compression", "the-slot"]
+    summary: >
+      The anchored triple that ends every pattern, holding the elastic connection while
+      the feet stay behind the centre. Imported with a single prerequisite; it is the most
+      load-bearing concept in the dance and needs all four.
+    adds_requires: true
+
+  - id: "pattern-structure"
+    tier: "patterns"
+    level: 1
+    category: "technique"
+    requires: ["anchor-step", "wcs-basic-rhythm", "eight-count-rhythm"]
+    summary: >
+      How a pattern is built: an entry, a middle, and an anchor, in six or eight counts.
+    adds_requires: true
+
+  - id: "six-count-patterns"
+    title: "Six-count patterns"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    new: true
+    aliases: ["6-count", "six count", "6 count patterns"]
+    requires: ["pattern-structure", "wcs-basic-rhythm"]
+    summary: >
+      The family node for everything counted 1, 2, 3&4, 5&6 — sugar push, left side pass,
+      underarm pass, tuck turn. A grouping the import has no vocabulary for, which is why
+      `pattern` holds 74 concepts flat while `turns` holds 4.
+
+  - id: "eight-count-patterns"
+    title: "Eight-count patterns"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    new: true
+    aliases: ["8-count", "eight count", "whips"]
+    requires: ["pattern-structure", "eight-count-rhythm"]
+    summary: >
+      The family node for the whip family and everything else counted to eight.
+
+  - id: "sugar-push"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    aliases: ["push break", "basic push"]
+    requires: ["six-count-patterns", "stretch-and-compression", "anchor-step", "open-position"]
+    summary: >
+      The compression pattern, and the first of the six basics. Imported requiring
+      `stretch-and-compression` alone — no anchor, no rhythm, no position.
+    adds_requires: true
+
+  - id: "left-side-pass"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    aliases: ["left side pass", "lsp"]
+    requires: ["six-count-patterns", "anchor-step", "open-position", "leader-clears-the-slot"]
+    summary: >
+      The follower passes on the leader's left. The pattern that teaches slot discipline.
+    adds_requires: true
+
+  - id: "underarm-pass"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    aliases: ["underarm", "left side pass underarm"]
+    requires: ["six-count-patterns", "left-side-pass", "basic-handholds"]
+    summary: >
+      A left side pass under a raised arm.
+    adds_requires: true
+
+  - id: "right-side-pass"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    aliases: ["right side pass", "rsp"]
+    requires: ["six-count-patterns", "anchor-step", "left-side-pass"]
+    summary: >
+      The follower passes on the leader's right, with the leader crossing the slot.
+    adds_requires: true
+
+  - id: "sugar-tuck"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    aliases: ["tuck turn", "tuck", "sugar tuck", "push break with tuck"]
+    requires: ["six-count-patterns", "sugar-push", "turnout"]
+    summary: >
+      A sugar push with a compression-led inside turn. The alias list matters here more
+      than the edges: "tuck turn" and "sugar tuck" are the same figure under two names,
+      and without the alias half the corpus never matches.
+    adds_requires: true
+
+  - id: "basic-whip"
+    tier: "patterns"
+    level: 1
+    category: "pattern"
+    aliases: ["whip", "basic whip", "8-count whip"]
+    requires: ["eight-count-patterns", "closed-position", "anchor-step", "j-hook", "turnout"]
+    summary: >
+      The eight-count rotational pattern, and the gateway to about 30 concepts downstream.
+      Imported at level 1 alongside the six-count basics, which is the one levelling call
+      in this file I would expect an argument about — most syllabuses put the whip a tier
+      above the passes. Left at 1 to match the import, flagged as `debatable`.
+    debatable: "level"
+
+# --------------------------------------------------------------------------- relevels
+#
+# The four level inversions the audit has reported since day one, fixed at the component
+# rather than the compound.
+#
+# PLAN.md reads three of them as "a compound move filed below its own component". Having
+# now looked at each: the compound levels are right and the *component* levels are wrong.
+# `acceleration` sits at L4 while three separate concepts that are applications of it sit
+# at L2 and L3 — a primitive cannot be harder than every use of it. Same for
+# `kick-ball-change` at L4 under `kick-ball-change-1-2` at L3. Raising the compounds would
+# silence the check by pushing four concepts to L4 and making the advanced tier even more
+# top-heavy than the 57% it already is; lowering the component fixes the actual error.
+#
+# The fourth is the opposite case and is a genuine compound error: `playing-with-handholds`
+# is L1 but needs `body-lead-and-frame` (L2) and `pattern-structure`. Playing with a
+# handhold is not a beginner's first week, so the compound moves up.
+#
+# Each entry states its reasoning, because a levelling change with no argument attached is
+# indistinguishable from the unreviewed pass that produced these in the first place.
+
+relevels:
+  - id: "acceleration"
+    from: 4
+    to: 2
+    reason: >
+      A primitive, not an advanced trick. Three concepts that apply it
+      (`left-side-pass-acceleration` L2, `acceleration-into-whip` L3, and the whip
+      variations below them) all sit lower, which is only possible if the component's
+      level is wrong. L2 is the highest level that clears every dependent.
+  - id: "kick-ball-change"
+    from: 4
+    to: 2
+    reason: >
+      A footwork unit borrowed from jazz and taught early as styling. `kick-ball-change-1-2`
+      at L3 is an application of it. Categorised as `styling`, which is right; the level was
+      not.
+  - id: "playing-with-handholds"
+    from: 1
+    to: 2
+    reason: >
+      The one true compound error of the four. It requires `body-lead-and-frame` (L2) and
+      `pattern-structure`, so it cannot be a level 1. Moves up to match what it rests on
+      rather than dragging its prerequisites down.
+
+  # The next layer down, surfaced by the two relevels above rather than by the original
+  # audit. Lowering `acceleration` and `kick-ball-change` to L2 exposed that each requires
+  # something still filed at L3, so the same error runs one level deeper than the first
+  # pass could see. That is the check doing its job: fixing an inversion is expected to
+  # reveal the next one, and stopping at the four the audit happened to name first would
+  # have left the ladder just as broken one rung down.
+  - id: "distance-management"
+    from: 3
+    to: 2
+    reason: >
+      Knowing how far apart to be is a prerequisite of `acceleration`, not an advanced
+      topic on its own. A primitive under an L2 concept cannot be L3.
+  - id: "rolling-feet"
+    from: 3
+    to: 1
+    reason: >
+      Heel-to-toe weight rolling is week-one footwork and belongs with `walking-steps`,
+      which is exactly why `kick-ball-change` depends on it. L3 was never defensible.
+
+# ------------------------------------------------------------------------- expectations
+#
+# Assertions the validator checks after applying. These are the properties that make the
+# graph usable, written down so a regression is a failure rather than a surprise.
+
+expects:
+  # The two things nothing may rest on. `posture-and-alignment` because every claim about
+  # weight presupposes a skeleton to carry it, and `downbeat-and-upbeat` because every
+  # claim about timing presupposes a beat. Every one of the 219 concepts must walk down to
+  # one of these two; `every_concept_reaches_a_root` is what enforces it, and it is the
+  # single most valuable assertion here — it went from 207 failures to 0 and it is what
+  # turns the graph from a pile of patterns into something a learning path can traverse.
+  roots: ["posture-and-alignment", "downbeat-and-upbeat"]
+
+  no_cycles: true
+  no_dangling: true
+  no_level_inversions: true
+  no_orphans: true
+  every_concept_reaches_a_root: true
+
+  # Density is measured inside the foundation only.
+  #
+  # The first version asserted 1.6 across all 219 concepts and failed at 1.43 — but that
+  # number is 90% a property of the 182 concepts the foundation does not touch. Failing
+  # the foundation for the import's sparsity makes the check unactionable: there is no
+  # edit to this file that fixes it, so the only way to green is to weaken the threshold,
+  # which is how a check becomes decoration. The foundation asserts what it controls, and
+  # global density is reported as a tracked number instead.
+  min_foundation_density: 2.0
+  track_global_density: true

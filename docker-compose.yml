@@ -55,11 +55,27 @@ services:
       - api
     profiles: ["tools"]
 
+  # Build the site and publish it into the document root in one step.
+  #
+  # `npm run build` alone is not enough: it writes web/out/, and Apache serves public/. A
+  # build without the publish looks successful and changes nothing about what
+  # localhost:8081 returns, which is a confusing failure to debug. So the two are one
+  # command, and publish_site.py refuses to touch public/api/.
   build:
     image: node:22-alpine
     working_dir: /app
     volumes:
       - ./web:/app
       - ./public:/public
-    command: sh -c "npm install && npm run build"
+      - ./tools:/tools
+    # The delete step names what it *keeps* rather than what it removes. Listing the
+    # export's own directories to delete means every new route added later silently stops
+    # being cleaned, and a renamed page lingers at its old URL — the exact bug
+    # publish_site.py's KEEP set exists to prevent. Same rule, expressed in shell.
+    command: >
+      sh -c "npm install --no-audit --no-fund &&
+             npm run build &&
+             find /public -mindepth 1 -maxdepth 1 -not -name api -exec rm -rf {} + &&
+             cp -a out/. /public/ &&
+             echo 'published to public/ — public/api/ untouched'"
     profiles: ["tools"]

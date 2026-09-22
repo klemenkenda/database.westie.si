@@ -3,8 +3,8 @@ id: "acceleration"
 type: "concept"
 title: "Acceleration in WCS"
 category: "technique"
-level: 4
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["acceleration", "blw", "body-lead", "dynamics", "timing"]
 aliases: []
 related: []
@@ -28,6 +28,7 @@ verified_at: null
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Acceleration in WCS

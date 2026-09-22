@@ -49,7 +49,7 @@ VIDEO_KEYS = [
     "title", "description", "creators", "creator_source", "creator_confidence",
     "channel", "published", "duration_s", "view_count", "language",
     "format", "format_source", "role", "categories", "level", "level_range",
-    "concepts", "demoted", "has_transcript", "transcript_words",
+    "concepts", "demoted", "transcript_checked", "has_transcript", "transcript_words",
     "status", "added", "updated", "generated",
 ]
 
@@ -65,8 +65,11 @@ CHANNEL_KEYS = [
 # filed "Gary McIntyre & Susan Kirklin taught this workshop at Colorado Swing Classic" as
 # competition footage. An event name is not a format.
 COMPETITION = re.compile(
-    r"\b(j\s*&\s*j|jnj|jack\s*(&|and)\s*jill|strictly|prelims?|semi[- ]?finals?|finals?|"
-    r"invitational|routine division)\b", re.I)
+    r"\b(j\s*&\s*j|jnj|jack\s*(&|and)\s*jill|jack\s*n\s*jill|strictly|prelims?|"
+    r"semi[- ]?finals?|finals|invitational|routine division)\b", re.I)
+# `finals` is plural on purpose. The singular caught "Final session for our Online
+# Community" -- a lesson, not a heat. A genuine "Jack & Jill Final" still matches on the
+# J&J cue, so the plural loses nothing.
 
 # Teaching cues. Checked in the description too, since that is where "taught this
 # workshop" usually lives.
@@ -550,34 +553,54 @@ def cmd_transcripts(args) -> int:
         print("every video already has a transcript, or none need one")
         return 0
     print("fetching captions for %d video(s)" % len(todo))
-    got, missing = 0, 0
+    got, missing, failed = 0, 0, []
     for key in todo:
-        video = videos[key]
-        # A `sync --refresh` rewrites the video record and clears has_transcript, but the
-        # captions themselves are still on disk. Re-downloading them would be a request to
-        # YouTube for something we already have.
-        cached = os.path.join(TRANSCRIPTS, video["youtube_id"] + ".json")
-        if os.path.isfile(cached) and not args.force:
-            import json as _json
-            with open(cached, encoding="utf-8") as fh:
-                record = _json.load(fh)
-        else:
-            record = youtube.captions(video["youtube_id"], TRANSCRIPTS)
-        if record:
-            video["has_transcript"] = True
-            video["transcript_words"] = record["words"]
-            got += 1
-            print("  %-16s %5d words" % (key, record["words"]))
-        else:
-            video["has_transcript"] = False
-            video["transcript_words"] = 0
-            missing += 1
-            print("  %-16s none" % key)
-        write(VIDEOS, key, video, "# %s\n" % video.get("title", key), VIDEO_KEYS)
-    print("\n%d with captions, %d without." % (got, missing))
+        try:
+            got, missing = _fetch_one(key, videos[key], args, got, missing)
+        except (OSError, youtube.YoutubeError) as exc:
+            # One unreadable record must not cost the rest of the pass. It stays unchecked,
+            # so prune keeps its hands off it and the next run picks it up again.
+            failed.append(key)
+            print("  %-16s FAILED %s" % (key, exc))
+    print("\n%d with captions, %d without, %d failed." % (got, missing, len(failed)))
+    if failed:
+        print("still unchecked: %s" % ", ".join(failed[:20]))
+        print("Run `transcripts` again to retry them.")
     print("Dance video is mostly music and demonstration, so a thin transcript is normal")
     print("and competition footage often has none. Nothing downstream may assume one.")
     return 0
+
+
+def _fetch_one(key: str, video: dict, args, got: int, missing: int) -> tuple[int, int]:
+    """Fetch one video's captions and record the answer. Returns the updated counters."""
+    # A `sync --refresh` rewrites the video record and clears has_transcript, but the
+    # captions themselves are still on disk. Re-downloading them would be a request to
+    # YouTube for something we already have.
+    cached = os.path.join(TRANSCRIPTS, video["youtube_id"] + ".json")
+    if os.path.isfile(cached) and not args.force:
+        import json as _json
+        with open(cached, encoding="utf-8") as fh:
+            record = _json.load(fh)
+    else:
+        record = youtube.captions(video["youtube_id"], TRANSCRIPTS)
+    # Either way we have now *looked*, and that is a different fact from the answer.
+    # Without this flag a freshly ingested video is indistinguishable from one checked
+    # and found to have no captions, and prune would throw out the whole un-fetched
+    # backlog under the no-transcript rule. Same distinction as WSDC `unconfirmed`
+    # versus `none`: "not checked yet" is not "checked and absent".
+    video["transcript_checked"] = True
+    if record:
+        video["has_transcript"] = True
+        video["transcript_words"] = record["words"]
+        got += 1
+        print("  %-16s %5d words" % (key, record["words"]))
+    else:
+        video["has_transcript"] = False
+        video["transcript_words"] = 0
+        missing += 1
+        print("  %-16s none" % key)
+    write(VIDEOS, key, video, "# %s\n" % video.get("title", key), VIDEO_KEYS)
+    return got, missing
 
 
 LEDGER = os.path.join(CONTENT, "rejected.md")
@@ -636,8 +659,12 @@ def cmd_prune(args) -> int:
     """
     videos = read_all(VIDEOS)
     ledger = read_ledger()
+    delete_rules = {r.strip() for r in (args.rules or "").split(",") if r.strip()}
+    unknown = delete_rules - {"competition", "no-transcript", "low-speech"}
+    if unknown:
+        raise SystemExit("unknown rule(s): %s" % ", ".join(sorted(unknown)))
     rejected: dict[str, list] = {"competition": [], "no-transcript": [], "low-speech": []}
-    kept, deleted = [], []
+    kept, deleted, unchecked = [], [], []
 
     for key, video in sorted(videos.items()):
         if video.get("status") == "rejected" and not args.recheck:
@@ -645,9 +672,15 @@ def cmd_prune(args) -> int:
         words = int(video.get("transcript_words") or 0)
         duration = int(video.get("duration_s") or 0)
         wpm = speech_rate(words, duration)
+        checked = bool(video.get("transcript_checked"))
         reason = None
         if COMPETITION.search(video.get("title") or ""):
             reason = "competition"
+        elif not checked:
+            # Nobody has fetched captions for this one yet. `transcript_words: 0` here
+            # means "unknown", not "none", and the two rules below both read it as "none".
+            # Leave it alone and say so; `transcripts` then makes the answer real.
+            unchecked.append((key, video.get("title", "")[:52]))
         elif words == 0:
             reason = "no-transcript"
         elif wpm < args.min_wpm:
@@ -655,7 +688,20 @@ def cmd_prune(args) -> int:
 
         if reason:
             rejected[reason].append((key, video.get("title", "")[:52], wpm))
-            if not args.dry_run:
+            if args.delete and reason in delete_rules and not args.dry_run:
+                path = os.path.join(VIDEOS, key + ".md")
+                if os.path.isfile(path):
+                    os.remove(path)
+                vid = video.get("youtube_id") or video.get("id") or key
+                ledger[vid] = {
+                    "id": vid,
+                    "key": key,
+                    "title": video.get("title", ""),
+                    "reason": reason,
+                    "removed": _dt.date.today().isoformat(),
+                }
+                deleted.append(key)
+            elif not args.dry_run:
                 video["status"] = "rejected"
                 video["rejected_reason"] = reason
                 video["speech_wpm"] = wpm
@@ -676,12 +722,18 @@ def cmd_prune(args) -> int:
         write_ledger(ledger)
 
     total = sum(len(v) for v in rejected.values())
+    if unchecked:
+        print("%d video(s) have no captions fetched yet. The transcript rules cannot speak"
+              % len(unchecked))
+        print("about them, so they were left alone. Run `transcripts`, then prune again.\n")
     verb = ("would " + ("delete" if args.delete else "reject")) if args.dry_run         else ("deleted" if args.delete else "rejected")
     print("%s %d of %d video(s)\n" % (verb, total, len(videos)))
     for reason, rows in rejected.items():
         if not rows:
             continue
-        print("%s (%d):" % (reason, len(rows)))
+        fate = ("deleted" if not args.dry_run else "would be deleted") \
+            if (args.delete and reason in delete_rules) else "marked, kept on disk"
+        print("%s (%d) -- %s:" % (reason, len(rows), fate))
         for key, title, wpm in rows:
             print("    %-16s %-52s %5.0f wpm" % (key, title, wpm))
         print()
@@ -727,6 +779,10 @@ def main() -> int:
     p.add_argument("--min-wpm", type=float, default=TEACHING_WPM)
     p.add_argument("--delete", action="store_true",
                    help="delete the records instead of marking them, and tombstone the ids")
+    p.add_argument("--rules", default="competition,no-transcript,low-speech",
+                   help="comma-separated rules that --delete applies to; the rest are only "
+                        "marked. Deleting is irreversible, so a rule you do not trust yet "
+                        "belongs outside this list.")
     p.set_defaults(func=cmd_prune)
 
     p = sub.add_parser("transcripts")

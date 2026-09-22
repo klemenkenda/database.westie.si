@@ -3,21 +3,27 @@ id: "the-slot"
 type: "concept"
 title: "The slot"
 category: "technique"
-level: 1
-level_trust: "imported"
-tags: ["slot", "fundamentals", "distance"]
+level: 0
+level_trust: "verified"
+tags: ["distance", "foundation", "fundamentals", "slot"]
 aliases: []
 related: []
-requires: []
+requires:
+  - id: "walking-steps"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "space"
 ---
 
 # The slot

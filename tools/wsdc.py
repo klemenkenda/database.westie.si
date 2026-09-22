@@ -81,6 +81,29 @@ class Wsdc:
             raise WsdcError("id %s: no dancer found" % wsdc_id)
         return data
 
+    def search(self, name: str) -> list[dict[str, Any]]:
+        """Return registry autocomplete candidates for a dancer name.
+
+        This is discovery only. Callers must review the candidates before binding an
+        id to a creator, because names are not unique.
+        """
+        self._wait()
+        response = self.session.get(
+            BASE + "/lookup2020/autocomplete", params={"q": name}, timeout=30
+        )
+        response.raise_for_status()
+        try:
+            data = response.json()
+        except json.JSONDecodeError:
+            raise WsdcError("name search did not return JSON")
+        if not isinstance(data, list):
+            raise WsdcError("name search returned an unexpected response")
+        return [
+            {"name": row.get("name"), "wsdc_id": row.get("wscid")}
+            for row in data
+            if isinstance(row, dict) and row.get("wscid")
+        ]
+
 
 def summarise(record: dict[str, Any]) -> dict[str, Any]:
     """Points per division per role, plus the identity fields a human confirms against.

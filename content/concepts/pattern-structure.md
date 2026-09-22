@@ -5,29 +5,35 @@ title: "Pattern structure — starter, middle, anchor"
 category: "technique"
 level: 1
 level_trust: "imported"
-tags: ["patterns", "fundamentals", "rhythm"]
+tags: ["foundation", "fundamentals", "patterns", "rhythm"]
 aliases: []
 related: []
 requires:
   - id: "anchor-step"
-    origin: "import:teaching@2026-09-22"
-    trust: "imported"
-    confidence: 0.5
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "eight-count-rhythm"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
     strength: "required"
   - id: "wcs-basic-rhythm"
-    origin: "import:teaching@2026-09-22"
-    trust: "imported"
-    confidence: 0.5
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
     strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "patterns"
 ---
 
 # Pattern structure — starter, middle, anchor

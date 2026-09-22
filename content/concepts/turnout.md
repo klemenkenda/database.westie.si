@@ -3,21 +3,32 @@ id: "turnout"
 type: "concept"
 title: "Turned-out feet"
 category: "footwork"
-level: 2
-level_trust: "imported"
-tags: ["blw", "footwork", "technique", "turns"]
+level: 0
+level_trust: "verified"
+tags: ["blw", "footwork", "foundation", "technique", "turns"]
 aliases: []
 related: []
-requires: []
+requires:
+  - id: "balance-and-center"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "posture-and-alignment"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "self"
 ---
 
 # Turned-out feet

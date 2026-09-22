@@ -12,7 +12,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <header className="site">
           <a href="/" className="brand">database<span>.westie.si</span></a>
-          <nav><a href="/">Videos</a></nav>
+          <nav>
+            <a href="/">Videos</a>
+            <a href="/graph/">Graph studio</a>
+          </nav>
         </header>
         <main>{children}</main>
         <footer>

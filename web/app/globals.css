@@ -35,7 +35,9 @@ header.site {
 }
 .brand { font-weight: 650; text-decoration: none; color: var(--ink); letter-spacing: -0.01em; }
 .brand span { color: var(--muted); font-weight: 400; }
+header.site nav { display: flex; gap: 16px; }
 header.site nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
+header.site nav a:hover { color: var(--accent); }
 main { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
 footer {
   max-width: 1100px; margin: 0 auto; padding: 24px 16px 40px;
@@ -108,4 +110,103 @@ h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.02em; }
 .chip.bad {
   background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- graph studio */
+
+.banner {
+  background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: 8px; padding: 11px 14px; margin: 0 0 18px;
+  font-size: 13.5px; color: var(--muted);
+}
+.banner.warn { border-left-color: var(--warn); background: var(--warn-bg); color: var(--warn); }
+.banner b { color: var(--ink); }
+.banner.warn b { color: inherit; }
+
+.note { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+.note code, .banner code, .lede code {
+  background: var(--chip); border-radius: 4px; padding: 1px 5px; font-size: 12px;
+}
+.ok { color: #2f7d4f; }
+.bad { color: var(--accent); }
+.dim { color: var(--muted); font-weight: 400; font-size: 12px; }
+
+/* A chip that is also a button. Same shape as a static chip so the two read as one
+   vocabulary, which matters on a page where almost everything is navigable. */
+.chip.link, button.chip {
+  font: inherit; font-size: 11.5px; cursor: pointer; border: 1px solid transparent;
+}
+.chip.link:hover { border-color: var(--accent); color: var(--ink); }
+.chip.ok { background: color-mix(in srgb, #2f7d4f 13%, transparent); color: #2f7d4f; }
+.chip.link.bad:hover { border-color: var(--accent); }
+
+.linkish {
+  font: inherit; background: none; border: 0; padding: 0; cursor: pointer;
+  color: var(--ink); text-align: left; text-decoration: underline;
+  text-decoration-color: var(--line); text-underline-offset: 3px;
+}
+.linkish:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+.tiergrid {
+  display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+}
+.tier, .findings, .inspect, .panel {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;
+}
+.findings, .inspect { margin-bottom: 14px; }
+.tier > header, .findings > header, .inspect > header {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin-bottom: 8px;
+}
+.tier h2, .findings h2, .inspect h2 { font-size: 15px; margin: 0; letter-spacing: -0.01em; }
+.panel h3 { font-size: 13px; margin: 0 0 8px; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--muted); }
+
+.conceptlist, .edgelist, .findlist { list-style: none; margin: 0; padding: 0; }
+.conceptlist li, .edgelist li, .findlist li {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline;
+  padding: 4px 0; border-bottom: 1px solid var(--line); font-size: 13.5px;
+}
+.conceptlist li:last-child, .edgelist li:last-child, .findlist li:last-child { border-bottom: 0; }
+
+/* The trust badge. Four states, four colours, and `imported` is deliberately the quietest
+   of them: an unreviewed edge should not look like a fact. */
+.trust {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em;
+  border-radius: 999px; padding: 1px 7px; background: var(--chip); color: var(--muted);
+}
+.trust.ok  { background: color-mix(in srgb, #2f7d4f 15%, transparent); color: #2f7d4f; }
+.trust.mid { background: var(--warn-bg); color: var(--warn); }
+.trust.bad { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+
+.panels { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.inspect .panel { margin-top: 12px; }
+
+.depthrow { display: flex; gap: 10px; align-items: baseline; margin-bottom: 7px; }
+.depth {
+  font-variant-numeric: tabular-nums; font-size: 12px; color: var(--muted);
+  min-width: 26px; text-align: right;
+}
+
+.editor label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
+.editor input, .editor select {
+  font: inherit; font-size: 13.5px; background: var(--bg); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; min-width: 150px;
+}
+.editrow { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 11px; }
+.editrow.wrap { align-items: baseline; }
+.tab:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.barrow { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 13px; }
+.barlabel { min-width: 116px; }
+.bartrack { flex: 1; height: 7px; background: var(--chip); border-radius: 999px; overflow: hidden; }
+.barfill { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+.barfill.verified { background: #2f7d4f; }
+.barfill.corroborated { background: var(--warn); }
+.barfill.imported { background: var(--muted); opacity: 0.55; }
+.barfill.disputed { background: var(--accent); }
+.barnum { font-variant-numeric: tabular-nums; min-width: 34px; text-align: right; color: var(--muted); }
+
+@media (max-width: 720px) {
+  .tiergrid, .panels { grid-template-columns: 1fr; }
+  .barlabel { min-width: 88px; }
 }

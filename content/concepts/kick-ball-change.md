@@ -3,8 +3,8 @@ id: "kick-ball-change"
 type: "concept"
 title: "Kick-ball change"
 category: "styling"
-level: 4
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["blues", "footwork"]
 aliases: []
 related: []
@@ -23,6 +23,7 @@ verified_at: null
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Kick-ball change

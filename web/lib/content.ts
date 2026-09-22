@@ -65,9 +65,51 @@ export type Concept = {
   level?: number;
   category?: string;
   tags: string[];
+  aliases: string[];
   requires: Edge[];
   trust?: string;
   status?: string;
+  foundation_tier?: string;
+  origin?: string;
+  verified_by?: string;
+};
+
+/** The validation written by tools/foundation.py, plus the tier structure of the spec. */
+export type FoundationTier = {
+  id: string;
+  title: string;
+  depends: string[];
+  note: string;
+};
+
+export type FoundationAudit = {
+  generated?: string;
+  concepts: number;
+  edges: number;
+  density: number;
+  foundation_density: number;
+  trust: Record<string, number>;
+  coverage?: { in_foundation: number; of: number; by_tier: Record<string, number> };
+  cycles: unknown[];
+  dangling: { concept: string; requires: string }[];
+  inversions: { concept: string; level: number; requires: string; requires_level: number }[];
+  orphans: string[];
+  tier_violations: { concept: string; tier: string; requires: string; requires_tier: string }[];
+  unrooted: { concept: string; bottoms_out_at: string[] }[];
+  roots: string[];
+  failures: string[];
+  ok: boolean;
+};
+
+export type Foundation = {
+  version?: number;
+  author?: string;
+  origin?: string;
+  roots: string[];
+  tiers: FoundationTier[];
+  audit: FoundationAudit | null;
+  /** True when foundation.yml has been edited since the audit was last written. */
+  stale: boolean;
 };
 
 // --------------------------------------------------------------------- parsing
@@ -200,6 +242,35 @@ function readCollection(name: string): Array<{ key: string; front: Record<string
 const asArray = (value: unknown): any[] => (Array.isArray(value) ? value : []);
 const asStrings = (value: unknown): string[] => asArray(value).filter((v) => typeof v === "string");
 
+/**
+ * Normalise a `requires:` list into structured edges.
+ *
+ * The upstream graph writes some edges as a bare id (`requires: ["anchor-step"]`), and the
+ * previous version of this file filtered those out with `typeof e === "object"` — so a
+ * hand-written bare edge silently vanished from every page, which is a worse failure than
+ * rendering it wrong. A bare id becomes an `imported` edge at confidence 0.5, matching
+ * Trust::edge() in the PHP and the same function in tools/foundation.py: a bare id cannot
+ * claim to be verified, but it does not get to disappear either.
+ */
+const asEdges = (value: unknown): Edge[] =>
+  asArray(value)
+    .map((raw): Edge | null => {
+      if (typeof raw === "string" && raw) {
+        return { id: raw, trust: "imported", confidence: 0.5, strength: "required" };
+      }
+      if (raw && typeof raw === "object" && typeof raw.id === "string") {
+        return {
+          id: raw.id,
+          trust: raw.trust ?? "imported",
+          confidence: typeof raw.confidence === "number" ? raw.confidence : 0.5,
+          strength: raw.strength ?? "required",
+          origin: raw.origin,
+        };
+      }
+      return null;
+    })
+    .filter((e): e is Edge => e !== null);
+
 export function getVideos(): Video[] {
   return readCollection("videos").map(({ key, front }) => ({
     key,
@@ -249,13 +320,101 @@ export function getConcepts(): Concept[] {
   return readCollection("concepts").map(({ key, front }) => ({
     key,
     title: front.title ?? key,
+    // `?? undefined` and not `|| undefined`: level 0 is a real level since the foundation
+    // pass added a floor below beginner, and the falsy test would erase every one of the
+    // 17 concepts that sit on it.
     level: front.level ?? undefined,
     category: front.category ?? undefined,
     tags: asStrings(front.tags),
-    requires: asArray(front.requires).filter((e) => e && typeof e === "object"),
+    aliases: asStrings(front.aliases),
+    requires: asEdges(front.requires),
     trust: front.trust,
     status: front.status,
+    foundation_tier: front.foundation_tier ?? undefined,
+    origin: front.origin ?? undefined,
+    verified_by: front.verified_by ?? undefined,
   }));
+}
+
+/**
+ * Read content/foundation.yml and the audit tools/foundation.py writes beside it.
+ *
+ * Only the tier headers and the expectations are parsed out of the YAML — the concept
+ * entries themselves are not, because the applied result is already on disk in the concept
+ * files and reading it from there is what makes the studio show reality rather than
+ * intent. The audit JSON is read as-is; nothing is recomputed here.
+ */
+export function getFoundation(): Foundation {
+  const specPath = path.join(CONTENT, "foundation.yml");
+  const auditPath = path.join(CONTENT, ".audit", "foundation.json");
+
+  let audit: FoundationAudit | null = null;
+  if (fs.existsSync(auditPath)) {
+    try {
+      audit = JSON.parse(fs.readFileSync(auditPath, "utf8")) as FoundationAudit;
+    } catch {
+      audit = null;
+    }
+  }
+
+  if (!fs.existsSync(specPath)) {
+    return { roots: [], tiers: [], audit, stale: false };
+  }
+  // Normalise line endings before any regex touches this. Every `^`-anchored and
+  // `\n`-anchored pattern below silently matched nothing on a CRLF file, so the page
+  // rendered "37 concepts in the foundation" above five empty tiers — the worst kind of
+  // failure, because the counts looked right. The Python tools write LF, but this file is
+  // hand-edited on Windows and git may check it out either way, so the parser has to cope
+  // rather than the file having to be lucky.
+  const text = fs.readFileSync(specPath, "utf8").replace(/\r\n/g, "\n");
+
+  // The spec being newer than its own audit means the YAML was edited without re-running
+  // the tool, so every number the studio is about to show describes a graph that no longer
+  // exists. Worth a banner rather than silence.
+  const stale = audit
+    ? fs.statSync(specPath).mtimeMs > fs.statSync(auditPath).mtimeMs
+    : true;
+
+  const scalar = (field: string): string | undefined =>
+    new RegExp(`^${field}:\\s*"?([^"\\n]*)"?\\s*$`, "m").exec(text)?.[1]?.trim();
+
+  const inlineList = (raw: string | undefined): string[] =>
+    (raw ?? "")
+      .split(",")
+      .map((s) => s.trim().replace(/^["']|["']$/g, ""))
+      .filter(Boolean);
+
+  const roots = inlineList(/^\s*roots:\s*\[([^\]]*)\]/m.exec(text)?.[1]);
+
+  // Tier headers only: `  - id: "self"` through the next `- id:` at the same indent,
+  // inside the `tiers:` block. Stops at the first top-level key so the `concepts:` list
+  // below can never be mistaken for a tier.
+  const tiers: FoundationTier[] = [];
+  const tiersBlock = /^tiers:\n([\s\S]*?)^\S/m.exec(text)?.[1] ?? "";
+  for (const chunk of tiersBlock.split(/^\s{2}- /m).slice(1)) {
+    const id = /^id:\s*"([^"]+)"/m.exec(chunk)?.[1] ?? /id:\s*"([^"]+)"/.exec(chunk)?.[1];
+    if (!id) continue;
+    tiers.push({
+      id,
+      title: /title:\s*"([^"]+)"/.exec(chunk)?.[1] ?? id,
+      depends: inlineList(/depends:\s*\[([^\]]*)\]/.exec(chunk)?.[1]),
+      note: (/note:\s*>\n([\s\S]*?)(?=\n\s{4}\w+:|$)/.exec(chunk)?.[1] ?? "")
+        .split("\n")
+        .map((l) => l.trim())
+        .join(" ")
+        .trim(),
+    });
+  }
+
+  return {
+    version: Number(scalar("version")) || undefined,
+    author: scalar("author"),
+    origin: scalar("origin"),
+    roots,
+    tiers,
+    audit,
+    stale,
+  };
 }
 
 export function getRanking(): Record<string, any> {

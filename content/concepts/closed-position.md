@@ -5,10 +5,20 @@ title: "Closed position"
 category: "connection"
 level: 1
 level_trust: "imported"
-tags: ["connection", "frame"]
+tags: ["connection", "foundation", "frame"]
 aliases: []
 related: []
 requires:
+  - id: "frame"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "open-position"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
   - id: "stretch-and-compression"
     origin: "import:teaching@2026-09-22"
     trust: "imported"
@@ -17,12 +27,13 @@ requires:
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "partner"
 ---
 
 # Closed position

@@ -3,7 +3,8 @@ id: "taxonomy"
 type: "taxonomy"
 title: "Facet vocabulary"
 categories: ["technique", "pattern", "connection", "musicality", "styling", "partnerwork", "footwork", "turns", "choreography"]
-levels: [1, 2, 3, 4]
+levels: [0, 1, 2, 3, 4]
+foundation_tiers: ["self", "music", "partner", "space", "patterns"]
 formats: ["tutorial", "demo", "routine", "drill", "lecture", "social", "competition"]
 roles: ["lead", "follow", "both"]
 platforms: ["youtube", "instagram", "facebook", "vimeo", "other"]
@@ -39,11 +40,29 @@ and re-categorising is part of the M1 review queue rather than a settled fact.
 
 ## Levels
 
-`1` beginner · `2` improver · `3` intermediate · `4` advanced.
+`0` foundation · `1` beginner · `2` improver · `3` intermediate · `4` advanced.
 
-The imported distribution is L1 37 · L2 53 · L3 80 · L4 38 — 57% of the vocabulary sits at
-level 3 or above, while level 1, the part a learning path needs most, is the thinnest
-bucket. Expect to add beginner concepts rather than assume the ladder is complete.
+Level `0` was added on 2026-09-22 with `content/foundation.yml`. The import started at 1 =
+beginner and had no room below it, so primitives like posture, pulse and the triple step
+either did not exist or were filed alongside the patterns built out of them. Collapsing
+"have a pulse" and "dance a whip" onto one rung is the same error the audit was already
+finding four instances of, so the scale grew a floor instead.
+
+Distribution now L0 17 · L1 34 · L2 54 · L3 78 · L4 36, against an import of
+L1 37 · L2 53 · L3 80 · L4 38. Still 52% at level 3 or above — the advanced tail is a real
+property of the imported vocabulary and not something a foundation pass fixes.
+
+## Foundation tiers
+
+`foundation_tier` marks the 37 concepts that `content/foundation.yml` places by hand:
+`self` 8 · `music` 5 · `partner` 8 · `space` 5 · `patterns` 11. They are the only concepts
+in the database carrying `trust: verified` edges, and every other concept's prerequisite
+walk terminates inside this set — at `posture-and-alignment` or `downbeat-and-upbeat`,
+the two declared roots.
+
+The tiers form a DAG rather than a ladder: `self` and `music` draw on each other, and
+`space` is reachable from `partner`. `tools/foundation.py --check` enforces that an edge
+only ever crosses into a tier its source tier declares.
 
 ## Trust states
 

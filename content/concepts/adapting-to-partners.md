@@ -5,19 +5,30 @@ title: "Adapting to any partner"
 category: "partnerwork"
 level: 1
 level_trust: "imported"
-tags: ["blw", "connection", "fundamentals", "improvisation"]
+tags: ["blw", "connection", "foundation", "fundamentals", "improvisation"]
 aliases: []
 related: []
-requires: []
+requires:
+  - id: "roles-lead-follow"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "stretch-and-compression"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "partner"
 ---
 
 # Adapting to any partner

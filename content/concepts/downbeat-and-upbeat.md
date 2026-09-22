@@ -3,21 +3,22 @@ id: "downbeat-and-upbeat"
 type: "concept"
 title: "Downbeat and upbeat; hearing 1 and 2"
 category: "musicality"
-level: 1
-level_trust: "imported"
-tags: ["blw", "fundamentals", "musicality", "rhythm", "timing"]
+level: 0
+level_trust: "verified"
+tags: ["blw", "foundation", "fundamentals", "musicality", "rhythm", "timing"]
 aliases: []
 related: []
 requires: []
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "music"
 ---
 
 # Downbeat and upbeat; hearing 1 and 2

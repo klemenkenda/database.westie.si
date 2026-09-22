@@ -3,8 +3,8 @@ id: "playing-with-handholds"
 type: "concept"
 title: "Playing with handholds"
 category: "styling"
-level: 1
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["creativity", "handholds", "styling", "body-lead"]
 aliases: []
 related: []
@@ -28,6 +28,7 @@ verified_at: null
 added: "2026-09-22"
 updated: "2026-09-22"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Playing with handholds

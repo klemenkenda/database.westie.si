@@ -1,65 +1,30 @@
 {
-  "generated": "2026-09-22T22:34:32",
-  "concepts": 208,
-  "edges": 257,
-  "density": 1.24,
+  "generated": "2026-09-22T23:54:36",
+  "concepts": 219,
+  "edges": 313,
+  "density": 1.43,
   "trust": {
-    "verified": 0,
+    "verified": 76,
     "corroborated": 0,
-    "imported": 257,
+    "imported": 237,
     "disputed": 0
   },
   "unreviewed": {
-    "draft": 208,
-    "generated": 208,
-    "of": 208
+    "draft": 182,
+    "generated": 182,
+    "of": 219
   },
   "levels": {
-    "1": 37,
-    "2": 53,
-    "3": 80,
-    "4": 38
+    "0": 17,
+    "1": 34,
+    "2": 54,
+    "3": 78,
+    "4": 36
   },
   "cycles": [],
   "dangling": [],
-  "inversions": [
-    {
-      "concept": "acceleration-into-whip",
-      "level": 3,
-      "requires": "acceleration",
-      "requires_level": 4,
-      "trust": "imported"
-    },
-    {
-      "concept": "kick-ball-change-1-2",
-      "level": 3,
-      "requires": "kick-ball-change",
-      "requires_level": 4,
-      "trust": "imported"
-    },
-    {
-      "concept": "left-side-pass-acceleration",
-      "level": 2,
-      "requires": "acceleration",
-      "requires_level": 4,
-      "trust": "imported"
-    },
-    {
-      "concept": "playing-with-handholds",
-      "level": 1,
-      "requires": "body-lead-and-frame",
-      "requires_level": 2,
-      "trust": "imported"
-    }
-  ],
-  "orphans": [
-    "adapting-to-partners",
-    "asking-and-declining-dances",
-    "basic-handholds",
-    "downbeat-and-upbeat",
-    "relaxed-arms-and-shoulders",
-    "turnout"
-  ],
+  "inversions": [],
+  "orphans": [],
   "uncovered": [
     "6-6-4-structure",
     "acceleration-into-whip",
@@ -69,6 +34,7 @@
     "anchor-step-variations",
     "anchor-step",
     "asking-and-declining-dances",
+    "balance-and-center",
     "basic-dip",
     "basic-handholds",
     "basic-music-structure",
@@ -110,6 +76,7 @@
     "downbeat-and-upbeat",
     "duck-from-left-side-inside-turn",
     "duck-from-right-side-hit-3",
+    "eight-count-patterns",
     "eight-count-rhythm",
     "elvis-moves-left-side",
     "error-recovery",
@@ -124,6 +91,7 @@
     "follower-stays-behind",
     "four-track-base",
     "frame-expansion-contraction",
+    "frame",
     "free-spin",
     "hammerlock-technique",
     "hip-catch-exits",
@@ -160,6 +128,7 @@
     "multiple-turns-from-sugar-tuck",
     "multiple-turns-spotting",
     "one-count-redirection",
+    "open-position",
     "open-whip-2x-turn-rotation",
     "open-whip-inside-turn",
     "open-whip-outside-turn",
@@ -176,9 +145,11 @@
     "playing-with-handholds",
     "pop-turn",
     "posting",
+    "posture-and-alignment",
     "progressive-tuck-from-closed",
     "progressive-tuck",
     "projection",
+    "pulse",
     "pulsing-in-turns",
     "rainbow",
     "reactive-frame",
@@ -191,9 +162,11 @@
     "right-side-rock-and-go-on-3",
     "rock-and-go-basic-patterns",
     "rock-and-go-from-sugar-push",
+    "roles-lead-follow",
     "roll-in-roll-out-sweetheart",
     "roll-in-roll-out",
     "roll-on-the-back",
+    "rolling-count",
     "rolling-feet",
     "same-side-whip",
     "sea-and-pipe-connection",
@@ -205,6 +178,7 @@
     "side-dip",
     "side-rock-and-go-turns",
     "sit-dip-from-cut-off",
+    "six-count-patterns",
     "slingshot-musicality",
     "slingshot",
     "social-dance-etiquette",
@@ -243,6 +217,7 @@
     "traveling-tuck-old-school",
     "traveling-tuck",
     "travelling-turns",
+    "triple-step",
     "turn-technique-basics",
     "turning-basic",
     "turning-on-the-slot",
@@ -252,6 +227,7 @@
     "underarm-pass",
     "underrotation-on-4",
     "usage-of-the-floor",
+    "walking-steps",
     "wave",
     "wcs-basic-rhythm",
     "weekend-events",
@@ -270,10 +246,5 @@
     "zig-zag-styling-underarm",
     "zouk-redirection-ochos"
   ],
-  "sparse": [
-    {
-      "concept": "turnout",
-      "level": 2
-    }
-  ]
+  "sparse": []
 }

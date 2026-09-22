@@ -1,0 +1,34 @@
+{
+  "generated": "2026-09-22T23:54:35",
+  "concepts": 219,
+  "edges": 313,
+  "density": 1.43,
+  "foundation_density": 2.11,
+  "trust": {
+    "imported": 237,
+    "verified": 76
+  },
+  "coverage": {
+    "in_foundation": 37,
+    "of": 219,
+    "by_tier": {
+      "partner": 8,
+      "patterns": 11,
+      "space": 5,
+      "self": 8,
+      "music": 5
+    }
+  },
+  "cycles": [],
+  "dangling": [],
+  "inversions": [],
+  "orphans": [],
+  "tier_violations": [],
+  "unrooted": [],
+  "roots": [
+    "downbeat-and-upbeat",
+    "posture-and-alignment"
+  ],
+  "failures": [],
+  "ok": true
+}

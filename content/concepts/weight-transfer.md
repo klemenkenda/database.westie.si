@@ -3,26 +3,27 @@ id: "weight-transfer"
 type: "concept"
 title: "Weight transfer as the lead"
 category: "technique"
-level: 2
-level_trust: "imported"
-tags: ["body-lead", "technique", "timing"]
+level: 0
+level_trust: "verified"
+tags: ["body-lead", "foundation", "technique", "timing"]
 aliases: []
 related: []
 requires:
-  - id: "body-lead-and-frame"
-    origin: "import:teaching@2026-09-22"
-    trust: "imported"
-    confidence: 0.5
+  - id: "balance-and-center"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
     strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-22"
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+foundation_tier: "self"
 ---
 
 # Weight transfer as the lead

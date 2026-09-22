@@ -245,6 +245,75 @@ What the graph buys:
 `tools/graph_check.py` runs on every build: cycle detection, orphan concepts, and level
 inversions (a level-2 concept requiring a level-3 one is nearly always a data bug).
 
+### The foundation — done, 2026-09-22
+
+The import gave a vocabulary of *moves* with no vocabulary of *primitives* underneath it.
+`basic-whip` declared that it needs `anchor-step`; nothing declared that the anchor needs
+being able to triple-step on your own centre. The ladder had no bottom rung, so a generated
+learning path started halfway up, and six concepts were orphans precisely because they were
+primitives with no primitive tier to attach to.
+
+`content/foundation.yml` is the fix: ~37 concepts in five tiers, hand-authored, the only
+part of the database allowed to write `trust: verified`. Level `0` was added below beginner,
+because collapsing "have a pulse" and "dance a whip" onto one rung is the same levelling
+error the audit already flagged four times.
+
+| Measure | Import | After |
+|---|---|---|
+| Concepts | 208 | 219 |
+| Prerequisite edges | 257 | 313 |
+| Density | 1.24 | 1.43 global · **2.11** inside the foundation |
+| Verified edges | 0 | 76 |
+| Orphans | 6 | **0** |
+| Level inversions | 4 | **0** |
+| Unrooted (walk ends nowhere declared) | 207 | **0** |
+| Roots | 10 accidental | **2 declared** |
+
+The last two rows are the ones that matter. Every one of the 219 concepts now walks down
+to `posture-and-alignment` or `downbeat-and-upbeat` — the graph became traversable rather
+than being a pile of patterns with ten accidental floors.
+
+Three things worth keeping in mind for the next pass:
+
+- **Fixing an inversion surfaces the next one.** Relevelling `acceleration` and
+  `kick-ball-change` from L4 to L2 immediately exposed `distance-management` and
+  `rolling-feet` still sitting at L3 underneath them. The error ran a layer deeper than the
+  original audit could see. Expect the same when the next batch is touched.
+- **The four inversions were mis-read.** PLAN.md called three of them "a compound filed
+  below its own component"; looking at each, the *component* levels were wrong. Raising the
+  compounds would have silenced the check while making the advanced tier even more
+  top-heavy. Only `playing-with-handholds` was a genuine compound error.
+- **Assert what you control.** The first `expects:` block demanded density 1.6 across all
+  219 concepts and failed at 1.43 — a number that is 90% a property of the 182 concepts the
+  foundation does not touch. No edit to the spec could fix it, so the only path to green was
+  weakening the threshold, which is how a check becomes decoration. It now asserts
+  foundation density and *reports* global density.
+
+Two tools, one rule each, and they cross-check: `tools/foundation.py --check` validates the
+`expects:` block; `tools/graph_check.py` runs the original audit. Both now report zero. The
+studio at `/graph` recomputes the same findings in the browser and shows them next to the
+Python tool's own audit, so a drift between the two implementations is visible rather than
+quiet.
+
+### The graph studio — `web/app/graph/`
+
+A four-view tool over the graph, static-exported, reading `content/` at build time:
+
+- **Tiers** — the foundation as authored, with undeclared roots called out.
+- **Problems** — the audit as a work queue where every finding links into the inspector. A
+  finding you cannot act on from where you read it gets read and forgotten.
+- **Inspect** — one concept: direct prerequisites with the trust on each edge, the full
+  transitive closure by depth, what it unlocks, where it bottoms out, and an editor that
+  writes through the API. The closure is the best single check on levelling: 30 things
+  below a level 1 is a levelling error, two things below a level 4 is a missing edge.
+- **Coverage** — levels, categories, the verified/imported split, and the uncovered
+  concepts ordered by how much depends on them, which is the ingestion list sorted by
+  leverage rather than alphabetically.
+
+An edge added by hand in the editor is written as `verified` with the date. A human edit is
+exactly the evidence the trust ladder exists to record; writing `imported` for it would make
+the ladder meaningless in the one case it exists for.
+
 ---
 
 ## 5. Trust, provenance and verification

@@ -21,6 +21,7 @@ of silent error.
 from __future__ import annotations
 
 import argparse
+import csv
 import datetime as _dt
 import io
 import os
@@ -248,6 +249,59 @@ def cmd_refresh(args) -> int:
     return 0
 
 
+def cmd_discover(args) -> int:
+    """Search pending creator names and write candidates for human review."""
+    from wsdc import Wsdc, WsdcError
+
+    output = args.output or os.path.join(HERE, "content", ".audit", "wsdc_candidates.csv")
+    os.makedirs(os.path.dirname(os.path.abspath(output)), exist_ok=True)
+    pending = [
+        (slug, front) for slug, front in all_creators().items()
+        if front.get("wsdc_status", "unconfirmed") in ("unconfirmed", "ambiguous")
+    ]
+    client = Wsdc()
+    rows = []
+    failed = 0
+    for slug, front in pending:
+        name = str(front.get("name") or slug)
+        try:
+            candidates = client.search(name)
+            if candidates:
+                for candidate in candidates:
+                    rows.append({
+                        "slug": slug,
+                        "creator_name": name,
+                        "candidate_name": candidate.get("name") or "",
+                        "wsdc_id": candidate.get("wsdc_id") or "",
+                        "candidate_count": len(candidates),
+                        "error": "",
+                    })
+            else:
+                rows.append({
+                    "slug": slug, "creator_name": name, "candidate_name": "",
+                    "wsdc_id": "", "candidate_count": 0, "error": "no candidates",
+                })
+        except (WsdcError, OSError) as exc:
+            failed += 1
+            rows.append({
+                "slug": slug, "creator_name": name, "candidate_name": "",
+                "wsdc_id": "", "candidate_count": 0, "error": str(exc),
+            })
+        print("  %-30s %d candidate(s)" % (slug, len(candidates) if 'candidates' in locals() else 0))
+        candidates = []
+
+    fields = ["slug", "creator_name", "candidate_name", "wsdc_id", "candidate_count", "error"]
+    with open(output, "w", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+    print("wrote %d candidate row(s) for %d creator(s) to %s" % (len(rows), len(pending), output))
+    if failed:
+        print("  %d search(es) failed; rerun discover after checking the error column" % failed)
+    print("Review the CSV, then run confirm <slug> <wsdc_id> for verified matches.")
+    return 0
+
+
 def cmd_merge(args) -> int:
     """Fold one creator record into another and repoint everything that referenced it.
 
@@ -372,6 +426,10 @@ def main() -> int:
     sub.add_parser("list").set_defaults(func=cmd_list)
     sub.add_parser("pending").set_defaults(func=cmd_pending)
     sub.add_parser("refresh").set_defaults(func=cmd_refresh)
+
+    p = sub.add_parser("discover", help="search pending creator names into a review CSV")
+    p.add_argument("--output", help="CSV path (default: content/.audit/wsdc_candidates.csv)")
+    p.set_defaults(func=cmd_discover)
 
     p = sub.add_parser("lookup")
     p.add_argument("wsdc_id", type=int)

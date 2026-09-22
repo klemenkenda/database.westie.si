@@ -222,6 +222,86 @@ try {
         exit;
     }
 
+    // --------------------------------------------------------------- foundation
+    //
+    // The hand-authored root of the graph, and how far it reaches. Serves the spec's tier
+    // structure alongside the validation written by `tools/foundation.py`, so the studio
+    // can render coverage without re-deriving any of it.
+    //
+    // The audit file is read rather than recomputed on purpose. PHP recomputing the same
+    // rules would be a second implementation of one rule, which is how a rule quietly
+    // stops being one — the same reason Graph.php and graph_check.py are asserted equal in
+    // tools/api_test.php. Here the Python tool is the only implementation and this is a
+    // read of its output, so a stale file reports itself as stale instead of silently
+    // disagreeing.
+    if ($head === 'foundation') {
+        $root = rtrim($config['content_root'], "/\\");
+        $specPath = $root . '/foundation.yml';
+        $auditPath = $root . '/.audit/foundation.json';
+
+        if (!is_file($specPath)) {
+            throw new ApiError('foundation.yml not found', 404);
+        }
+        $spec = Yaml::parse((string) file_get_contents($specPath));
+
+        $validation = null;
+        $staleness = 'missing';
+        if (is_file($auditPath)) {
+            $decoded = json_decode((string) file_get_contents($auditPath), true);
+            $validation = is_array($decoded) ? $decoded : null;
+            // The spec being newer than its own validation means someone edited the YAML
+            // and did not re-run the tool. Worth saying out loud: the numbers below then
+            // describe a graph that no longer exists.
+            $staleness = filemtime($auditPath) >= filemtime($specPath) ? 'current' : 'stale';
+        }
+
+        // Which concepts sit in which tier, read off the content rather than the spec, so
+        // this reflects what was actually applied.
+        $byTier = [];
+        foreach ($store->all('concepts') as $concept) {
+            $tier = $concept['foundation_tier'] ?? null;
+            if ($tier === null || $tier === '') {
+                continue;
+            }
+            $byTier[$tier][] = [
+                'key'      => $concept['_key'],
+                'title'    => $concept['title'] ?? $concept['_key'],
+                'level'    => $concept['level'] ?? null,
+                'category' => $concept['category'] ?? null,
+                'requires' => array_map(function ($edge) {
+                    return $edge['id'];
+                }, Trust::edges($concept['requires'] ?? [], 'concept:' . $concept['_key'])),
+            ];
+        }
+
+        $tiers = [];
+        foreach ($spec['tiers'] ?? [] as $tier) {
+            $id = $tier['id'] ?? '';
+            $tiers[] = [
+                'id'       => $id,
+                'title'    => $tier['title'] ?? $id,
+                'depends'  => $tier['depends'] ?? [],
+                'note'     => trim((string) ($tier['note'] ?? '')),
+                'concepts' => $byTier[$id] ?? [],
+            ];
+        }
+
+        send([
+            'version'    => $spec['version'] ?? null,
+            'authored'   => $spec['authored'] ?? null,
+            'author'     => $spec['author'] ?? null,
+            'origin'     => $spec['origin'] ?? null,
+            'expects'    => $spec['expects'] ?? [],
+            'tiers'      => $tiers,
+            'relevels'   => $spec['relevels'] ?? [],
+            'audit'      => $validation,
+            'audit_state' => $staleness,
+            'note'       => 'Run `python tools/foundation.py --check` to refresh the audit.',
+        ]);
+        $store->flush();
+        exit;
+    }
+
     // ----------------------------------------------------------------- taxonomy
     if ($head === 'taxonomy') {
         $path = rtrim($config['content_root'], "/\\") . '/taxonomy.md';
