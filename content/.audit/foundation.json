@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-22T23:54:35",
+  "generated": "2026-09-23T01:07:48",
   "concepts": 219,
   "edges": 313,
   "density": 1.43,
@@ -14,9 +14,10 @@
     "by_tier": {
       "partner": 8,
       "patterns": 11,
-      "space": 5,
+      "social": 2,
       "self": 8,
-      "music": 5
+      "music": 5,
+      "space": 3
     }
   },
   "cycles": [],

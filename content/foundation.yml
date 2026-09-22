@@ -63,12 +63,30 @@ tiers:
       Where two bodies become a system: roles, handholds, frame, the two positions, and
       the elastic connection that carries information between them.
   - id: "space"
-    title: "The slot and the floor"
+    title: "The slot and direction"
     depends: ["self", "music", "partner"]
     note: >
-      Where the dance happens, and the etiquette of sharing it. Draws on the partner tier
-      only for the fact that there are two of you in it, and on music for `direction-on-1`,
-      which is a claim about a specific beat.
+      The geometry of the dance: the rectangle you travel along, which way a pattern is
+      sent, and not colliding with anyone while doing it. Draws on music for
+      `direction-on-1`, which is a claim about a specific beat.
+    note_history: >
+      This tier used to be called "the slot and the floor" and also held
+      `social-dance-etiquette` and `asking-and-declining-dances`. That was wrong, and
+      wrong in a way that made the whole tier unreadable: two of its five members were
+      social conduct and three were dance geometry, so whichever one you looked at first
+      told you the wrong thing about the tier. Splitting `social` out is the fix. The
+      giveaway was that nothing in the dance mechanics ever needs to require etiquette —
+      a tier whose members are never prerequisites of each other is not one tier.
+
+  - id: "social"
+    title: "The room and its people"
+    depends: ["partner"]
+    note: >
+      Asking, accepting, declining, and ending a dance. Genuinely foundational for social
+      dancing and genuinely not on the same axis as everything else here: no pattern, no
+      timing and no connection skill has ever depended on it, and `patterns` deliberately
+      does not declare it. Kept in the foundation because a beginner needs it in week one,
+      filed apart because it is a different kind of claim.
   - id: "patterns"
     title: "The basic patterns"
     depends: ["self", "music", "partner", "space"]
@@ -334,6 +352,8 @@ concepts:
       The fourth orphan, and the one most obviously downstream of the role definition.
 
   # ------------------------------------------------------------------ tier: space
+  #
+  # Dance geometry only. The etiquette concepts that used to sit here are in `social`.
   - id: "the-slot"
     tier: "space"
     level: 0
@@ -358,13 +378,18 @@ concepts:
     tier: "space"
     level: 1
     category: "partnerwork"
-    requires: ["the-slot", "social-dance-etiquette"]
+    requires: ["the-slot", "direction-on-1"]
     summary: >
-      Not colliding: seeing the floor, shortening a pattern, and yielding the slot.
-    adds_requires: true
+      Not colliding: seeing the floor, shortening a pattern, and yielding the slot. A
+      spatial skill, so it rests on the slot and on being able to choose a direction — not
+      on etiquette, which was the previous edge and which conflated "knowing where the
+      other couples are" with "being polite about it". You can have immaculate manners and
+      still have no idea the floor behind you is full.
+    replaces_requires: ["social-dance-etiquette"]
 
+  # ----------------------------------------------------------------- tier: social
   - id: "social-dance-etiquette"
-    tier: "space"
+    tier: "social"
     level: 0
     category: "partnerwork"
     requires: ["roles-lead-follow"]
@@ -374,7 +399,7 @@ concepts:
       for a merge decision rather than merged here, because merging is destructive.
 
   - id: "asking-and-declining-dances"
-    tier: "space"
+    tier: "social"
     level: 0
     category: "partnerwork"
     requires: ["social-dance-etiquette"]

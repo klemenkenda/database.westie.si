@@ -210,3 +210,76 @@ h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.02em; }
   .tiergrid, .panels { grid-template-columns: 1fr; }
   .barlabel { min-width: 88px; }
 }
+
+/* ------------------------------------------------------------------ graph canvas */
+
+.famtabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.canvasbar {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  margin: 0 0 8px;
+}
+.inlinecheck { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.note.keys { margin: 0 0 10px; font-size: 12px; }
+.note.keys b {
+  background: var(--chip); border-radius: 4px; padding: 1px 6px;
+  color: var(--ink); font-weight: 600; font-size: 11.5px;
+}
+
+.canvaswrap {
+  overflow: auto; background: var(--card);
+  border: 1px solid var(--line); border-radius: 10px;
+  max-height: 68vh;
+}
+.canvas { position: relative; }
+
+.collabel {
+  position: absolute; top: 8px; font-size: 11px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.wires { position: absolute; inset: 0; pointer-events: none; }
+
+/* Edges are clickable to cut, so they need a fat invisible hit area — a 1px stroke is
+   unhittable with a mouse. stroke-width does double duty via the transparent sibling. */
+.wire {
+  fill: none; stroke: var(--line); stroke-width: 1.5;
+  pointer-events: stroke; cursor: pointer;
+}
+.wire:hover { stroke: var(--accent); stroke-width: 2.5; }
+.wire.ver { stroke: color-mix(in srgb, #2f7d4f 55%, transparent); }
+.wire.on { stroke: var(--accent); stroke-width: 2; }
+/* A level inversion is an edge pointing rightwards. Drawn red so it is visible as a
+   shape, without reading a single label. */
+.wire.inv { stroke: var(--accent); stroke-dasharray: 4 3; stroke-width: 2; }
+
+.node {
+  position: absolute; box-sizing: border-box;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+  padding: 6px 9px; cursor: pointer; user-select: none;
+  display: flex; flex-direction: column; gap: 1px; overflow: hidden;
+}
+.node b {
+  font-size: 12.5px; font-weight: 600; line-height: 1.25;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nodemeta { font-size: 10.5px; color: var(--muted); }
+.node:hover { border-color: var(--accent); }
+.node.ext { opacity: 0.72; border-style: dashed; }
+.node.draft { border-left: 3px solid var(--warn); }
+.node.inv { border-color: var(--accent); }
+.node.focus {
+  border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.node.linking { border-color: var(--accent); border-style: dashed; }
+.node.target { background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+.node.busy { opacity: 0.5; }
+
+.canvasfoot {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  margin-top: 12px; padding: 10px 14px; font-size: 13px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+}
+.canvasfoot code { background: var(--chip); border-radius: 4px; padding: 1px 5px; font-size: 12px; }
+.levelset { display: flex; gap: 4px; }
+.tab.mini { padding: 2px 9px; font-size: 12px; }
+.tab.mini.undo { border-color: var(--accent); color: var(--accent); }
+.canvasmsg { margin-left: auto; color: var(--accent); font-size: 12.5px; }

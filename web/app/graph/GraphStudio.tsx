@@ -23,10 +23,11 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Concept, Edge, Foundation } from "@/lib/content";
+import Canvas from "./Canvas";
 
 type Row = Concept & { videos: number };
 
-type View = "tiers" | "problems" | "inspect" | "coverage";
+type View = "canvas" | "tiers" | "problems" | "inspect" | "coverage";
 
 const API =
   process.env.NEXT_PUBLIC_API_BASE ??
@@ -167,7 +168,9 @@ export default function GraphStudio({
   concepts: Row[];
   foundation: Foundation;
 }) {
-  const [view, setView] = useState<View>("tiers");
+  // The canvas is the default because building the graph is the job; the summary views
+  // are for checking what the building did.
+  const [view, setView] = useState<View>("canvas");
   const [selected, setSelected] = useState<string>(foundation.roots[0] ?? initial[0]?.key ?? "");
   const [query, setQuery] = useState("");
   const [saving, setSaving] = useState<string | null>(null);
@@ -342,7 +345,7 @@ export default function GraphStudio({
 
   // ---- writes go through the API, which is the only non-static thing on the page.
   const save = useCallback(
-    async (key: string, patch: Record<string, unknown>) => {
+    async (key: string, patch: Record<string, unknown>): Promise<boolean> => {
       setSaving(key);
       try {
         const res = await fetch(`${API}/concepts/${key}`, {
@@ -360,6 +363,7 @@ export default function GraphStudio({
         // Pull the graph back so the closure, the problem counts and the trust split all
         // reflect the edit that was just made rather than the last build.
         if (res.ok) await refresh();
+        return res.ok;
       } catch (err) {
         // The static export is often opened without the PHP container running, and a
         // silent no-op would look like a successful save. Say which half is missing.
@@ -367,6 +371,7 @@ export default function GraphStudio({
           ...s,
           [key]: `no API at ${API} — start it with \`docker compose up -d api\``,
         }));
+        return false;
       } finally {
         setSaving(null);
       }
@@ -415,6 +420,7 @@ export default function GraphStudio({
         <div className="tabs">
           {(
             [
+              ["canvas", "Canvas"],
               ["tiers", `Tiers · ${totals.inFoundation}`],
               ["problems", `Problems · ${problemCount}`],
               ["inspect", "Inspect"],
@@ -449,6 +455,9 @@ export default function GraphStudio({
         </div>
       )}
 
+      {view === "canvas" && (
+        <Canvas concepts={concepts} onSave={save} busy={saving} onOpenConcept={open} />
+      )}
       {view === "tiers" && (
         <TiersView g={g} foundation={foundation} totals={totals} onOpen={open} />
       )}
