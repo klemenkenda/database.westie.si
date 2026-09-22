@@ -1,0 +1,17 @@
+# content/ is the database, and two different programs write it: the PHP API running on
+# Linux and the Python tools running on Windows. Both emit LF.
+#
+# Without this, git converts to CRLF on checkout on Windows, and then every byte-identical
+# comparison fails: tools/import_concepts.py would see all 208 concepts as "updated" on a
+# fresh clone and rewrite files nothing had changed. Normalising to LF everywhere keeps
+# `git status` meaningful.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
