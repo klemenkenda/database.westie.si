@@ -51,12 +51,35 @@ def _run(args: list[str], timeout: int = TIMEOUT) -> Iterator[dict[str, Any]]:
                 continue
 
 
-def discover(channel_url: str, limit: int = 0) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """The channel's videos, flat. Returns (channel info, rows newest first)."""
+def is_playlist(url: str) -> bool:
+    return "list=" in url or "/playlist" in url
+
+
+def playlist_url(url: str) -> str:
+    """A watch-url carrying a list= is a video *inside* a playlist; we want the playlist.
+
+    Fetching it as given would ingest one video and silently ignore the other forty.
+    """
+    import re as _re
+    match = _re.search(r"[?&]list=([A-Za-z0-9_-]+)", url)
+    if match:
+        return "https://www.youtube.com/playlist?list=" + match.group(1)
+    return url
+
+
+def discover(source_url: str, limit: int = 0) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Videos in a channel or a playlist, flat. Returns (source info, rows in order).
+
+    A playlist keeps its own order, which for a course is the teaching order and is worth
+    preserving; a channel is newest first.
+    """
     args = ["--flat-playlist", "--dump-json", "--ignore-errors"]
     if limit:
         args += ["--playlist-end", str(limit)]
-    args.append(channel_url.rstrip("/") + ("" if "/videos" in channel_url else "/videos"))
+    if is_playlist(source_url):
+        args.append(playlist_url(source_url))
+    else:
+        args.append(source_url.rstrip("/") + ("" if "/videos" in source_url else "/videos"))
 
     rows, channel = [], {}
     for row in _run(args):
@@ -64,11 +87,15 @@ def discover(channel_url: str, limit: int = 0) -> tuple[dict[str, Any], list[dic
             continue
         if not channel:
             channel = {
-                "channel_id": row.get("playlist_channel_id") or row.get("playlist_id"),
-                "title": row.get("playlist_channel") or row.get("playlist_title"),
+                "channel_id": row.get("playlist_channel_id"),
+                "playlist_id": row.get("playlist_id"),
+                "title": row.get("playlist_title") or row.get("playlist_channel"),
+                "channel_title": row.get("playlist_channel"),
                 "handle": row.get("playlist_uploader_id"),
+                "kind": "playlist" if is_playlist(source_url) else "channel",
             }
         rows.append({
+            "position": row.get("playlist_index"),
             "id": row["id"],
             "title": (row.get("title") or "").strip(),
             "duration_s": int(row["duration"]) if row.get("duration") else None,
@@ -76,7 +103,7 @@ def discover(channel_url: str, limit: int = 0) -> tuple[dict[str, Any], list[dic
             "thumbnail": _best_thumb(row.get("thumbnails") or []),
         })
     if not rows:
-        raise YoutubeError("no videos found at %s" % channel_url)
+        raise YoutubeError("no videos found at %s" % source_url)
     return channel, rows
 
 

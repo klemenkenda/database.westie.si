@@ -239,6 +239,87 @@ def cmd_refresh(args) -> int:
     return 0
 
 
+def cmd_merge(args) -> int:
+    """Fold one creator record into another and repoint everything that referenced it.
+
+    Two sources produced these records — a hand-written seed and the workshop archive — so
+    "Jordan Frisbee" and a bare "Jordan" can both exist and be the same person. Left alone
+    they split his videos, and therefore his authority, across two records.
+
+    The merge refuses when the evidence disagrees. A first-name record whose partners are
+    not a subset of the target's partners is probably a *different* person with the same
+    name, and silently folding those together is the same invisible error as binding a
+    wrong WSDC id.
+    """
+    source_front, _ = load(args.source)
+    target_front, _ = load(args.target)
+
+    src_partners = set(source_front.get("partners") or [])
+    dst_partners = set(target_front.get("partners") or [])
+
+    # Conflicting evidence: both records know who they dance with, and it is nobody in
+    # common. Two different people with the same first name.
+    if src_partners and dst_partners and not (src_partners & dst_partners) and not args.force:
+        print("refusing: %s dances with %s, %s with %s — no overlap."
+              % (args.source, ", ".join(sorted(src_partners)),
+                 args.target, ", ".join(sorted(dst_partners))))
+        print("Those look like two different people. --force if they are not.")
+        return 1
+
+    # The source itself may be two people. A bare first name seen with two different
+    # partners is exactly the shape of "Tatiana danced with Jordan" and "Tatiana danced
+    # with Christopher" being two women — and folding both into one record would hand one
+    # of them the other's authority. An absent partner list on the target proves nothing
+    # either way, so it cannot resolve this.
+    if len(src_partners) > 1 and not args.force:
+        print("refusing: %s is seen with %d different partners (%s)."
+              % (args.source, len(src_partners), ", ".join(sorted(src_partners))))
+        print("That name may cover more than one person. Check which of them %s is,"
+              % args.target)
+        print("then re-run with --force, or split the record first.")
+        return 1
+
+    if source_front.get("wsdc_id") and target_front.get("wsdc_id") \
+            and source_front["wsdc_id"] != target_front["wsdc_id"]:
+        print("refusing: the two records carry different confirmed WSDC ids.")
+        return 1
+
+    aliases = set(target_front.get("aliases") or [])
+    aliases.add(source_front.get("name") or args.source)
+    aliases.discard(target_front.get("name"))
+    target_front["aliases"] = sorted(a for a in aliases if a)
+    target_front["partners"] = sorted(dst_partners | src_partners)
+    if source_front.get("wsdc_id") and not target_front.get("wsdc_id"):
+        for field in ("wsdc_id", "wsdc_status", "wsdc", "wsdc_evidence"):
+            if field in source_front:
+                target_front[field] = source_front[field]
+    target_front["generated"] = False
+
+    # Repoint every video that credited the old record.
+    videos_dir = os.path.join(HERE, "content", "videos")
+    repointed = 0
+    if os.path.isdir(videos_dir):
+        for name in sorted(os.listdir(videos_dir)):
+            if not name.endswith(".md"):
+                continue
+            path = os.path.join(videos_dir, name)
+            front, body = wcsyaml.read(path)
+            people = front.get("creators") or []
+            if args.source not in people:
+                continue
+            front["creators"] = sorted({args.target if p == args.source else p for p in people})
+            wcsyaml.write(path, front, body)
+            repointed += 1
+
+    if not args.dry_run:
+        save(args.target, target_front, body_for(target_front))
+        os.remove(os.path.join(CREATORS, args.source + ".md"))
+    verb = "would merge" if args.dry_run else "merged"
+    print("%s %s into %s (%d video reference(s) repointed)"
+          % (verb, args.source, args.target, repointed))
+    return 0
+
+
 def cmd_list(args) -> int:
     creators = all_creators()
     if not creators:
@@ -292,6 +373,12 @@ def main() -> int:
     p.add_argument("wsdc_id", type=int)
     p.add_argument("--yes", action="store_true", help="skip the prompt (for scripted use)")
     p.set_defaults(func=cmd_confirm)
+
+    p = sub.add_parser("merge")
+    p.add_argument("source"); p.add_argument("target")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--force", action="store_true", help="merge despite unexplained partners")
+    p.set_defaults(func=cmd_merge)
 
     p = sub.add_parser("none")
     p.add_argument("slug")

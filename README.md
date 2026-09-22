@@ -25,7 +25,7 @@ python tools/graph_check.py       # audit the concept graph
 | M0 — skeleton, PHP API, Docker | done |
 | M1 — concepts imported and audited | imported; the review queue is open |
 | M2 — creators and WSDC ranking | code done; **12 creators need WSDC ids confirmed** |
-| M3 — YouTube ingestion | working; 12 ingested, 6 kept as teaching material |
+| M3 — YouTube ingestion | working; channels and playlists, 14 ingested, 8 kept |
 | M4 — search | not started |
 | M5 — classification + review UI | not started |
 | M6 — voting | not started |
@@ -45,7 +45,7 @@ python tools/publish_site.py        # copy the export into public/, never touchi
 | Path | What it is |
 |---|---|
 | `content/concepts/` | 208 concepts — level, category, prerequisite edges with provenance |
-| `content/videos/` | 12 ingested, 6 teaching and 6 rejected as dancing |
+| `content/videos/` | 14 ingested, 8 teaching and 6 rejected as dancing |
 | `content/channels/` | tracked ingestion sources |
 | `web/` | Next.js source; `output: "export"`, builds into `public/` |
 | `content/creators/` | 12 seeded — authority is computed from WSDC standing |
@@ -152,12 +152,23 @@ python tools/wsdc_sync.py pending            # who still needs an id
 python tools/wsdc_sync.py lookup 10277       # inspect a registry record
 python tools/wsdc_sync.py confirm ben-morris 1234
 python tools/wsdc_sync.py refresh            # re-fetch points for confirmed creators
+python tools/wsdc_sync.py merge jordan jordan-frisbee
 ```
+
+`merge` folds a duplicate record into another and repoints every video that referenced it.
+Two sources produced these records — a hand-written seed and the workshop archive — so
+"Jordan Frisbee" and a bare "Jordan" can both exist and split one person's authority.
+
+It refuses on conflicting evidence: when both records name partners and share none, and
+when the *source* is seen with more than one partner. A bare "Tatiana" appearing with both
+Jordan and Christopher may be two women, and folding them together would hand one the
+other's standing.
 
 ## Ingestion
 
 ```bash
 python tools/yt_sync.py add https://www.youtube.com/@PassionForWCS
+python tools/yt_sync.py add "<playlist url>" --creators jordan-frisbee,tatiana-mollmann
 python tools/yt_sync.py sync passionforwcs --limit 50
 python tools/yt_sync.py transcripts          # timestamped captions, cached on disk
 ```
@@ -165,6 +176,11 @@ python tools/yt_sync.py transcripts          # timestamped captions, cached on d
 Metadata via yt-dlp, not the Data API: the API needs a key and resolving a channel by hand
 hits Google's EU consent wall. Nothing is downloaded — this is an index that points at
 other people's videos and embeds them where they were published.
+
+**A playlist beats a channel as a source.** It is a set somebody curated, often one
+teacher's course, so `--creators` attributes the whole thing at once. That is a human
+attribution, so it outranks anything the title matcher could infer and the videos publish
+without review. A channel mixes teachers and needs per-video guessing.
 
 **Attribution proposes, it does not commit.** A full name in a title scores 0.9; a name
 after an authorship cue ("lesson by …") scores the same; a bare first name buried in a

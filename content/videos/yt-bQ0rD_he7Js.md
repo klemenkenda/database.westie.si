@@ -34,5 +34,3 @@ speech_wpm: 0.0
 ---
 
 # WCS Advanced JnJ   Swingtime 2026
-
-Rejected: competition.

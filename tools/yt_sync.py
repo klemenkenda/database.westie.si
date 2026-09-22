@@ -45,7 +45,7 @@ VIDEO_KEYS = [
 ]
 
 CHANNEL_KEYS = [
-    "id", "type", "platform", "channel_id", "handle", "title", "url",
+    "id", "type", "platform", "kind", "channel_id", "playlist_id", "handle", "title", "url",
     "default_creators", "auto_publish", "demote", "note",
     "last_sync", "known_videos", "added", "updated", "generated",
 ]
@@ -255,35 +255,64 @@ def speech_rate(words: int, duration_s: int) -> float:
 # ------------------------------------------------------------------------- commands
 
 def cmd_add(args) -> int:
-    channel, rows = youtube.discover(args.url, limit=1)
-    handle = (channel.get("handle") or "").lstrip("@")
-    slug = slugify(handle or channel.get("title") or "channel")
+    """Track a channel or a playlist.
+
+    A playlist is usually a much better source than a channel: it is a set somebody
+    curated, often a single teacher's course, so `--creators` can attribute the whole thing
+    at once. That is a *human* attribution, which is why it outranks anything the title
+    matcher infers.
+    """
+    source, _rows = youtube.discover(args.url, limit=1)
+    kind = source.get("kind", "channel")
+    handle = (source.get("handle") or "").lstrip("@")
+
+    if kind == "playlist":
+        slug = slugify(args.slug or source.get("title") or source.get("playlist_id") or "playlist")
+    else:
+        slug = slugify(args.slug or handle or source.get("title") or "channel")
+
     path = os.path.join(CHANNELS, slug + ".md")
     if os.path.isfile(path) and not args.force:
         print("already tracked: %s" % slug)
         return 0
+
+    creators = [c.strip() for c in (args.creators or "").split(",") if c.strip()]
+    known = set(read_all(CREATORS))
+    unknown = [c for c in creators if c not in known]
+    if unknown:
+        raise SystemExit(
+            "no creator record for %s. Add them first, or check the slug: an attribution "
+            "pointing at nothing is worse than none." % ", ".join(unknown))
+
     front = {
         "id": slug,
         "type": "channel",
         "platform": "youtube",
-        "channel_id": channel.get("channel_id"),
+        "kind": kind,
+        "channel_id": source.get("channel_id"),
+        "playlist_id": source.get("playlist_id"),
         "handle": "@" + handle if handle else None,
-        "title": channel.get("title"),
+        "title": source.get("title"),
         "url": args.url,
-        "default_creators": [],
-        # New material is reviewable by default. A channel earns auto-publish once you have
-        # seen what it actually posts.
-        "auto_publish": False,
+        "default_creators": creators,
+        # New material is reviewable by default — unless a human has already said who
+        # teaches it, in which case the main thing review was for is settled.
+        "auto_publish": bool(creators),
         "demote": False,
         "last_sync": None,
         "known_videos": 0,
         "added": _dt.date.today().isoformat(),
         "generated": True,
     }
-    body = "# %s\n\nTracked YouTube channel. New videos land in review until\n`auto_publish` is set.\n" % (
-        channel.get("title") or slug)
+    body = "# %s\n\nTracked YouTube %s.%s\n" % (
+        source.get("title") or slug, kind,
+        ("\n\nEvery video is attributed to %s, set by hand." % ", ".join(creators))
+        if creators else
+        "\n\nNew videos land in review until `auto_publish` is set.")
     write(CHANNELS, slug, front, body, CHANNEL_KEYS)
-    print("tracking %s (%s)" % (slug, channel.get("channel_id")))
+    print("tracking %s (%s: %s)" % (slug, kind, source.get("playlist_id") or source.get("channel_id")))
+    if creators:
+        print("  attributed to: %s" % ", ".join(creators))
     print("  python tools/yt_sync.py sync %s" % slug)
     return 0
 
@@ -516,7 +545,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="command", required=True)
 
-    p = sub.add_parser("add"); p.add_argument("url"); p.add_argument("--force", action="store_true")
+    p = sub.add_parser("add")
+    p.add_argument("url")
+    p.add_argument("--creators", help="comma-separated creator slugs to attribute every video to")
+    p.add_argument("--slug", help="override the generated source slug")
+    p.add_argument("--force", action="store_true")
     p.set_defaults(func=cmd_add)
 
     sub.add_parser("channels").set_defaults(func=cmd_channels)
