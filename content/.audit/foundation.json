@@ -1,22 +1,22 @@
 {
-  "generated": "2026-09-23T01:07:48",
-  "concepts": 219,
-  "edges": 313,
-  "density": 1.43,
-  "foundation_density": 2.11,
+  "generated": "2026-09-23T03:15:50",
+  "concepts": 217,
+  "edges": 312,
+  "density": 1.44,
+  "foundation_density": 2.06,
   "trust": {
-    "imported": 237,
-    "verified": 76
+    "imported": 234,
+    "verified": 78
   },
   "coverage": {
-    "in_foundation": 37,
-    "of": 219,
+    "in_foundation": 35,
+    "of": 217,
     "by_tier": {
       "partner": 8,
-      "patterns": 11,
+      "patterns": 9,
       "social": 2,
-      "self": 8,
-      "music": 5,
+      "self": 9,
+      "music": 4,
       "space": 3
     }
   },

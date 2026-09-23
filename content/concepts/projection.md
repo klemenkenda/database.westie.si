@@ -3,44 +3,36 @@ id: "projection"
 type: "concept"
 title: "Projection"
 category: "technique"
-level: 2
-level_trust: "imported"
-tags: ["body-lead", "intention", "technique"]
-aliases: []
+level: 1
+level_trust: "verified"
+tags: ["body-lead", "foundation", "intention", "technique"]
+aliases: ["lead projection", "projecting"]
 related: []
 requires:
-  - id: "wcs-basic-rhythm"
-    origin: "import:teaching@2026-09-22"
-    trust: "imported"
-    confidence: 0.5
+  - id: "balance-and-center"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
+    strength: "required"
+  - id: "walking-steps"
+    origin: "foundation@2026-09-22"
+    trust: "verified"
+    confidence: 1.0
     strength: "required"
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
-verified_by: null
-verified_at: null
+status: "review"
+verified_by: "klemen"
+verified_at: "2026-09-23"
 added: "2026-09-22"
-updated: "2026-09-22"
-generated: true
+updated: "2026-09-23"
+generated: false
+foundation_tier: "self"
 ---
 
 # Projection
 
 *Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Sending your movement and attention outward — down the slot, toward the partner, into the room — so the dance reads beyond the two people doing it.

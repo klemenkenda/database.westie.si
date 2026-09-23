@@ -35,18 +35,4 @@ foundation_tier: "partner"
 
 *Connection · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+The two states of the connection: stretch when the partners move apart, compression when they move together. The change between them is what carries information; a V or a U describes the shape the arms hold while it happens.

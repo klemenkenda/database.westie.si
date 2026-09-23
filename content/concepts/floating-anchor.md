@@ -34,18 +34,4 @@ generated: true
 
 *Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+An anchor that keeps a little travel or drift in it instead of being planted, so the pattern ends without the dance coming to a stop.

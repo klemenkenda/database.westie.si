@@ -40,18 +40,4 @@ foundation_tier: "partner"
 
 *Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Leading with your own body travelling through a frame that holds its shape, so the arm only passes on what the body has already done. The frame travels in arcs rather than straight pulls, and the connection unrolls like a roll of paper: the hand goes nowhere the body has not gone first.

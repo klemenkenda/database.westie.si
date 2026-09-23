@@ -34,18 +34,4 @@ generated: true
 
 *Musicality · level 4* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Trading ideas with your partner across a phrase: one dancer offers a movement or an accent, the other answers it in the phrase that follows.

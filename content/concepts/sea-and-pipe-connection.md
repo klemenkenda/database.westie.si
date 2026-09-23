@@ -29,18 +29,4 @@ generated: true
 
 *Connection · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+An image for what the connection carries: the arm is a pipe that passes movement through without generating it, and the body behind it is the sea that supplies the pressure.

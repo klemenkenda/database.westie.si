@@ -29,18 +29,4 @@ generated: true
 
 *Styling · level 4* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Hip and knee styling borrowed from Elvis, danced by the leader during a left-side pass with an inside turn.

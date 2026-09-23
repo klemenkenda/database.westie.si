@@ -29,18 +29,4 @@ generated: true
 
 *Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Three ways of dancing the same triple step — taking only part of it, taking all of it, or taking it late — used to change the texture of the footwork without changing the pattern.

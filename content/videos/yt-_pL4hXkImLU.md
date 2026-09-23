@@ -28,7 +28,7 @@ has_transcript: true
 transcript_words: 1278
 status: "review"
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
 speech_wpm: 167.1
 ---

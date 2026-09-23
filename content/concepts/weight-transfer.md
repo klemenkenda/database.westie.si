@@ -28,20 +28,6 @@ foundation_tier: "self"
 
 # Weight transfer as the lead
 
-*Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+The lead is a change of weight, not a movement of the arm. Where your weight goes is the information the partner actually receives.

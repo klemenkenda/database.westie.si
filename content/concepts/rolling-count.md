@@ -35,16 +35,4 @@ generated: false
 
 *Musicality · level 0 · foundation tier `music`*
 
-The uneven "1 & a 2" subdivision that swing music is actually played in, as opposed to the even count a beginner class teaches. Existing `swung-rhythm` covers the musical side; this is the counting vocabulary that makes triples land in the pocket.
-
-## Why it is in the foundation
-
-Hearing the beat and the phrase. Independent of the self tier — you can clap a phrase without standing up — so the two tiers are siblings, not a sequence.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+The uneven "1 & a 2" subdivision that swing music is actually played in, as opposed to the even count a beginner class is taught. It is the counting that makes triple steps land in the pocket.

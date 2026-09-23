@@ -1,12 +1,12 @@
 ---
 id: "whip-apache-exit"
 type: "concept"
-title: "Whip — apache exit"
+title: "Whip — Apache exit"
 category: "pattern"
 level: 2
 level_trust: "imported"
 tags: ["pattern", "whip"]
-aliases: []
+aliases: ["Whip — Texas Tommy exit"]
 related: []
 requires:
   - id: "basic-whip"
@@ -21,26 +21,10 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
-generated: true
+updated: "2026-09-23"
+generated: false
 ---
 
-# Whip — apache exit
+# Whip — Apache/Texas Tommy exit
 
-*Pattern · level 2* — imported from the teaching syllabus and **not yet reviewed**.
-
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A whip that ends in an Apache shape exit (also called Texas Tommy). The leader puts follower's right hand behind their back, takes it with his right hand and rotates the follower out.

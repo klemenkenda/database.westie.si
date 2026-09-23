@@ -3,8 +3,8 @@ id: "open-whip-2x-turn-rotation"
 type: "concept"
 title: "Open whip + 2× turn with rotation"
 category: "pattern"
-level: 4
-level_trust: "imported"
+level: 3
+level_trust: "verified"
 tags: ["pattern", "rotation", "turns", "whip"]
 aliases: []
 related: []
@@ -27,30 +27,17 @@ requires:
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
+status: "review"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+level_origin: "foundation@2026-09-22"
 ---
 
 # Open whip + 2× turn with rotation
 
-*Pattern · level 4* — imported from the teaching syllabus and **not yet reviewed**.
+*Pattern · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-3 of 3 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+An open whip with two rotations added to the follower's turn and a rotation of the whole pattern on top of it.

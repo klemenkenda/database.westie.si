@@ -34,18 +34,4 @@ generated: true
 
 *Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Starting a whip with a quick 1-and-2 instead of two even walks, so the follower leaves with more speed than the pattern would otherwise carry. The extra speed is spent in the rotation and settled again by the anchor.

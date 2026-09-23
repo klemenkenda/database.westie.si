@@ -34,18 +34,4 @@ generated: true
 
 *Connection · level 4* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Two ways of proposing a movement. Active leading supplies the energy that carries the follower; passive leading offers a direction and lets the follower's own momentum do the travelling. Most good dancing moves between the two inside a single pattern.

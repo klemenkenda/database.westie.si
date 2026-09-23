@@ -35,16 +35,4 @@ generated: false
 
 *Connection · level 0 · foundation tier `partner`*
 
-Facing your partner down the slot in a one-handed hold at arm's length. Four of the six basics start and end here, and the import never names it — `closed-position` exists with nothing on the other side of the pair.
-
-## Why it is in the foundation
-
-Where two bodies become a system: roles, handholds, frame, the two positions, and the elastic connection that carries information between them.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+Facing your partner down the slot in a one-handed hold at roughly arm's length. Most of the basic patterns start and end here.

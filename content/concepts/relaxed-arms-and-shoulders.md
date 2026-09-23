@@ -28,20 +28,6 @@ foundation_tier: "self"
 
 # Low, relaxed arms and shoulders
 
-*Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+Keeping the arms low and the shoulders down, so the connection comes from the body. Lifted shoulders and gripping arms cut off everything the connection is meant to carry.

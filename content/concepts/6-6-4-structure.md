@@ -29,18 +29,4 @@ generated: true
 
 *Musicality · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A way of filling a sixteen-beat phrase with two six-count patterns and a four-beat tag, so the dance lands where the music lands instead of drifting across the phrase. The leftover four beats are filled with something that is not a full pattern — a ball change, a wave, a pair of swivels — and then the next phrase starts clean.

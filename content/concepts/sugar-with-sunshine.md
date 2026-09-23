@@ -29,18 +29,4 @@ generated: true
 
 *Styling · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A sugar push with the free arm opening upward and outward on the way out, the styling that gives the pattern its name.

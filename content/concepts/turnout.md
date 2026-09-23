@@ -33,20 +33,6 @@ foundation_tier: "self"
 
 # Turned-out feet
 
-*Footwork · level 2* — imported from the teaching syllabus and **not yet reviewed**.
+*Footwork · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 2 concept that is more likely to be a gap in the import than a fact about the dance._
+Standing and stepping with the feet turned slightly out from the hips. It widens the base, makes swivels and rotations available, and keeps the knees tracking over the toes.

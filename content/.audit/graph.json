@@ -1,25 +1,25 @@
 {
-  "generated": "2026-09-23T01:07:49",
-  "concepts": 219,
-  "edges": 313,
-  "density": 1.43,
+  "generated": "2026-09-23T03:24:51",
+  "concepts": 217,
+  "edges": 312,
+  "density": 1.44,
   "trust": {
-    "verified": 76,
+    "verified": 78,
     "corroborated": 0,
-    "imported": 237,
+    "imported": 234,
     "disputed": 0
   },
   "unreviewed": {
-    "draft": 182,
-    "generated": 182,
-    "of": 219
+    "draft": 167,
+    "generated": 166,
+    "of": 217
   },
   "levels": {
     "0": 17,
-    "1": 34,
-    "2": 54,
+    "1": 32,
+    "2": 56,
     "3": 78,
-    "4": 36
+    "4": 34
   },
   "cycles": [],
   "dangling": [],
@@ -114,7 +114,6 @@
     "left-side-inside-turn-leader-styling",
     "left-side-leader-kick-on-5",
     "left-side-pass-acceleration",
-    "left-side-pass-closed",
     "left-side-pass-inside-turn",
     "left-side-pass",
     "left-side-with-fold",
@@ -238,7 +237,6 @@
     "whip-behind-back-with-hip-catch",
     "whip-behind-the-back-variations",
     "whip-behind-the-back",
-    "whip-cut-off-entry",
     "whip-hip-catch-exit",
     "whip-roll-of-the-back",
     "whip-with-hammerlock",

@@ -40,18 +40,4 @@ foundation_tier: "space"
 
 *Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Count 1 tells the follower where the pattern is going. The leader commits to one unambiguous direction on the first beat, and everything after it is elaboration on that.

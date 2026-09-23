@@ -3,8 +3,8 @@ id: "travelling-turns"
 type: "concept"
 title: "Technique of travelling turns"
 category: "technique"
-level: 3
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["rotation", "technique", "turns"]
 aliases: []
 related: []
@@ -21,26 +21,13 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Technique of travelling turns
 
-*Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Turning and covering ground at the same time, the axis moving along the slot while the rotation happens around it.

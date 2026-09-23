@@ -1,8 +1,8 @@
 /**
  * Group the concept vocabulary into families you can judge as a group.
  *
- * Reviewing 219 concepts alphabetically is the wrong unit of work: `basket-whip`,
- * `reverse-whip` and `whip-cut-off-entry` are one decision about what a whip rests on,
+ * Reviewing the concept list alphabetically is the wrong unit of work: `basket-whip`,
+ * `reverse-whip` and `whip-roll-of-the-back` are one decision about what a whip rests on,
  * made once, and three files that should agree afterwards. Judged one at a time, days
  * apart, they end up with three different answers — which is exactly how the import got
  * a level-1 whip sitting next to a level-4 `acceleration`.
@@ -13,8 +13,8 @@
  * deliberately not by tag either — `pattern` and `patterns` are both in use as separate
  * tags, so tags cannot even group themselves.
  *
- * Order matters. `whip-cut-off-entry` contains both "whip" and "entry"; whips are declared
- * first because the whip is the thing being learned and the entry is a detail of it.
+ * Order matters. `whip-hip-catch-exit` contains both "whip" and "catch"; whips are declared
+ * first because the whip is the thing being learned and the exit is a detail of it.
  */
 
 export type Family = {
@@ -146,8 +146,53 @@ export const FAMILIES: Family[] = [
   },
 ];
 
-/** Family id for one concept. Foundation membership wins over every token rule. */
+/**
+ * Concepts filed by hand, overriding both the foundation short-circuit and the tokens.
+ *
+ * Foundation membership normally wins, which is right when the job is reviewing the
+ * foundation as one unit. It is wrong for the ones listed here. A handhold, the two
+ * positions and the two basic passes are the shapes the rest of their family is made out
+ * of, so judging `shadow-position`, `telemark` or `right-side-pass-outside-turn` without
+ * them on screen is exactly the one-at-a-time reviewing this file exists to prevent — and
+ * a family whose own root is filed elsewhere looks rootless, which is the same complaint
+ * the external-prerequisite column answers on the canvas.
+ *
+ * They keep their tier and everything else about being foundation concepts. The only thing
+ * this changes is which family they are reviewed in.
+ *
+ * Kept as an explicit list rather than as extra tokens. Most of these would land in the
+ * right family on tokens alone once the short-circuit is bypassed, but two would not: the
+ * token that catches `basic-handholds` also catches `playing-with-handholds`, which is not
+ * a position, and `relaxed-arms-and-shoulders` matches `arm` in `styling` before anything
+ * in `connection`. Listing them all keeps one rule instead of two.
+ */
+export const FAMILY_OVERRIDES: Record<string, string> = {
+  // Positions & holds — the shapes, reviewed with the positions built on them.
+  "basic-handholds": "positions",
+  "open-position": "positions",
+  "closed-position": "positions",
+
+  // Passes — all three basics, reviewed with the variations built on them. Leaving any of
+  // them in the foundation tab made the family look rootless: three `left-side-pass-*`
+  // concepts and `right-side-pass-outside-turn` are judged against exactly these.
+  "left-side-pass": "passes",
+  "right-side-pass": "passes",
+  "underarm-pass": "passes",
+
+  // Connection & frame — the force, reviewed with the technique that uses it.
+  "frame": "connection",
+  "relaxed-arms-and-shoulders": "connection",
+  "stretch-and-compression": "connection",
+  "body-lead-and-frame": "connection",
+};
+
+/**
+ * Family id for one concept. A hand-filed override wins, then foundation membership,
+ * then the token rules in declared order.
+ */
 export function familyOf(key: string, foundationTier?: string): string {
+  const override = FAMILY_OVERRIDES[key];
+  if (override) return override;
   if (foundationTier) return "foundation";
   for (const family of FAMILIES) {
     if (family.tokens.some((t) => key.includes(t))) return family.id;

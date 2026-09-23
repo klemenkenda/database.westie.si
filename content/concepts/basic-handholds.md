@@ -33,20 +33,6 @@ foundation_tier: "partner"
 
 # Basic handholds — one, two, reverse
 
-*Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+The standard hand connections of the dance — one hand, two hands, and the reverse or same-hand hold. The hand works as a hook rather than a grip: enough contact to carry direction, loose enough that either dancer can let go at any moment.

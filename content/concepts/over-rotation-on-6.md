@@ -34,18 +34,4 @@ generated: true
 
 *Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Turning further than the pattern needs on count 6 and opening out of it, which changes where both dancers face going into the anchor.

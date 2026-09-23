@@ -34,18 +34,4 @@ generated: true
 
 *Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Breaking a movement into distinct parts that arrive one after another, so the body reads as a sequence of hits rather than one continuous flow.

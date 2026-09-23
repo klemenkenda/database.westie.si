@@ -40,18 +40,4 @@ foundation_tier: "partner"
 
 *Connection · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Standing beside and slightly offset from your partner, the leader's right hand on the follower's back and the follower's left arm resting on the leader's arm or shoulder. It is where the two dancers briefly share one centre, and the whip family passes through it.

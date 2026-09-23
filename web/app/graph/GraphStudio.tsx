@@ -23,11 +23,40 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Concept, Edge, Foundation } from "@/lib/content";
+import { flag, oneOf, text, useUrlState, type Spec } from "@/lib/urlstate";
 import Canvas from "./Canvas";
+import { FAMILIES } from "./families";
 
 type Row = Concept & { videos: number };
 
-type View = "canvas" | "tiers" | "problems" | "inspect" | "coverage";
+const VIEWS = ["canvas", "tiers", "problems", "inspect", "coverage"] as const;
+type View = (typeof VIEWS)[number];
+
+const VIEW_TITLES: Record<View, string> = {
+  canvas: "Canvas",
+  tiers: "Tiers",
+  problems: "Problems",
+  inspect: "Inspect",
+  coverage: "Coverage",
+};
+
+/**
+ * Everything the address bar carries, which is everything about where you are.
+ *
+ * Named separately from the component's other state because the distinction is the whole
+ * design: this is what a screen *is*, and `saving`, `saved`, `live` and the concept list
+ * are what is happening to it. Nothing that a reload should forget belongs here.
+ */
+type Where = {
+  view: View;
+  /** The inspector's subject. Its own field, so Back out of a concept keeps the canvas. */
+  concept: string;
+  family: string;
+  /** The canvas selection. Empty is a real value: nothing selected. */
+  focus: string;
+  query: string;
+  onlyProblems: boolean;
+};
 
 const API =
   process.env.NEXT_PUBLIC_API_BASE ??
@@ -169,10 +198,36 @@ export default function GraphStudio({
   foundation: Foundation;
 }) {
   // The canvas is the default because building the graph is the job; the summary views
-  // are for checking what the building did.
-  const [view, setView] = useState<View>("canvas");
-  const [selected, setSelected] = useState<string>(foundation.roots[0] ?? initial[0]?.key ?? "");
-  const [query, setQuery] = useState("");
+  // are for checking what the building did. Being the default is also what keeps it out of
+  // the URL, so the tool's front door stays `/graph/`.
+  const fallbackConcept = foundation.roots[0] ?? initial[0]?.key ?? "";
+  const spec: Spec<Where> = useMemo(
+    () => ({
+      view: oneOf("v", VIEWS, "canvas"),
+      // Always written while inspecting, even when it happens to equal the fallback: the
+      // point of the parameter is that the link keeps meaning this concept later, and the
+      // fallback is whatever the foundation's first root happens to be today.
+      concept: {
+        param: "c",
+        parse: (raw) => raw || fallbackConcept,
+        write: (value) => (value && value !== fallbackConcept ? value : null),
+      },
+      family: oneOf("f", FAMILIES.map((f) => f.id), "whips"),
+      focus: text("n"),
+      query: text("q"),
+      onlyProblems: flag("only"),
+    }),
+    [fallbackConcept],
+  );
+  const [where, go] = useUrlState<Where>(spec, {
+    view: "canvas",
+    concept: fallbackConcept,
+    family: "whips",
+    focus: "",
+    query: "",
+    onlyProblems: false,
+  });
+  const { view, concept: selected, query } = where;
   const [saving, setSaving] = useState<string | null>(null);
   const [saved, setSaved] = useState<Record<string, string>>({});
 
@@ -224,11 +279,16 @@ export default function GraphStudio({
                   : null,
             )
             .filter((e: Edge | null): e is Edge => e !== null),
+          related: Array.isArray(r.related) ? r.related : [],
           trust: r.trust ?? undefined,
           status: r.status ?? undefined,
           foundation_tier: r.foundation_tier ?? undefined,
+          level_trust: r.level_trust ?? undefined,
           origin: r.origin ?? undefined,
           verified_by: r.verified_by ?? undefined,
+          verified_at: r.verified_at ?? undefined,
+          added: r.added ?? undefined,
+          updated: r.updated ?? undefined,
           videos: videosByKey.get(r._key ?? r.id) ?? 0,
         })),
       );
@@ -247,10 +307,34 @@ export default function GraphStudio({
 
   const g = useMemo(() => buildGraph(concepts), [concepts]);
 
-  const open = useCallback((key: string) => {
-    setSelected(key);
-    setView("inspect");
-  }, []);
+  // The browser's history menu and the tab strip both read the document title, so five
+  // entries all called "Graph studio" are a list of nothing. Named after the screen, and
+  // after the concept when there is one.
+  useEffect(() => {
+    const at = view === "inspect" ? g.byKey.get(selected)?.title ?? selected : VIEW_TITLES[view];
+    document.title = `${at} — graph studio`;
+  }, [view, selected, g]);
+
+  const setFamily = useCallback((id: string) => go({ family: id, focus: "" }, "push"), [go]);
+  const setFocus = useCallback((key: string | null) => go({ focus: key ?? "" }, "replace"), [go]);
+  // Pushed, unlike the search box: a checkbox is a discrete change of what is on screen,
+  // closer to a tab than to typing, and Back un-ticking it is what a browser has trained
+  // everyone to expect.
+  const setOnlyProblems = useCallback((on: boolean) => go({ onlyProblems: on }, "push"), [go]);
+
+  /**
+   * Open a concept in the inspector, as a history entry of its own.
+   *
+   * Pushed, not replaced, and this is the case the URL work exists for: the entry left
+   * behind still carries the family and the card you were on, so Back returns you to the
+   * canvas where you were rather than out of the studio altogether.
+   */
+  const open = useCallback(
+    (key: string) => {
+      go({ view: "inspect", concept: key }, "push");
+    },
+    [go],
+  );
 
   // ---- live findings, derived here rather than read from the audit file.
   //
@@ -430,7 +514,7 @@ export default function GraphStudio({
             <button
               key={id}
               className={`tab ${view === id ? "on" : ""}`}
-              onClick={() => setView(id)}
+              onClick={() => go({ view: id }, "push")}
             >
               {label}
             </button>
@@ -440,7 +524,9 @@ export default function GraphStudio({
           className="search"
           placeholder="Find a concept or alias…"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          // Replaced, not pushed: a pushed entry per keystroke would mean fifteen presses
+          // of Back to undo typing "sugar push".
+          onChange={(e) => go({ query: e.target.value }, "replace")}
         />
       </div>
 
@@ -456,7 +542,18 @@ export default function GraphStudio({
       )}
 
       {view === "canvas" && (
-        <Canvas concepts={concepts} onSave={save} busy={saving} onOpenConcept={open} />
+        <Canvas
+          concepts={concepts}
+          onSave={save}
+          busy={saving}
+          onOpenConcept={open}
+          family={where.family}
+          onFamily={setFamily}
+          focus={where.focus}
+          onFocus={setFocus}
+          onlyProblems={where.onlyProblems}
+          onOnlyProblems={setOnlyProblems}
+        />
       )}
       {view === "tiers" && (
         <TiersView g={g} foundation={foundation} totals={totals} onOpen={open} />
@@ -472,6 +569,7 @@ export default function GraphStudio({
           onSave={save}
           saving={saving}
           message={saved[selected]}
+          tiers={foundation.tiers.map((t) => t.id)}
         />
       )}
       {view === "coverage" && <CoverageView concepts={concepts} g={g} onOpen={open} />}
@@ -713,6 +811,7 @@ function InspectView({
   onSave,
   saving,
   message,
+  tiers,
 }: {
   g: Graph;
   selected: string;
@@ -720,6 +819,7 @@ function InspectView({
   onSave: (key: string, patch: Record<string, unknown>) => void;
   saving: string | null;
   message?: string;
+  tiers: string[];
 }) {
   const concept = g.byKey.get(selected);
   if (!concept) return <p className="note">No concept selected.</p>;
@@ -876,6 +976,7 @@ function InspectView({
           onSave={onSave}
           busy={saving === concept.key}
           message={message}
+          tiers={tiers}
         />
       </section>
     </>
@@ -884,25 +985,216 @@ function InspectView({
 
 // ------------------------------------------------------------------------------ editor
 
+/**
+ * A staged list field — tags, aliases, related.
+ *
+ * Staged, not immediate: adding an alias used to write the file on the spot, which meant
+ * four aliases were four writes, four reloads and four lines of git history. Everything on
+ * this form is collected and saved once instead, and nothing touches disk until Save.
+ */
+function ListField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  datalist,
+  hint,
+}: {
+  label: string;
+  value: string[];
+  onChange: (next: string[]) => void;
+  placeholder: string;
+  datalist?: string;
+  hint?: string;
+}) {
+  const [draft, setDraft] = useState("");
+  const add = () => {
+    const next = draft.trim();
+    setDraft("");
+    if (!next || value.includes(next)) return;
+    onChange([...value, next]);
+  };
+  return (
+    <div className="editfield">
+      <span className="fieldlabel">{label}</span>
+      <div className="chips">
+        {value.length === 0 && <span className="dim">none</span>}
+        {value.map((v) => (
+          <button
+            key={v}
+            className="chip link bad"
+            title={`remove “${v}”`}
+            onClick={() => onChange(value.filter((x) => x !== v))}
+          >
+            {v} ✕
+          </button>
+        ))}
+      </div>
+      <div className="editrow">
+        <input
+          value={draft}
+          list={datalist}
+          placeholder={placeholder}
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              add();
+            }
+          }}
+        />
+        <button className="tab mini" disabled={!draft.trim()} onClick={add}>
+          Add
+        </button>
+      </div>
+      {hint && <p className="note">{hint}</p>}
+    </div>
+  );
+}
+
+const STATUSES = ["draft", "review", "published", "hidden", "rejected"];
+
+const sameList = (a: string[], b: string[]) =>
+  a.length === b.length && a.every((v, i) => v === b[i]);
+
+/**
+ * The full record editor: every field a person owns, plus the prose.
+ *
+ * The split down the middle is deliberate. Frontmatter and body are staged and written by
+ * one Save, so a round of edits is one file diff rather than six. Prerequisite edges stay
+ * immediate, because each is stamped with its own origin and trust at the moment it is
+ * asserted, and because the canvas — which writes the same edges — has no Save button to
+ * share.
+ *
+ * What is *not* here is as considered as what is. `id`, `type`, `origin`, `added`,
+ * `updated`, `generated`, `verified_at` and `verified_by` are provenance: they record how
+ * a claim got here, and a form that lets you retype them is a form that lets you launder
+ * an import into a hand-check. They are shown, read-only, underneath.
+ */
 function Editor({
   concept,
   g,
   onSave,
   busy,
   message,
+  tiers,
 }: {
   concept: Row;
   g: Graph;
   onSave: (key: string, patch: Record<string, unknown>) => void;
   busy: boolean;
   message?: string;
+  tiers: string[];
 }) {
+  const [title, setTitle] = useState(concept.title);
+  const [category, setCategory] = useState(concept.category ?? "");
   const [level, setLevel] = useState(String(concept.level ?? ""));
+  const [status, setStatus] = useState(concept.status ?? "draft");
+  const [trust, setTrust] = useState(concept.trust ?? "imported");
+  const [tier, setTier] = useState(concept.foundation_tier ?? "");
+  const [tags, setTags] = useState<string[]>(concept.tags);
+  const [aliases, setAliases] = useState<string[]>(concept.aliases);
+  const [related, setRelated] = useState<string[]>(concept.related);
+
+  /*
+   * The body is fetched per concept rather than carried in the list payload.
+   *
+   * `GET /concepts` returns frontmatter and a short excerpt for all 219 records; the prose
+   * only comes back from `GET /concepts/{key}`. Pushing every body through the list
+   * endpoint to fill one textarea would be the wrong trade by an order of magnitude, so
+   * the editor asks for the one it needs. `loaded` is kept beside it for two reasons: Save
+   * can tell an edit from an untouched fetch, and a failed fetch can never be written back
+   * as an empty body over real prose.
+   */
+  const [body, setBody] = useState("");
+  const [loaded, setLoaded] = useState("");
+  const [bodyState, setBodyState] = useState<"loading" | "ready" | "offline">("loading");
+
+  useEffect(() => {
+    let alive = true;
+    setBodyState("loading");
+    fetch(`${API}/concepts/${concept.key}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
+      .then((record) => {
+        if (!alive) return;
+        const text = typeof record?.body === "string" ? record.body : "";
+        setBody(text);
+        setLoaded(text);
+        setBodyState("ready");
+      })
+      .catch(() => {
+        if (alive) setBodyState("offline");
+      });
+    return () => {
+      alive = false;
+    };
+  }, [concept.key]);
+
   const [addId, setAddId] = useState("");
   const [strength, setStrength] = useState("required");
-  const [alias, setAlias] = useState("");
-
   const direct = g.out.get(concept.key) ?? [];
+
+  const categories = useMemo(
+    () =>
+      [...new Set([...g.byKey.values()].map((c) => c.category).filter(Boolean))].sort() as string[],
+    [g],
+  );
+  const allTags = useMemo(
+    () => [...new Set([...g.byKey.values()].flatMap((c) => c.tags))].sort(),
+    [g],
+  );
+
+  /** Only what actually changed. A PUT of every field would rewrite `updated` for nothing. */
+  const patch = useMemo(() => {
+    const out: Record<string, unknown> = {};
+    const name = title.trim();
+    if (name && name !== concept.title) out.title = name;
+    const cat = category.trim();
+    if (cat !== (concept.category ?? "")) out.category = cat === "" ? null : cat;
+    if (level !== String(concept.level ?? "")) {
+      out.level = level === "" ? null : Number(level);
+      // Editing the level by hand is the definition of a verified level. Writing the
+      // number without the trust would leave the audit still calling it an import.
+      out.level_trust = "verified";
+    }
+    if (status !== (concept.status ?? "draft")) out.status = status;
+    if (trust !== (concept.trust ?? "imported")) out.trust = trust;
+    if (tier !== (concept.foundation_tier ?? "")) out.foundation_tier = tier === "" ? null : tier;
+    if (!sameList(tags, concept.tags)) out.tags = tags;
+    if (!sameList(aliases, concept.aliases)) out.aliases = aliases;
+    if (!sameList(related, concept.related)) out.related = related;
+    if (bodyState === "ready" && body !== loaded) out.body = body;
+    return out;
+  }, [
+    title,
+    category,
+    level,
+    status,
+    trust,
+    tier,
+    tags,
+    aliases,
+    related,
+    body,
+    loaded,
+    bodyState,
+    concept,
+  ]);
+
+  const changed = Object.keys(patch);
+
+  const revert = () => {
+    setTitle(concept.title);
+    setCategory(concept.category ?? "");
+    setLevel(String(concept.level ?? ""));
+    setStatus(concept.status ?? "draft");
+    setTrust(concept.trust ?? "imported");
+    setTier(concept.foundation_tier ?? "");
+    setTags(concept.tags);
+    setAliases(concept.aliases);
+    setRelated(concept.related);
+    setBody(loaded);
+  };
 
   // An edge added here is `verified`, because a person is adding it by hand and saying so
   // is the whole point of the trust ladder. The alternative — writing `imported` for a
@@ -939,15 +1231,31 @@ function Editor({
       <h3>Edit</h3>
       <p className="note">
         Writes go straight to <code>content/concepts/{concept.key}.md</code> through the PHP
-        API, so the change is a file diff you can read and revert. An edge added by hand is
-        recorded as <code>verified</code> with today's date — a human edit is exactly the
+        API, so the change is a file diff you can read and revert. Fields and prose are
+        staged and saved together; prerequisite edges write immediately and stamp themselves{" "}
+        <code>verified</code> with today&rsquo;s date, because a human edit is exactly the
         evidence the trust ladder exists to record. Re-run{" "}
         <code>python tools/foundation.py --check</code> afterwards to revalidate.
       </p>
 
-      <div className="editrow">
-        <label>
-          Level
+      <div className="fieldgrid">
+        <label className="editfield">
+          <span className="fieldlabel">Title</span>
+          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        </label>
+
+        <label className="editfield">
+          <span className="fieldlabel">Category</span>
+          <input
+            value={category}
+            list="concept-categories"
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="technique, pattern, musicality…"
+          />
+        </label>
+
+        <label className="editfield">
+          <span className="fieldlabel">Level</span>
           <select value={level} onChange={(e) => setLevel(e.target.value)}>
             <option value="">—</option>
             {["0", "1", "2", "3", "4"].map((l) => (
@@ -957,21 +1265,106 @@ function Editor({
             ))}
           </select>
         </label>
-        <button
-          className="tab"
-          disabled={busy || level === String(concept.level ?? "")}
-          onClick={() =>
-            onSave(concept.key, {
-              level: level === "" ? null : Number(level),
-              level_trust: "verified",
-              status: "review",
-            })
-          }
-        >
-          Set level
-        </button>
+
+        <label className="editfield">
+          <span className="fieldlabel">Status</span>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            {STATUSES.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="editfield">
+          <span className="fieldlabel">Trust</span>
+          <select value={trust} onChange={(e) => setTrust(e.target.value)}>
+            {TRUST_ORDER.map((v) => (
+              <option key={v} value={v}>
+                {v}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="editfield">
+          <span className="fieldlabel">Foundation tier</span>
+          <select value={tier} onChange={(e) => setTier(e.target.value)}>
+            <option value="">not in the foundation</option>
+            {tiers.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
 
+      <ListField
+        label="Aliases"
+        value={aliases}
+        onChange={setAliases}
+        placeholder="another name for this"
+        hint="What someone would search for instead of the title — the studio matches these."
+      />
+      <ListField
+        label="Tags"
+        value={tags}
+        onChange={setTags}
+        placeholder="tag"
+        datalist="concept-tags"
+      />
+      <ListField
+        label="Related"
+        value={related}
+        onChange={setRelated}
+        placeholder="concept id"
+        datalist="concept-ids"
+        hint="Sideways links only. A prerequisite belongs below, not here: the path builder walks requires and never reads this."
+      />
+
+      <div className="editfield">
+        <span className="fieldlabel">
+          Description{" "}
+          <span className="dim">
+            — the Markdown body of the file
+            {bodyState === "loading" && ", loading…"}
+            {bodyState === "offline" && ", unavailable while the API is down"}
+          </span>
+        </span>
+        <textarea
+          className="bodyedit"
+          rows={16}
+          value={bodyState === "ready" ? body : ""}
+          disabled={bodyState !== "ready"}
+          spellCheck
+          onChange={(e) => setBody(e.target.value)}
+          placeholder={"## What it is\n\n…"}
+        />
+      </div>
+
+      <div className="editrow savebar">
+        <button
+          className="tab primary"
+          disabled={busy || changed.length === 0}
+          onClick={() => onSave(concept.key, patch)}
+        >
+          {busy
+            ? "Saving…"
+            : changed.length
+              ? `Save ${changed.length} change${changed.length > 1 ? "s" : ""}`
+              : "Saved"}
+        </button>
+        <button className="tab mini" disabled={busy || changed.length === 0} onClick={revert}>
+          Revert
+        </button>
+        {changed.length > 0 && (
+          <span className="dim">{changed.filter((f) => f !== "level_trust").join(", ")}</span>
+        )}
+      </div>
+
+      <h4 className="edithead">Prerequisites — saved immediately</h4>
       <div className="editrow">
         <label>
           Add prerequisite
@@ -1006,32 +1399,28 @@ function Editor({
         </div>
       )}
 
-      <div className="editrow">
-        <label>
-          Add alias
-          <input
-            value={alias}
-            onChange={(e) => setAlias(e.target.value)}
-            placeholder="another name for this"
-          />
-        </label>
-        <button
-          className="tab"
-          disabled={busy || !alias.trim()}
-          onClick={() => {
-            onSave(concept.key, {
-              aliases: [...new Set([...concept.aliases, alias.trim()])].sort(),
-            });
-            setAlias("");
-          }}
-        >
-          Add alias
-        </button>
-      </div>
+      <p className="note provenance">
+        Written by the tools, not by hand: <code>id</code> {concept.key} · <code>origin</code>{" "}
+        {concept.origin ?? "—"} · <code>verified_by</code> {concept.verified_by ?? "—"} ·{" "}
+        <code>verified_at</code> {concept.verified_at ?? "—"} · <code>added</code>{" "}
+        {concept.added ?? "—"} · <code>updated</code> {concept.updated ?? "—"} ·{" "}
+        <code>level_trust</code> {concept.level_trust ?? "—"}. These record how the claim got
+        here, so the form does not offer to retype them.
+      </p>
 
       <datalist id="concept-ids">
         {[...g.byKey.keys()].sort().map((k) => (
           <option key={k} value={k} />
+        ))}
+      </datalist>
+      <datalist id="concept-categories">
+        {categories.map((c) => (
+          <option key={c} value={c} />
+        ))}
+      </datalist>
+      <datalist id="concept-tags">
+        {allTags.map((t) => (
+          <option key={t} value={t} />
         ))}
       </datalist>
 

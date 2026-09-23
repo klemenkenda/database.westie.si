@@ -3,8 +3,8 @@ id: "donnie-and-dinner"
 type: "concept"
 title: "Donnie and dinner"
 category: "pattern"
-level: 3
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["pattern", "whip"]
 aliases: []
 related: []
@@ -21,26 +21,13 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Donnie and dinner
 
-*Pattern · level 3* — imported from the teaching syllabus and **not yet reviewed**.
+*Pattern · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A named whip variation from the syllabus, built on the basic whip.

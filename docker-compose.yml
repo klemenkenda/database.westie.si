@@ -40,6 +40,12 @@ services:
       - ./content:/content:ro
     environment:
       NEXT_PUBLIC_API_BASE: http://localhost:8081/api
+      # Watch by polling, because the bind mount delivers no inotify events from a Windows
+      # host: the container reads the edited file correctly, but webpack is never told it
+      # changed, so `next dev` serves a stale compile and looks like it is ignoring you.
+      # Costs a little idle CPU and is the difference between HMR working and not.
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
     command: sh -c "npm install && npm run dev -- --hostname 0.0.0.0"
     depends_on:
       - api

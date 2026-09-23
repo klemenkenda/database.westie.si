@@ -66,12 +66,18 @@ export type Concept = {
   category?: string;
   tags: string[];
   aliases: string[];
+  /** Sibling links the graph does not walk. Carried so the studio can edit them. */
+  related: string[];
   requires: Edge[];
   trust?: string;
   status?: string;
   foundation_tier?: string;
+  level_trust?: string;
   origin?: string;
   verified_by?: string;
+  verified_at?: string;
+  added?: string;
+  updated?: string;
 };
 
 /** The validation written by tools/foundation.py, plus the tier structure of the spec. */
@@ -351,12 +357,17 @@ export function getConcepts(): Concept[] {
     category: front.category ?? undefined,
     tags: asStrings(front.tags),
     aliases: asStrings(front.aliases),
+    related: asStrings(front.related),
     requires: asEdges(front.requires),
     trust: front.trust,
     status: front.status,
     foundation_tier: front.foundation_tier ?? undefined,
+    level_trust: front.level_trust ?? undefined,
     origin: front.origin ?? undefined,
     verified_by: front.verified_by ?? undefined,
+    verified_at: front.verified_at ?? undefined,
+    added: front.added ?? undefined,
+    updated: front.updated ?? undefined,
   }));
 }
 

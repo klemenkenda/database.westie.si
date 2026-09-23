@@ -34,18 +34,4 @@ generated: true
 
 *Styling · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Landing a showgirl shape on the phrase change, so the pose arrives with the music rather than near it.

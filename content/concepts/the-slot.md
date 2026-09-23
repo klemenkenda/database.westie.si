@@ -28,20 +28,6 @@ foundation_tier: "space"
 
 # The slot
 
-*Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+The narrow line the dance is built on. The follower travels up and down it, the leader steps off it to let them through and returns to it. It is what makes the dance readable, and what keeps it inside its own space on a crowded floor.

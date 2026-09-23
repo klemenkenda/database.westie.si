@@ -6,7 +6,7 @@ category: "technique"
 level: 1
 level_trust: "imported"
 tags: ["foundation", "fundamentals", "rhythm", "technique", "timing"]
-aliases: []
+aliases: ["6 count rhythm", "6-count rhythm", "basic rhythm", "six-count rhythm"]
 related: []
 requires:
   - id: "downbeat-and-upbeat"
@@ -35,18 +35,4 @@ foundation_tier: "music"
 
 *Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+The timing the dance is counted on: two walking steps followed by two triple steps over six beats, with the last triple as the anchor. Eight-count patterns extend the same idea by one triple.

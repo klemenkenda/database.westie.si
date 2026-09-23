@@ -29,18 +29,4 @@ generated: true
 
 *Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Setting a hand or arm as a fixed point the follower can turn around or push against, held still so it gives something to work with.

@@ -5,7 +5,7 @@ title: "Basic whip"
 category: "pattern"
 level: 1
 level_trust: "imported"
-tags: ["foundation", "fundamentals", "pattern", "whip"]
+tags: ["fundamentals", "pattern", "whip"]
 aliases: ["8-count whip", "basic whip", "whip"]
 related: []
 requires:
@@ -43,25 +43,10 @@ verified_at: "2026-09-23"
 added: "2026-09-22"
 updated: "2026-09-23"
 generated: false
-foundation_tier: "patterns"
 ---
 
 # Basic whip
 
 *Pattern · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-3 of 3 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+The core eight-count pattern. The leader receives the travelling follower into a closed position, turns them around a shared centre and sends them back down the slot to anchor. Everything in the whip family is a variation on this shape.

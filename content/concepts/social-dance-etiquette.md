@@ -28,20 +28,6 @@ foundation_tier: "social"
 
 # Social-dance etiquette
 
-*Partnerwork · level 1* — imported from the teaching syllabus and **not yet reviewed**.
+*Partnerwork · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+How to behave on a social floor — hygiene, how you ask and decline, not teaching uninvited, dancing to your partner's level, and looking after the people around you.

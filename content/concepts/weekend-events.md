@@ -29,18 +29,4 @@ generated: true
 
 *Partnerwork · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+What a West Coast Swing weekend is made of — workshops, social dancing, jack-and-jills and other competitions, late-night rooms — and how to pace yourself through one.

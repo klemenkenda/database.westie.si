@@ -45,18 +45,4 @@ foundation_tier: "patterns"
 
 *Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+The triple step that closes almost every pattern, danced behind your own weight with the connection stretched between the partners. It ends the pattern, re-establishes the slot and sets up whatever comes next.

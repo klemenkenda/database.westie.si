@@ -19,12 +19,12 @@ requires:
     trust: "imported"
     confidence: 0.5
     strength: "required"
-  - id: "stretch-and-compression"
+  - id: "reverse-whip"
     origin: "import:teaching@2026-09-22"
     trust: "imported"
     confidence: 0.5
     strength: "required"
-  - id: "whip-cut-off-entry"
+  - id: "stretch-and-compression"
     origin: "import:teaching@2026-09-22"
     trust: "imported"
     confidence: 0.5
@@ -36,7 +36,7 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
 ---
 
@@ -44,18 +44,4 @@ generated: true
 
 *Pattern · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-4 of 4 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A pattern that loads a long stretch in the connection and then releases it, sending the follower down the slot with the energy the stretch stored.

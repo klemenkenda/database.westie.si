@@ -6,7 +6,7 @@ category: "pattern"
 level: 2
 level_trust: "imported"
 tags: ["blw", "patterns", "turns", "whip"]
-aliases: []
+aliases: ["cut off whip", "cut-off entry", "cut-off entry whip", "cut-off whip", "cutoff whip", "whip with cut-off entry"]
 related: []
 requires:
   - id: "basic-whip"
@@ -21,7 +21,7 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
 ---
 
@@ -29,18 +29,4 @@ generated: true
 
 *Pattern · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A whip whose entry is cut off, so the rotation begins before the follower has finished travelling in and carries them around the other way from a basic whip. The same pattern is called a cut-off whip, after the entry that creates it, and a reverse whip, after the direction it ends up turning.

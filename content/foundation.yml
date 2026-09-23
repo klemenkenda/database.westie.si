@@ -205,6 +205,25 @@ concepts:
       Arms heavy and shoulders down, so the arm transmits the body's movement instead of
       generating movement of its own. Also an orphan in the import, for the same reason.
 
+  - id: "projection"
+    tier: "self"
+    level: 1
+    category: "technique"
+    aliases: ["lead projection", "projecting"]
+    requires: ["balance-and-center", "walking-steps"]
+    summary: >
+      Sending your movement and attention outward — down the slot, toward the partner, into
+      the room — so the movement has a destination rather than just an amount. Pulled into
+      the foundation because two things already rest on it (`body-lead-and-frame` here, and
+      imported `intention`) while it rested on nothing anyone had checked: the import had it
+      requiring `wcs-basic-rhythm` at confidence 0.5, which is a category error of the same
+      shape as `basic-music-structure` — you do not need the six-count rhythm to send your
+      weight somewhere. Filed in `self` rather than `partner` because it is a solo skill: you
+      can project alone in a practice room, and the fact that a partner can feel it is what
+      `body-lead-and-frame` adds on top. The one level 1 in this tier, and deliberately so —
+      it is the first thing here that is a quality of movement rather than a primitive of it.
+    replaces_requires: ["wcs-basic-rhythm"]
+
   # ------------------------------------------------------------------ tier: music
   - id: "downbeat-and-upbeat"
     tier: "music"
@@ -233,20 +252,17 @@ concepts:
     tier: "music"
     level: 1
     category: "technique"
+    # "6-count rhythm" is this node, not a missing one. The import named it after the
+    # dance and `eight-count-rhythm` after its length, so the pair reads as though only
+    # one of them is a count — and a search for the 6 lands on `six-count-patterns`,
+    # which is the family of figures, not the rhythm they are built from. Aliased rather
+    # than split: there is one rhythm here and two names for it.
+    aliases: ["6-count rhythm", "six-count rhythm", "6 count rhythm", "basic rhythm"]
     requires: ["triple-step", "downbeat-and-upbeat"]
     summary: >
       The six-count rhythm unit — 1, 2, 3&4, 5&6. Imported with no prerequisites at all,
       which made it the de facto root of the whole graph: 30-odd concepts hang off it and
       it hangs off nothing. Now it rests on the two things it is made of.
-
-  - id: "eight-count-rhythm"
-    tier: "music"
-    level: 1
-    category: "technique"
-    requires: ["wcs-basic-rhythm"]
-    summary: >
-      1, 2, 3&4, 5, 6, 7&8. Correctly filed in the import; listed here so the tier is
-      complete rather than because it needs fixing.
 
   - id: "basic-music-structure"
     tier: "music"
@@ -450,17 +466,6 @@ concepts:
       underarm pass, tuck turn. A grouping the import has no vocabulary for, which is why
       `pattern` holds 74 concepts flat while `turns` holds 4.
 
-  - id: "eight-count-patterns"
-    title: "Eight-count patterns"
-    tier: "patterns"
-    level: 1
-    category: "pattern"
-    new: true
-    aliases: ["8-count", "eight count", "whips"]
-    requires: ["pattern-structure", "eight-count-rhythm"]
-    summary: >
-      The family node for the whip family and everything else counted to eight.
-
   - id: "sugar-push"
     tier: "patterns"
     level: 1
@@ -513,19 +518,6 @@ concepts:
       than the edges: "tuck turn" and "sugar tuck" are the same figure under two names,
       and without the alias half the corpus never matches.
     adds_requires: true
-
-  - id: "basic-whip"
-    tier: "patterns"
-    level: 1
-    category: "pattern"
-    aliases: ["whip", "basic whip", "8-count whip"]
-    requires: ["eight-count-patterns", "closed-position", "anchor-step", "j-hook", "turnout"]
-    summary: >
-      The eight-count rotational pattern, and the gateway to about 30 concepts downstream.
-      Imported at level 1 alongside the six-count basics, which is the one levelling call
-      in this file I would expect an argument about — most syllabuses put the whip a tier
-      above the passes. Left at 1 to match the import, flagged as `debatable`.
-    debatable: "level"
 
 # --------------------------------------------------------------------------- relevels
 #
@@ -589,6 +581,122 @@ relevels:
     reason: >
       Heel-to-toe weight rolling is week-one footwork and belongs with `walking-steps`,
       which is exactly why `kick-ball-change` depends on it. L3 was never defensible.
+
+  # ----------------------------------------------------------------- the whip ladder
+  #
+  # The whip family flattened to two rungs, by Klemen's call, which also settles the
+  # `debatable: level` flag `basic-whip` used to carry.
+  #
+  # Level 1 is the entry to the family and nothing else: `j-hook` first, because a fake
+  # whip teaches the shape without the rotation, then `basic-whip`, with
+  # `eight-count-rhythm` and `eight-count-patterns` beside them at L1. Every other whip is
+  # L2 — one rung, not the four the import spread them across.
+  #
+  # None of those four are in the foundation, which is the second half of the same call.
+  # The foundation under the whip family stops at `wcs-basic-rhythm` — the 6-count rhythm —
+  # and the eight-count layer sits above it as ordinary level 1 whip vocabulary. The
+  # earlier version of this file had `eight-count-rhythm` in the music tier and
+  # `eight-count-patterns` and `basic-whip` in the patterns tier, which made the foundation
+  # claim the whip rather than the ground the whip stands on. They keep the edges the
+  # foundation already wrote for them; what they lose is the tier.
+  #
+  # The one consequence worth knowing: `pattern-structure` is still a foundation concept
+  # and still requires `eight-count-rhythm`, so one foundation node now rests on a concept
+  # outside the foundation. The tier check permits it (it only compares two tiered
+  # concepts) and nothing in `expects` fails. Dropping that edge would be a content
+  # decision, not a bookkeeping one, so it is left alone and written down here instead.
+  #
+  # The import had the family laddered 1 through 4 on no principle anyone wrote down:
+  # `same-side-whip` and `whip-basic-exits` sat at L1 beside the basic whip itself, while
+  # `open-whip` and its two turn variants sat at L3 and `whip-with-hammerlock` at L4. That
+  # is a spread of four levels across what is, once you can dance a whip, one body of
+  # variations. Collapsing it to a single rung says the real difficulty is the whip; the
+  # variations are vocabulary on top of it.
+  - id: "same-side-whip"
+    from: 1
+    to: 2
+    reason: >
+      A variation, not an entry point. It was at L1 beside `basic-whip`, which put "dance
+      your first whip" and "dance a whip that ends where it started" on the same rung.
+  - id: "whip-basic-exits"
+    from: 1
+    to: 2
+    reason: >
+      Same error as `same-side-whip`. Choosing between an inside turn, an outside turn and
+      a free spin presupposes the whip, so it cannot share a level with it.
+  - id: "open-whip"
+    from: 3
+    to: 2
+    reason: "A whip led without closing. One rung above the basic whip, like the rest of the family."
+  - id: "open-whip-inside-turn"
+    from: 3
+    to: 2
+    reason: "A turn variation of `open-whip`, which is now L2."
+  - id: "open-whip-outside-turn"
+    from: 3
+    to: 2
+    reason: "A turn variation of `open-whip`, which is now L2."
+  - id: "open-whip-2x-turn-rotation"
+    from: 4
+    to: 2
+    reason: >
+      The highest the import put any whip. Two rotations and a pattern rotation is more to
+      hold together than a plain open whip, but it is still an open whip.
+  - id: "crossbow-whip"
+    from: 3
+    to: 2
+    reason: "An arm-shape variation. Nothing in it is harder than the whip it is danced on."
+  - id: "reverse-whip-right-to-right"
+    from: 3
+    to: 2
+    reason: >
+      A handhold variation of `reverse-whip`, which the import already had at L2. The pair
+      were split across two levels for no reason the files give.
+  - id: "rainbow"
+    from: 3
+    to: 2
+    reason: "A whip with the hands travelling overhead. A named variation, not a tier of its own."
+  - id: "donnie-and-dinner"
+    from: 3
+    to: 2
+    reason: "A named whip variation, levelled with the rest of the family."
+  - id: "whip-hip-catch-exit"
+    from: 3
+    to: 2
+    reason: >
+      An exit variation. `whip-behind-back-with-hip-catch` was already L2 doing the same
+      thing from a harder entry.
+  - id: "whip-roll-of-the-back"
+    from: 3
+    to: 2
+    reason: "A contact variation through the rotation, levelled with the family."
+  - id: "whip-with-hammerlock"
+    from: 4
+    to: 2
+    reason: "A wrap variation. Levelled with the family; see `hammerlock-technique` below."
+
+  # The components the whip relevels exposed, handled the same way as the layer above:
+  # lowering a compound onto a component still filed higher is the error showing up one
+  # rung down, not a reason to leave the compound where it was.
+  - id: "hammerlock-technique"
+    from: 3
+    to: 2
+    reason: >
+      The technique half of `whip-with-hammerlock`, and used by nothing else. It already
+      rests on `turn-technique-basics` at L2, so L2 is where it belongs.
+  - id: "travelling-turns"
+    from: 3
+    to: 2
+    reason: >
+      The only prerequisite of `open-whip-2x-turn-rotation` still above it after the whip
+      relevels. Turning while covering ground is a component of that whip, not something
+      harder than it.
+  - id: "underrotation-on-4"
+    from: 3
+    to: 2
+    reason: >
+      One rung further down again: it is what `travelling-turns` rests on, and its own
+      prerequisite (`right-side-pass-outside-turn`) is already L2. The chain terminates here.
 
 # ------------------------------------------------------------------------- expectations
 #

@@ -29,18 +29,4 @@ generated: true
 
 *Connection · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A lead is only complete when the body goes where the hand went. The follower's hand is moved first and the rest of the body travels into the same place, instead of the arm stretching away from a torso that stayed behind.

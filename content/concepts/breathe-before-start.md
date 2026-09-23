@@ -29,18 +29,4 @@ generated: true
 
 *Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Taking a breath and settling before the first count, so the dance begins from a balanced body rather than from a scramble to catch up with the music.

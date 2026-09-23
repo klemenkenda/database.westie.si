@@ -34,18 +34,4 @@ generated: true
 
 *Pattern · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+An underarm turn that ends with the follower caught into closed position rather than travelling on down the slot.

@@ -35,16 +35,4 @@ generated: false
 
 *Technique · level 0 · foundation tier `self`*
 
-A continuous vertical settling into each beat, driven from the standing leg rather than bobbing from the shoulders. It is what makes WCS read as a swing dance instead of a walked pattern, and it is the carrier signal that syncopations and delays are played against.
-
-## Why it is in the foundation
-
-Solo competence. None of it involves a partner, and all of it is a prerequisite for everything that does. This tier is entirely absent from the import, which is the single biggest hole in the graph.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+A continuous vertical settling into each beat, driven from the standing leg rather than bobbed from the shoulders. It is what makes the dance read as a swing dance rather than a walked pattern, and it is the carrier that delays and syncopations are played against.

@@ -29,18 +29,4 @@ generated: true
 
 *Pattern · level 3* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A kick-ball change placed on counts 1 and 2 in place of the two walking steps, which delays the travel and marks the start of the pattern.

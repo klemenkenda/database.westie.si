@@ -3,8 +3,8 @@ id: "hammerlock-technique"
 type: "concept"
 title: "Hammerlock technique"
 category: "technique"
-level: 3
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["blw", "connection", "patterns", "turns"]
 aliases: []
 related: []
@@ -21,26 +21,13 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Hammerlock technique
 
-*Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Taking a joined hand behind the follower's back into a wrapped position, and unwinding it again, without twisting the shoulder or trapping the arm.

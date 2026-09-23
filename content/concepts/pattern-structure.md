@@ -40,18 +40,4 @@ foundation_tier: "patterns"
 
 *Technique · level 1* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Every pattern has three parts: a starter that sets the direction, a middle that does the work, and an anchor that ends it. Naming the parts is what makes patterns interchangeable.

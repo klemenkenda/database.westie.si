@@ -1,0 +1,35 @@
+---
+id: "yt-M_83dDhDlTE"
+type: "video"
+platform: "youtube"
+youtube_id: "M_83dDhDlTE"
+url: "https://youtu.be/M_83dDhDlTE"
+embed_url: "https://www.youtube.com/embed/M_83dDhDlTE"
+thumbnail_url: "https://img.youtube.com/vi/M_83dDhDlTE/hqdefault.jpg"
+title: "The Rag-doll Dip | West Coast Swing Dips"
+description: "Looking for west coast swing dips? The rag doll dip is a great one to add to your moves list! It's one of the easiest tips to use on the dance floor!  🟥 Our FAVORITE Videos: Brian B's Favorites: 👉https://bit.ly/3RsYpkn Megan's Favorites 👉 https://bit.ly/3B4cY8O  🟦 Our 2nd Youtube Channel 👉  Ballroom & Country Dance Videos https://www.youtube.com/socialdanceonline?%20sub_confirmation=1  ✅ FREE WCS E-Book  👉 200+ tips and tricks for WCS https://www.westcoastswingonline.com/e-book-wcs  🎯 Dance Mastery Membership 👉 The # 1 learning platform for social dancers https://www.westcoastswingonline.com/videos/  📕 Teacher Training 👉 Teach great group classes & grow your community https://teachsocialdance.com/  See you on the dance floor! Brian B & Ms. Megan  ✅ A Beginners Guide to WCS (Just $7) 👉 Everything you need master WCS as a beginner! https://www.westcoastswingonline.com/beginners-guide-offer-7/  PS. Why am I here on youtube? Here's my story! https://youtu.be/CBYW5jqHcp8"
+creators: ["brian-barakauskas", "megan-anderson"]
+creator_source: "channel-default"
+creator_confidence: 0.8
+channel: "westcoastswingonline"
+published: "2025-06-29"
+duration_s: 251
+view_count: 2994
+language: "en-US"
+format: "tutorial"
+format_source: "title-match"
+role: "both"
+categories: []
+level: null
+concepts: []
+demoted: false
+has_transcript: false
+status: "review"
+added: "2026-09-23"
+updated: "2026-09-23"
+generated: true
+---
+
+# The Rag-doll Dip | West Coast Swing Dips
+
+Ingested from YouTube.

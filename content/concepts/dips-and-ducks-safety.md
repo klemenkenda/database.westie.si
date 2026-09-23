@@ -34,18 +34,4 @@ generated: true
 
 *Partnerwork · level 4* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Consent and safety for movements that take a dancer off their own axis or under an arm. Ask first, never spring one on a stranger, support the weight from your own base, keep heads clear of arms and elbows, and be willing to abandon the move halfway.

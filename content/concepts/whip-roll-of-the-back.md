@@ -4,7 +4,7 @@ type: "concept"
 title: "Whip — roll of the back"
 category: "pattern"
 level: 3
-level_trust: "imported"
+level_trust: "verified"
 tags: ["pattern", "whip"]
 aliases: []
 related: []
@@ -17,30 +17,17 @@ requires:
 videos: []
 trust: "imported"
 origin: "import:teaching@2026-09-22"
-status: "draft"
+status: "review"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
 updated: "2026-09-22"
-generated: true
+generated: false
+level_origin: "foundation@2026-09-22"
 ---
 
 # Whip — roll of the back
 
-*Pattern · level 3* — imported from the teaching syllabus and **not yet reviewed**.
+*Pattern · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A whip in which the follower rolls along the leader's back or arm through the rotation.

@@ -3,8 +3,8 @@ id: "same-side-whip"
 type: "concept"
 title: "Whip — same-side whip"
 category: "pattern"
-level: 1
-level_trust: "imported"
+level: 2
+level_trust: "verified"
 tags: ["pattern", "whip"]
 aliases: []
 related: []
@@ -21,26 +21,13 @@ status: "draft"
 verified_by: null
 verified_at: null
 added: "2026-09-22"
-updated: "2026-09-22"
+updated: "2026-09-23"
 generated: true
+level_origin: "foundation@2026-09-22"
 ---
 
 # Whip — same-side whip
 
-*Pattern · level 1* — imported from the teaching syllabus and **not yet reviewed**.
+*Pattern · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A whip in which the follower ends on the same side they started, the pattern turning them around and back without a change of place.

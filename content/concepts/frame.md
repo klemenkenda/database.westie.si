@@ -35,16 +35,4 @@ generated: false
 
 *Connection · level 0 · foundation tier `partner`*
 
-A constant arm tone that neither collapses nor pushes, so the distance between the hands changes only when a body moves. The precondition for connection meaning anything: existing `body-lead-and-frame` is the *skill of leading through* a frame, and it needs the frame itself to exist first.
-
-## Why it is in the foundation
-
-Where two bodies become a system: roles, handholds, frame, the two positions, and the elastic connection that carries information between them.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+A constant arm tone that neither collapses nor pushes, so the distance between the hands changes only when a body moves. It is the precondition for the connection meaning anything at all.

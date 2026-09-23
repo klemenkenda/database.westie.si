@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { oneOf, text, useUrlState, type Spec } from "@/lib/urlstate";
 
 export type Row = {
   key: string;
@@ -40,11 +41,21 @@ function views(count?: number): string {
   return `${count} views`;
 }
 
-type Filter = "all" | "teaching" | "rejected" | "unattributed";
+const FILTERS = ["all", "teaching", "rejected", "unattributed"] as const;
+type Filter = (typeof FILTERS)[number];
+
+/** Same contract as the studio: the filter and the search box are where you are, so they
+ *  belong in the URL. A filtered list is the thing worth sending someone, and Back should
+ *  take a tab click back rather than leaving the site. */
+type Where = { filter: Filter; query: string };
+
+const SPEC: Spec<Where> = {
+  filter: oneOf("show", FILTERS, "all"),
+  query: text("q"),
+};
 
 export default function VideoList({ rows }: { rows: Row[] }) {
-  const [filter, setFilter] = useState<Filter>("all");
-  const [query, setQuery] = useState("");
+  const [{ filter, query }, go] = useUrlState<Where>(SPEC, { filter: "all", query: "" });
 
   const counts = useMemo(() => ({
     all: rows.length,
@@ -82,7 +93,7 @@ export default function VideoList({ rows }: { rows: Row[] }) {
             <button
               key={value}
               className={filter === value ? "tab on" : "tab"}
-              onClick={() => setFilter(value)}
+              onClick={() => go({ filter: value }, "push")}
             >
               {label}
             </button>
@@ -93,7 +104,7 @@ export default function VideoList({ rows }: { rows: Row[] }) {
           type="search"
           placeholder="Filter by title or teacher…"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => go({ query: e.target.value }, "replace")}
         />
       </div>
 

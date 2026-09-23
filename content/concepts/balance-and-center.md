@@ -30,16 +30,4 @@ generated: false
 
 *Technique · level 0 · foundation tier `self`*
 
-Being able to stand, move and stop on your own axis without using your partner for support. The whole of the connection tier assumes both dancers are self-supporting; a dancer who is not turns every stretch into a tug of war.
-
-## Why it is in the foundation
-
-Solo competence. None of it involves a partner, and all of it is a prerequisite for everything that does. This tier is entirely absent from the import, which is the single biggest hole in the graph.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+Standing, moving and stopping on your own axis without using your partner for support. Every connection in the dance assumes both dancers carry their own weight; when one does not, every stretch becomes a tug of war.

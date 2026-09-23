@@ -34,18 +34,4 @@ generated: true
 
 *Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+The moments inside a pattern where the lead has to arrive exactly on time for the pattern to work at all: count 1, the redirection, and the anchor. Everything between them has some tolerance; these do not.

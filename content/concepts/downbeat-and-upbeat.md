@@ -23,20 +23,6 @@ foundation_tier: "music"
 
 # Downbeat and upbeat; hearing 1 and 2
 
-*Musicality · level 1* — imported from the teaching syllabus and **not yet reviewed**.
+*Musicality · level 0* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-_No prerequisites recorded. For a level 1 concept that is more likely to be a gap in the import than a fact about the dance._
+The alternation between the heavier and lighter beats of the bar, and finding 1 and 2 in a song. Everything about timing rests on hearing which beat is which.

@@ -30,16 +30,4 @@ generated: false
 
 *Partnerwork · level 0 · foundation tier `partner`*
 
-What each role is responsible for: the leader proposes and clears space, the follower completes the pattern and owns their own balance while doing it. Stated once, at the bottom, so that "the leader does X" further up has something to refer to. Absent from the import entirely.
-
-## Why it is in the foundation
-
-Where two bodies become a system: roles, handholds, frame, the two positions, and the elastic connection that carries information between them.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+What each role is responsible for: the leader proposes the movement and clears the space for it, the follower completes it and keeps their own balance while doing so.

@@ -33,20 +33,6 @@ level_origin: "foundation@2026-09-22"
 
 # Acceleration in WCS
 
-*Technique · level 4* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-2 of 2 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Changing speed inside a pattern instead of travelling at one constant rate — slower at the start, faster through the middle, slowing again into the anchor. The change comes from the body moving, not from pulling harder with the arm.

@@ -29,18 +29,4 @@ generated: true
 
 *Choreography · level 4* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A short choreographed routine set to "I Have Never Been to Spain", learned as a fixed sequence for the 2024 flashmob.

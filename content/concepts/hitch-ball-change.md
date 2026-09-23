@@ -29,18 +29,4 @@ generated: true
 
 *Styling · level 4* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+A ball change taken with a hitch or a tap before it, used to fill a beat and catch an accent without travelling.

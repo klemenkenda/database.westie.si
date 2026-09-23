@@ -28,20 +28,6 @@ level_origin: "foundation@2026-09-22"
 
 # Distance management
 
-*Technique · level 3* — imported from the teaching syllabus and **not yet reviewed**.
+*Technique · level 2* — imported from the teaching syllabus and **not yet reviewed**.
 
-## What it is
-
-_To write._
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
-
-## How we know the prerequisites
-
-1 of 1 prerequisites below are unreviewed imports, shown as *suggested* until the corpus corroborates them or someone checks them by hand.
+Keeping the amount of room between the partners that the next thing needs — close enough to compress, far enough for the follower to travel.

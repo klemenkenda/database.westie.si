@@ -102,20 +102,19 @@ def edge_map(front: dict) -> dict[str, dict]:
 
 # --------------------------------------------------------------------------- body text
 
-def body_for(entry: dict, spec: dict) -> str:
+def body_for(entry: dict) -> str:
     """The generated body for a concept the foundation creates.
 
-    Deliberately a stub with the summary in it rather than an essay: the summary is the
-    claim the spec is making and belongs in the file, but pretending to teach the concept
-    in auto-generated prose would be the same mistake as the imported files that say
-    "_To write._" under four empty headings and look finished.
+    A heading, the meta line, and the spec's summary as a plain description. Nothing else:
+    a concept file describes what the concept *is*, and teaching points, drills and related
+    patterns belong elsewhere. The earlier version of this emitted the summary under four
+    empty headings, which made an unwritten file look finished and left every concept in
+    content/ carrying three "-" bullets nobody filled in.
+
+    The summary is the claim the spec is making and belongs in the file. Writing more than
+    that here would mean auto-generating prose about a dance the spec does not describe.
     """
     tier = entry.get("tier", "")
-    tier_note = ""
-    for t in spec.get("tiers") or []:
-        if t.get("id") == tier:
-            tier_note = (t.get("note") or "").strip().replace("\n", " ")
-            break
     summary = (entry.get("summary") or "").strip().replace("\n", " ")
     level = entry.get("level")
     lines = [
@@ -125,18 +124,6 @@ def body_for(entry: dict, spec: dict) -> str:
             (entry.get("category") or "concept").capitalize(), level, tier),
         "",
         summary or "_To write._",
-        "",
-        "## Why it is in the foundation",
-        "",
-        tier_note or "_To write._",
-        "",
-        "## Teaching points",
-        "",
-        "-",
-        "",
-        "## Common mistakes",
-        "",
-        "-",
         "",
     ]
     return "\n".join(lines)
@@ -211,7 +198,7 @@ def plan(spec: dict, concepts: dict[str, tuple[dict, str]]) -> dict:
                 "updated": TODAY,
                 "generated": False,
             }
-            body = body_for(entry, spec)
+            body = body_for(entry)
             changes.append("created")
         else:
             if entry.get("level") is not None and front.get("level") != entry["level"]:

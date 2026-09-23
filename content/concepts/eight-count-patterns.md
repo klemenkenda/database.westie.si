@@ -5,7 +5,7 @@ title: "Eight-count patterns"
 category: "pattern"
 level: 1
 level_trust: "verified"
-tags: ["foundation", "patterns"]
+tags: ["patterns", "whip"]
 aliases: ["8-count", "eight count", "whips"]
 related: []
 requires:
@@ -20,7 +20,6 @@ requires:
     confidence: 1.0
     strength: "required"
 videos: []
-foundation_tier: "patterns"
 trust: "verified"
 origin: "foundation@2026-09-22"
 status: "review"
@@ -33,18 +32,6 @@ generated: false
 
 # Eight-count patterns
 
-*Pattern · level 1 · foundation tier `patterns`*
+*Pattern · level 1*
 
-The family node for the whip family and everything else counted to eight.
-
-## Why it is in the foundation
-
-The six figures every WCS syllabus opens with. They are the *output* of the four tiers above, which is exactly why filing them as level 1 with one prerequisite each understates what they rest on.
-
-## Teaching points
-
--
-
-## Common mistakes
-
--
+The patterns counted to eight — walk, walk, and then triples to the anchor. The whip family and everything else shaped like it.
