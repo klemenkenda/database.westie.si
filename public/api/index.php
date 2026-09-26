@@ -14,8 +14,11 @@
  *   DELETE /{collection}/{key}
  *   GET    /concepts/{key}/graph            prerequisites, what it unlocks, trust summary
  *   GET    /audit                           the full graph audit, as written to .audit/
+ *   POST   /nodes/{key}/suggest             model-written edge suggestions (OpenRouter; {fresh, cached_only})
+ *   POST   /nodes/{key}/candidates          which old concepts to adopt, merge or skip next around a node
+ *   POST   /concepts/{key}/place            where one old concept belongs
  *
- * Collections: concepts, videos, creators, channels, paths.
+ * Collections: concepts, videos, creators, channels, paths, nodes, skipped.
  *
  * Writes require X-Api-Token when a write token is configured. Reads never do.
  */
@@ -29,6 +32,7 @@ require __DIR__ . '/lib/Query.php';
 require __DIR__ . '/lib/Graph.php';
 require __DIR__ . '/lib/Wsdc.php';
 require __DIR__ . '/lib/Rank.php';
+require __DIR__ . '/lib/Suggest.php';
 
 class ApiError extends Exception
 {
@@ -323,6 +327,11 @@ try {
         $limit = max(1, min(100, (int) ($_GET['limit'] ?? 20)));
         $hits = [];
         foreach (array_keys(Store::$collections) as $collection) {
+            // The graph rebuild is a workspace, not published content: a half-built node
+            // or a skip decision is not something a search for "whip" should surface.
+            if ($collection === 'nodes' || $collection === 'skipped') {
+                continue;
+            }
             foreach (Query::rank($store->all($collection), $q) as $record) {
                 $hits[] = $record;
             }
@@ -420,6 +429,25 @@ try {
             'unlocks'       => $graph->unlocks($key),
             'dependents'    => $graph->dependents($key),
         ]);
+        $store->flush();
+        exit;
+    }
+
+    // Model suggestions — proposals, never writes. POST, and behind the write token, because
+    // every uncached call is paid for. `cached_only` answers from the cache or with null.
+    //   nodes/{key}/suggest      edges for a new node
+    //   nodes/{key}/candidates   which old concepts to deal with next around it
+    //   concepts/{key}/place     where an old concept belongs
+    $asks = ['nodes:suggest' => 'forNode', 'nodes:candidates' => 'candidates', 'concepts:place' => 'place'];
+    if ($action !== null && isset($asks["$collection:$action"])) {
+        if ($method !== 'POST') {
+            throw new ApiError("$collection/{key}/$action is POST", 405);
+        }
+        requireWriteToken($config);
+        $payload = jsonBody();
+        $suggest = new Suggest($store, $config);
+        $method_ = $asks["$collection:$action"];
+        send($suggest->$method_($key, !empty($payload['fresh']), !empty($payload['cached_only'])));
         $store->flush();
         exit;
     }

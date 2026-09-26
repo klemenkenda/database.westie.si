@@ -20,6 +20,10 @@ services:
       WESTIE_CONTENT_ROOT: /var/www/html/content
       WESTIE_CORS_ORIGIN: "*"
       # WESTIE_WRITE_TOKEN: set this to require a token for writes
+      # Graph-builder suggestions. Put OPENROUTER_API_KEY=... in .env (gitignored); compose
+      # reads it from there. Unset, the builder says so instead of failing quietly.
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      OPENROUTER_MODEL: ${OPENROUTER_MODEL:-anthropic/claude-opus-5}
     healthcheck:
       test: ["CMD", "php", "-r", "exit(@file_get_contents('http://localhost/api/health') ? 0 : 1);"]
       interval: 10s

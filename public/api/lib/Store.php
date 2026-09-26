@@ -23,6 +23,13 @@ class Store
         'creators' => 'creators',
         'channels' => 'channels',
         'paths'    => 'paths',
+        // The graph being rebuilt from scratch. Kept apart from `concepts` so the old graph
+        // stays intact as the reference it is being rebuilt from, and nothing that reads
+        // concepts today sees a half-built replacement.
+        'nodes'    => 'graph/nodes',
+        // Old concepts deliberately not carried over, with the reason. One file each, so
+        // the decision is a diff like any other.
+        'skipped'  => 'graph/skipped',
     ];
 
     private $root;
@@ -58,6 +65,7 @@ class Store
     public static $types = [
         'concepts' => 'concept', 'videos' => 'video', 'creators' => 'creator',
         'channels' => 'channel', 'paths' => 'path',
+        'nodes' => 'node', 'skipped' => 'skip',
     ];
 
     public static function isCollection(string $name): bool

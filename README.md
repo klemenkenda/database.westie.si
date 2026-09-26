@@ -45,6 +45,7 @@ python tools/publish_site.py        # copy the export into public/, never touchi
 | Path | What it is |
 |---|---|
 | `content/concepts/` | 208 concepts — level, category, prerequisite edges with provenance |
+| `content/graph/` | the graph being rebuilt from scratch: `nodes/` and `skipped/`, written by the builder at `/graph/` |
 | `content/videos/` | 14 ingested, 8 teaching and 6 rejected as dancing |
 | `content/channels/` | tracked ingestion sources |
 | `web/` | Next.js source; `output: "export"`, builds into `public/` |

@@ -19,6 +19,12 @@ $defaults = [
     // Markdown behind the app's back. 0 checks on every request.
     'cache_ttl' => (int) (getenv('WESTIE_CACHE_TTL') ?: 5),
 
+    // Graph-builder suggestions go through OpenRouter. No key means the feature answers 503
+    // and says how to configure it; nothing else depends on it. Keep the key out of git:
+    // .env (read by docker compose) or config.local.php.
+    'openrouter_key' => getenv('OPENROUTER_API_KEY') ?: '',
+    'openrouter_model' => getenv('OPENROUTER_MODEL') ?: 'anthropic/claude-opus-5',
+
     // "*" is fine while the SPA is served from a different port in development.
     'cors_origin' => getenv('WESTIE_CORS_ORIGIN') ?: '*',
 ];

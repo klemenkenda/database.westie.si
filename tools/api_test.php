@@ -160,8 +160,8 @@ check('store: an empty key is rejected', Store::isSafeKey(''), false);
 check('store: a slash is rejected', Store::isSafeKey('a/b'), false);
 check('store: a leading dash is allowed', Store::isSafeKey('-OLLXFhw_8I'), true);
 check('store: a normal key is allowed', Store::isSafeKey('basic-whip'), true);
-check('store: collections are the five we serve',
-    array_keys(Store::$collections), ['concepts', 'videos', 'creators', 'channels', 'paths']);
+check('store: collections are the seven we serve',
+    array_keys(Store::$collections), ['concepts', 'videos', 'creators', 'channels', 'paths', 'nodes', 'skipped']);
 check('store: an unknown collection is not one', Store::isCollection('drills'), false);
 
 $store = new Store($contentRoot, 0);

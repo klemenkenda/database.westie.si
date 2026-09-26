@@ -11,6 +11,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { toGraphNode, type GraphNode, type Skip } from "./rebuild";
 
 const CONTENT = path.join(process.cwd(), "..", "content");
 
@@ -368,6 +369,20 @@ export function getConcepts(): Concept[] {
     verified_at: front.verified_at ?? undefined,
     added: front.added ?? undefined,
     updated: front.updated ?? undefined,
+  }));
+}
+
+/** The graph being rebuilt from scratch — see lib/rebuild.ts. */
+export function getGraphNodes(): GraphNode[] {
+  return readCollection("graph/nodes").map(({ key, front }) => toGraphNode(key, front));
+}
+
+export function getSkips(): Skip[] {
+  return readCollection("graph/skipped").map(({ key, front }) => ({
+    key,
+    title: front.title ?? undefined,
+    reason: front.reason ?? undefined,
+    skipped_at: front.skipped_at ?? undefined,
   }));
 }
 

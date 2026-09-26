@@ -312,7 +312,7 @@ export default function GraphStudio({
   // after the concept when there is one.
   useEffect(() => {
     const at = view === "inspect" ? g.byKey.get(selected)?.title ?? selected : VIEW_TITLES[view];
-    document.title = `${at} — graph studio`;
+    document.title = `${at} — old graph studio`;
   }, [view, selected, g]);
 
   const setFamily = useCallback((id: string) => go({ family: id, focus: "" }, "push"), [go]);
@@ -465,7 +465,12 @@ export default function GraphStudio({
 
   return (
     <>
-      <h1>Graph studio</h1>
+      <h1>Old graph studio</h1>
+      <div className="banner">
+        <b>This is the old, imported graph.</b> The graph is being rebuilt from scratch in the{" "}
+        <a href="/graph/">graph builder</a>, which reads this one as its reference. Edits here
+        change the reference, not the new graph.
+      </div>
       <p className="lede">
         {totals.concepts} concepts, {totals.edges} prerequisite edges, density{" "}
         {totals.density.toFixed(2)} overall and {totals.foundationDensity.toFixed(2)} inside

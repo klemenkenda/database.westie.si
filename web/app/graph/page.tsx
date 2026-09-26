@@ -1,42 +1,24 @@
 /**
- * The graph studio — build and validate the concept graph.
+ * The graph builder — the concept graph, rebuilt from scratch with the old one beside it.
  *
- * Reads content/ at build time and hands the whole graph to a client component, which is
- * the right split for this page: it is a tool for one person working through a few hundred
- * concepts, so every traversal it needs is cheap in the browser and none of it needs the
- * API. Editing writes through the PHP API, which is the only thing here that cannot be a
- * static file.
+ * Everything the builder needs is read off disk here so the page paints without the API:
+ * the old concepts (the reference, read-only from this page), the new nodes, and the
+ * old concepts already set aside. The client then refreshes all three from the API,
+ * because every write it makes lands there.
  */
-import {
-  getConcepts,
-  getFoundation,
-  getVideos,
-  type Concept,
-} from "@/lib/content";
-import GraphStudio from "./GraphStudio";
+import { getConcepts, getGraphNodes, getSkips } from "@/lib/content";
+import Builder, { type OldConcept } from "./Builder";
 
-export const metadata = { title: "Graph studio — database.westie.si" };
+export const metadata = { title: "Graph builder — database.westie.si" };
 
-export default function GraphPage() {
-  const concepts = getConcepts();
-  const foundation = getFoundation();
-  const videos = getVideos();
-
-  // Which concepts actually have material attached. The audit calls the complement
-  // "uncovered" and treats it as the ingestion shopping list; the studio shows it per
-  // concept so the gap is visible while you are looking at the concept, not only in a
-  // summary count.
-  const videoCount = new Map<string, number>();
-  for (const video of videos) {
-    for (const edge of video.concepts) {
-      if (edge?.id) videoCount.set(edge.id, (videoCount.get(edge.id) ?? 0) + 1);
-    }
-  }
-
-  const rows = concepts.map((c: Concept) => ({
-    ...c,
-    videos: videoCount.get(c.key) ?? 0,
+export default function GraphBuilderPage() {
+  const old: OldConcept[] = getConcepts().map((c) => ({
+    key: c.key,
+    title: c.title,
+    level: c.level,
+    aliases: c.aliases,
+    foundation_tier: c.foundation_tier,
+    requires: c.requires.map((e) => e.id),
   }));
-
-  return <GraphStudio concepts={rows} foundation={foundation} />;
+  return <Builder old={old} nodes={getGraphNodes()} skips={getSkips()} />;
 }
